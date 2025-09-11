@@ -1,10 +1,10 @@
 {
   "basics": {
-    "name": "Your Sidebar Name",
-    "email": "none@example.org",
+    "name": "Nuno Braz",
+    "email": "nuno.braz@tecnico.ulisboa.pt",
     "phone": "",
-    "website": "https://academicpages.github.io",
-    "summary": "Currently employed at Red Brick University. Short biography for the left-hand sidebar",
+    "website": "https://nunobrazz.github.io",
+    "summary": "Ph.D. Student in Computer Science and Engineering at Instituto Superior Técnico || Teaching Assistant",
     "location": {
       "address": "",
       "postalCode": "",
@@ -20,48 +20,48 @@
       },
       {
         "network": "ORCID",
-        "username": "",
-        "url": "http://orcid.org/yourorcidurl"
+        "username": "Nuno Braz",
+        "url": "http://orcid.org/0009-0003-1151-3696"
       },
       {
         "network": "GitHub",
-        "username": "academicpages",
-        "url": "https://github.com/academicpages"
+        "username": "nunobrazz",
+        "url": "https://github.com/nunobrazz"
       }
     ]
   },
   "work": [],
   "education": [
     {
-      "institution": "GitHub University",
-      "area": "Ph.D in Version Control Theory",
+      "institution": "Instituto Superior Técnico",
+      "area": "Ph.D in Decentralized Autonomous Organizations",
       "studyType": "",
-      "startDate": "",
-      "endDate": "2018",
+      "startDate": "February 2025",
+      "endDate": "Present",
       "gpa": null,
       "courses": []
     },
     {
-      "institution": "GitHub University",
-      "area": "M.S. in Jekyll",
+      "institution": "Instituto Superior Técnico",
+      "area": "M.S. in Computer Science Engineering",
       "studyType": "",
-      "startDate": "",
-      "endDate": "2014",
+      "startDate": "2022",
+      "endDate": "2024",
       "gpa": null,
       "courses": []
     },
     {
-      "institution": "GitHub University",
-      "area": "B.S. in GitHub",
+      "institution": "Instituto Superior Técnico",
+      "area": "B.S. in Computer Science Engineering",
       "studyType": "",
-      "startDate": "",
-      "endDate": "2012",
+      "startDate": "2019",
+      "endDate": "2022",
       "gpa": null,
       "courses": []
     }
   ],
   "skills": [],
-  "languages": [],
+  "languages": [PT, EN, ES, FR],
   "interests": [],
   "references": [],
   "publications": [
