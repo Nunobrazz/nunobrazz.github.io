@@ -23,7 +23,7 @@ repository               : "nunobrazz/nunobrazz.github.io"
 #               Additional customization can be done by editing /_ _includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "Photo surf.jpeg"
   name             : "Nuno Braz"
   pronouns         : # example: "she/her"  
   bio              : "Ph.D. Student in Computer Science and Engineering at Instituto Superior Técnico || Teaching Assistent"
