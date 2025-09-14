@@ -11,47 +11,58 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* Ph.D in Decentralized Autonomous Organizations,Instituto Superior Técnico, Lisbon Univerisy, 2024-Present
+  * Blockchains represent a unique form of semicommon property, collectively governed through incentives and rules. These rules are programmed in smart contracts, a construct that enabled the appearance of Decentralized Autonomous Organizations (DAOs), introducing novel types of organizations and governance models. This work aims to study these organizations operating in a decentralized and permissionless environments, where a majority of agents are rational. We apply mechanism design frameworks to the governance challenges in DAOs.
+* M.S. in  Computer Science and Engineering, Instituto Superior Técnico, Lisbon Univerisy, 2022-2024
+  * Took the Cyber-security and Algorithms specializations as well as some courses from the math master’s related to Cryptography, Machine Learning, and Theory of Computation, with grades including 18 in Cryptography and Security Protocols, 17 in Software Security, 17 in Introduction to Learning Theory, 16 in Computability and Complexity, and 18 in Advanced Algorithms. The final average grade was 16/20
+* Hands-on Learning for Emerging Technologies in Electronics Engineering, at Beijing Institute of Technology, July 2024
+  * Learned about new electrotechnical concepts and tools and introduced myself to the Chinese culture and history.
+* Exchange Program at Instituto Tecnológico de Buenos Aires, 2023
+  * Engaged in a multicultural environment and completed courses on artificial intelligence in Spanish.
+* B.S. in Information Systems and Computer Engineering, at Instituto Superior Técnico, Lisbon Univerisy, 2019-2022
+  * Covered plenty of different fields in computer science including several programming languages with a highly practical approach with grades including 18 in Distributed Systems, 18 in Logic for Programming, 18 in Machine Learning, 16 in Complex Analysis and Differential Equation and, 17 in Probabilistic and Statistics. The final average grade was 16/20.
 
 Work experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Nov. 2024 - Present: INESC-ID - RESEARCHER
+  * Duties included:
+  * Supervisor: Professor Miguel Correia
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* July 2023 - Nov. 2024: INESC-ID & Unlockit - Researcher / Blockchain Engineer 
+  * Applyed academic methodologies to address practical challenges
+  * Engineered and implemented a prototype of two blockchain oracle solutions for a property rental platform built on the Canton Protocol.
+  * Supervisor: Professor Miguel Correia & João Santos
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* Programming & Tools: Python, Java, C++, JavaScript, DAML, Solidity, Hardhat, Git
+
+* Distributed Ledger Technology
+
+  * Consensus Mechanisms: Deep understanding of PoW, PoS, PoA, and hybrid models.
+
+  * Canton Protocol
+
+* Cryptography: Knowledge of zero-knowledge proofs, elliptic curve cryptography, and cryptographic primitives.
+
+* Distributed Systems: P2P networks and Byzantine fault tolerance.
+
+* Mechanism Design (e.g. auctions, voting mechanisms)
+
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
-Talks
+
+
+<!--Talks
 ======
   <ul>{% for post in site.talks reversed %}
     {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
+  {% endfor %}</ul> <!-->
   
 Teaching
 ======
@@ -62,3 +73,4 @@ Teaching
 Service and leadership
 ======
 * Currently signed in to 43 different slack teams
+
