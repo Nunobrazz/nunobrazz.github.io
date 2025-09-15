@@ -26,7 +26,7 @@ author:
   avatar           : "Photo surf.jpeg"
   name             : "Nuno Braz"
   pronouns         : # example: "she/her"  
-  bio              : "Ph.D. Student in Computer Science and Engineering at Instituto Superior Técnico || Teaching Assistent"
+  bio              : "Ph.D. Student || TA"
   location         : "🌍"
   employer         : "INESC-ID"
   uri              : # URL
@@ -63,7 +63,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : "https://www.linkedin.com/in/nuno-braz/"
+  linkedin         : "nuno-braz"
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
