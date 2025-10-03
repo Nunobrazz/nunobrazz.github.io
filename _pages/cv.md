@@ -53,6 +53,7 @@ Skills
 
 Publications
 ======
+* Something brilliant coming out...
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
