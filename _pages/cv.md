@@ -51,13 +51,14 @@ Skills
 * Mechanism Design (e.g. auctions, voting mechanisms)
 
 
+{% comment %}
 Publications
 ======
 * Something brilliant coming out...
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-
+{% endcomment %}
 
 <!--Talks
 ======
@@ -73,5 +74,4 @@ Teaching
   
 Service and leadership
 ======
-* Currently signed in to 43 different slack teams
-
+* Rugby Player at Sporting Club de Portugal 2022/2025
