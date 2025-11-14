@@ -26,7 +26,6 @@ Work experience
 ======
 
 * Nov. 2024 - Present: INESC-ID - RESEARCHER
-  * Duties included:
   * Supervisor: Professor Miguel Correia
 
 * July 2023 - Nov. 2024: INESC-ID & Unlockit - Researcher / Blockchain Engineer 
@@ -40,11 +39,11 @@ Skills
 
 * Distributed Ledger Technology
 
-  * Consensus Mechanisms: Deep understanding of PoW, PoS, PoA, and hybrid models.
+  * Consensus Mechanisms
 
   * Canton Protocol
 
-* Cryptography: Knowledge of zero-knowledge proofs, elliptic curve cryptography, and cryptographic primitives.
+* Cryptography
 
 * Distributed Systems: P2P networks and Byzantine fault tolerance.
 
@@ -72,6 +71,6 @@ Teaching
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Service and leadership
+Extra
 ======
 * Rugby Player at Sporting Club de Portugal 2022/2025
