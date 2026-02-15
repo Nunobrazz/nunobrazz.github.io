@@ -45,6 +45,6 @@ hide_title: true
 
 <div class="services-cta">
   <h2>Interested?</h2>
-  <p>Just drop me a message — no commitment, no pressure. Let's chat about what you need.</p>
+  <p>Just drop me a message. Let's chat about what you need.</p>
   <a href="mailto:nuno.braz@tecnico.ulisboa.pt" class="services-cta__button">Get in Touch →</a>
 </div>
