@@ -2,6 +2,7 @@
 title: "Renting Platform"
 excerpt: "A blockchain-based renting platform proof-of-concept (PoC) built with Daml."
 collection: portfolio
+date: 2023-01-01
 ---
 
 A blockchain-based renting platform proof-of-concept (PoC) built with [Daml](https://daml.com/). This project demonstrates a decentralized lease management system featuring automated rent payments, maintenance issue reporting, and dispute resolution via arbitrators.

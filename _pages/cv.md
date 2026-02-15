@@ -18,12 +18,12 @@ Work experience
     <div class="timeline-marker"></div>
     <div class="timeline-content">
       <div class="timeline-content-header">
-        <h3 class="timeline-title">Teaching Assistant</h3>
+        <h3 class="timeline-title"><a href="/teaching/">Teaching Assistant</a></h3>
         <span class="timeline-date">Nov 2025 - May 2026</span>
       </div>
       <span class="timeline-subtitle">Instituto Superior Técnico</span>
       <ul>
-        <li>Distributed Systems (Bachelor)</li>
+        <li>Distributed Systems (Bachelor) </li>
         <li>Network and Computer Security (Master's)</li>
       </ul>
     </div>
@@ -144,13 +144,8 @@ Publications
   <ul>{% for post in site.talks reversed %}
     {% include archive-single-talk-cv.html  %}
   {% endfor %}</ul> <!-->
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
+
+
 Interests & Volunteering
 ======
 * Volunteering: Volunteer at Batu Kapal Conservation, North Sumatra.

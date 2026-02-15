@@ -7,8 +7,22 @@ author_profile: true
 
 {% include base_path %}
 
-
-{% for post in site.portfolio %}
-  {% include archive-single.html %}
-{% endfor %}
-
+<div class="timeline">
+  {% for post in site.portfolio reversed %}
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h3>
+        {% if post.date %}
+        <span class="timeline-date">{{ post.date | date: "%Y" }}</span>
+        {% endif %}
+      </div>
+      {% if post.excerpt %}
+      <p>{{ post.excerpt | markdownify | remove: '
+      <p>' | remove: '</p>' }}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

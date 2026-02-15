@@ -7,6 +7,24 @@ author_profile: true
 
 {% include base_path %}
 
-{% for post in site.teaching reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+<div class="timeline">
+  {% for post in site.teaching reversed %}
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h3>
+        {% if post.date %}
+        <span class="timeline-date">{{ post.date | date: "%B %Y" }}</span>
+        {% endif %}
+      </div>
+      {% if post.venue %}
+      <span class="timeline-subtitle">{{ post.venue }}</span>
+      {% endif %}
+      {% if post.type %}
+      <p>{{ post.type }}{% if post.location %} · {{ post.location }}{% endif %}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
