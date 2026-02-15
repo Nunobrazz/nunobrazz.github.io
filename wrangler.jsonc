@@ -2,6 +2,7 @@
   "name": "webpages",
   "compatibility_date": "2026-02-15",
   "assets": {
-    "directory": "./_site"
+    "directory": "./_site",
+    "binding": "ASSETS"
   }
 }
