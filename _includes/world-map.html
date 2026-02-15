@@ -159,7 +159,7 @@
 <div class="world-map-section">
     <div class="map-header">
         <p class="map-subtitle">
-            <span class="highlight">19/195</span> countries across
+            <span class="highlight" id="country-count">0</span>/195 countries across
             <span class="highlight">5/6</span> continents
         </p>
     </div>
@@ -184,7 +184,7 @@
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script>
     (function () {
-        var visitedCountries = {
+        const visitedCountries = {
             "620": { name: "Portugal", comment: "Home 🏠" },
             "724": { name: "Spain", comment: "🇪🇸" },
             "250": { name: "France", comment: "🇫🇷" },
@@ -208,93 +208,71 @@
             "348": { name: "Hungary", comment: "First big trip with friends. 🇭🇺" }
         };
 
-        var container = document.getElementById('world-map');
-        var tooltip = document.getElementById('map-tooltip');
-        var width = 960;
-        var height = 500;
+        // This counts the keys in your list and updates the HTML
+        document.getElementById('country-count').innerText = Object.keys(visitedCountries).length;
+        const container = document.getElementById('world-map');
+        const tooltip = document.getElementById('map-tooltip');
+        const width = 960;
+        const height = 500;
 
-        var svg = d3.select('#world-map')
+        const svg = d3.select('#world-map')
             .append('svg')
-            .attr('viewBox', '0 0 ' + width + ' ' + height)
+            .attr('viewBox', `0 0 ${width} ${height}`)
             .attr('preserveAspectRatio', 'xMidYMid meet');
 
-        var projection = d3.geoNaturalEarth1()
+        const projection = d3.geoNaturalEarth1()
             .scale(155)
             .translate([width / 2, height / 2]);
 
-        var path = d3.geoPath().projection(projection);
+        const path = d3.geoPath().projection(projection);
 
-        // Subtle graticule grid
-        var graticule = d3.geoGraticule().step([20, 20]);
         svg.append('path')
-            .datum(graticule())
+            .datum(d3.geoGraticule().step([20, 20])())
             .attr('class', 'graticule')
             .attr('d', path);
 
-        // Globe outline
         svg.append('path')
             .datum({ type: 'Sphere' })
             .attr('class', 'sphere')
             .attr('d', path);
 
-        d3.json('https://unpkg.com/world-atlas@2/countries-110m.json').then(function (world) {
-            var countries = topojson.feature(world, world.objects.countries);
+        // Updated URL and added error catching
+        d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+            .then(world => {
+                const countries = topojson.feature(world, world.objects.countries);
 
-            svg.selectAll('.country')
-                .data(countries.features)
-                .enter()
-                .append('path')
-                .attr('d', path)
-                .attr('class', function (d) {
-                    return visitedCountries[d.id] ? 'country visited' : 'country';
-                })
-                .on('mouseenter', function (event, d) {
-                    if (visitedCountries[d.id]) {
-                        var info = visitedCountries[d.id];
-                        tooltip.innerHTML = '<strong>' + info.name + '</strong><p>' + info.comment + '</p>';
-                        tooltip.style.opacity = '1';
-                        d3.select(this).classed('active', true).raise();
-                    }
-                })
-                .on('mousemove', function (event) {
-                    var rect = container.getBoundingClientRect();
-                    var x = event.clientX - rect.left + 15;
-                    var y = event.clientY - rect.top - 15;
-                    var tw = tooltip.offsetWidth;
-                    var th = tooltip.offsetHeight;
-                    if (x + tw > rect.width - 10) x = event.clientX - rect.left - tw - 15;
-                    if (y < 10) y = event.clientY - rect.top + 20;
-                    if (y + th > rect.height - 10) y = rect.height - th - 10;
-                    tooltip.style.left = x + 'px';
-                    tooltip.style.top = y + 'px';
-                })
-                .on('mouseleave', function () {
-                    tooltip.style.opacity = '0';
-                    d3.select(this).classed('active', false);
-                })
-                .on('click', function (event, d) {
-                    if (visitedCountries[d.id]) {
-                        var info = visitedCountries[d.id];
-                        var isVisible = tooltip.style.opacity === '1' && tooltip.dataset.country === String(d.id);
-                        if (isVisible) {
-                            tooltip.style.opacity = '0';
-                            tooltip.dataset.country = '';
-                        } else {
-                            tooltip.innerHTML = '<strong>' + info.name + '</strong><p>' + info.comment + '</p>';
-                            tooltip.dataset.country = String(d.id);
+                svg.selectAll('.country')
+                    .data(countries.features)
+                    .enter()
+                    .append('path')
+                    .attr('d', path)
+                    .attr('class', d => visitedCountries[d.id] ? 'country visited' : 'country')
+                    .on('mouseenter', function (event, d) {
+                        if (visitedCountries[d.id]) {
+                            const info = visitedCountries[d.id];
+                            tooltip.innerHTML = `<strong>${info.name}</strong><p>${info.comment}</p>`;
                             tooltip.style.opacity = '1';
-                            var rect = container.getBoundingClientRect();
-                            tooltip.style.left = (event.clientX - rect.left + 15) + 'px';
-                            tooltip.style.top = (event.clientY - rect.top - 15) + 'px';
+                            d3.select(this).classed('active', true).raise();
                         }
-                    }
-                });
+                    })
+                    .on('mousemove', (event) => {
+                        const rect = container.getBoundingClientRect();
+                        let x = event.clientX - rect.left + 15;
+                        let y = event.clientY - rect.top - 15;
+                        if (x + tooltip.offsetWidth > rect.width - 10) x = event.clientX - rect.left - tooltip.offsetWidth - 15;
+                        tooltip.style.left = `${x}px`;
+                        tooltip.style.top = `${y}px`;
+                    })
+                    .on('mouseleave', function () {
+                        tooltip.style.opacity = '0';
+                        d3.select(this).classed('active', false);
+                    });
 
-            // Country borders
-            svg.append('path')
-                .datum(topojson.mesh(world, world.objects.countries, function (a, b) { return a !== b; }))
-                .attr('class', 'country-border')
-                .attr('d', path);
-        });
+                svg.append('path')
+                    .datum(topojson.mesh(world, world.objects.countries, (a, b) => a !== b))
+                    .attr('class', 'country-border')
+                    .attr('d', path);
+            })
+            .catch(err => console.error("Map loading failed:", err));
     })();
 </script>
