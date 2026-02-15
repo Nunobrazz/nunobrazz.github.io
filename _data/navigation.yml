@@ -18,12 +18,15 @@ main:
     
   - title: "Projects"
     url: /projects/
-  
+
   - title: "Teaching"
     url: /teaching/    
           
   - title: "Blog Posts"
     url: /year-archive/
+
+  - title: "Services"
+    url: /services/
     
 
   # - title: "CV"
