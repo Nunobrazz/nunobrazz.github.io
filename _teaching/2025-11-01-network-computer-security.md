@@ -8,7 +8,7 @@ date: 2025-11-01
 location: "Lisbon, Portugal"
 ---
 
-Served as a Teaching Assistant for **Network and Computer Security** (Master's).
+Worked as a Teaching Assistant for **Network and Computer Security** (Master's).
 
 **Topics Covered:**
 *   Secure code development

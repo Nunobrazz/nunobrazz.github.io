@@ -8,7 +8,7 @@ date: 2026-02-01
 location: "Lisbon, Portugal"
 ---
 
-Served as a Teaching Assistant for **Distributed Systems** (Bachelor).
+Worked as a Teaching Assistant for **Distributed Systems** (Bachelor).
 
 **Topics Covered:**
 *   Remote Procedure Calls (RPC)
