@@ -85,7 +85,11 @@ if (plotlyElements.length > 0) {
    Actions that should occur when the page has been fully loaded
    ========================================================================== */
 
-$(document).ready(function () {
+/* ==========================================================================
+   Actions that should occur when the page has been fully loaded
+   ========================================================================== */
+
+function init() {
   // SCSS SETTINGS - These should be the same as the settings in the relevant files 
   const scssLarge = 925;          // pixels, from /_sass/_themes.scss
   const scssMastheadHeight = 70;  // pixels, from the current theme (e.g., /_sass/theme/_default.scss)
@@ -93,14 +97,14 @@ $(document).ready(function () {
   // If the user hasn't chosen a theme, follow the OS preference
   setTheme();
   window.matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener("change", (e) => {
-          if (!localStorage.getItem("theme")) {
-            setTheme(e.matches ? "dark" : "light");
-          }
-        });
+    .addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        setTheme(e.matches ? "dark" : "light");
+      }
+    });
 
   // Enable the theme toggle
-  $('#theme-toggle').on('click', toggleTheme);
+  $('#theme-toggle').off('click').on('click', toggleTheme);
 
   // Enable the sticky footer
   var bumpIt = function () {
@@ -113,7 +117,8 @@ $(document).ready(function () {
     if (didResize) {
       didResize = false;
       bumpIt();
-    }}, 250);
+    }
+  }, 250);
   var didResize = false;
   bumpIt();
 
@@ -121,7 +126,7 @@ $(document).ready(function () {
   fitvids();
 
   // Follow menu drop down
-  $(".author__urls-wrapper button").on("click", function () {
+  $(".author__urls-wrapper button").off("click").on("click", function () {
     $(".author__urls").fadeToggle("fast", function () { });
     $(".author__urls-wrapper button").toggleClass("open");
   });
@@ -138,5 +143,7 @@ $(document).ready(function () {
     offset: -scssMastheadHeight,
     preventDefault: false,
   });
+}
 
-});
+$(document).ready(init);
+document.addEventListener("turbo:load", init);

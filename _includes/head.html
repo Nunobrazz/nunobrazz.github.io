@@ -23,6 +23,11 @@
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
 </script>
 
+<!-- Turbo for SPA-like navigation -->
+<script type="module">
+  import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+</script>
+
 <!-- For all browsers -->
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css?v={{ site.time | date: '%s' }}">
 
