@@ -208,7 +208,6 @@
             "348": { name: "Hungary", comment: "First big trip with friends. 🇭🇺" }
         };
 
-        // This counts the keys in your list and updates the HTML
         document.getElementById('country-count').innerText = Object.keys(visitedCountries).length;
         const container = document.getElementById('world-map');
         const tooltip = document.getElementById('map-tooltip');
@@ -236,7 +235,6 @@
             .attr('class', 'sphere')
             .attr('d', path);
 
-        // Updated URL and added error catching
         d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
             .then(world => {
                 const countries = topojson.feature(world, world.objects.countries);
