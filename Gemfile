@@ -15,3 +15,5 @@ end
 
 gem 'github-pages'
 gem 'connection_pool', '2.5.0'
+gem "webrick", "~> 1.8"
+gem "jekyll-sass-converter", "~> 2.0"
