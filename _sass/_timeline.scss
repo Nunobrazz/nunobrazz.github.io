@@ -1,0 +1,107 @@
+/* ==========================================================================
+   TIMELINE
+   ========================================================================== */
+
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2em 0;
+}
+
+/* The vertical line */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background-color: var(--global-border-color);
+  /* Use theme variable */
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  /* Adjust based on dot size */
+  margin-left: -1px;
+}
+
+.timeline-item {
+  padding: 10px 60px;
+  position: relative;
+  background-color: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  /* Increased gap */
+}
+
+/* The circles on the timeline */
+.timeline-marker {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: auto;
+  left: 20px;
+  /* Match the line position */
+  top: 20px;
+  /* Adjust vertical alignment */
+  background-color: var(--global-theme-color);
+  border: 4px solid var(--global-background-color);
+  /* Creates a 'gap' effect */
+  border-radius: 50%;
+  z-index: 1;
+  margin-left: -8px;
+  /* Center perfectly on the line */
+}
+
+/* Content box */
+.timeline-content {
+  padding: 20px;
+  background-color: var(--global-background-color);
+  border: 1px solid var(--global-border-color);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5em;
+  flex-wrap: wrap;
+}
+
+.timeline-title {
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: bold;
+  color: var(--global-text-color);
+}
+
+.timeline-date {
+  font-size: 0.9em;
+  color: var(--global-text-color-light);
+  font-weight: 600;
+}
+
+.timeline-subtitle {
+  font-style: italic;
+  margin-bottom: 0.5em;
+  display: block;
+  color: var(--global-text-color-light);
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 600px) {
+  .timeline::after {
+    left: 20px;
+  }
+
+  .timeline-item {
+    padding-left: 50px;
+    padding-right: 0;
+  }
+
+  .timeline-marker {
+    left: 20px;
+  }
+}

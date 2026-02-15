@@ -3,61 +3,141 @@ layout: archive
 title: "CV"
 permalink: /cv/
 author_profile: true
+hide_title: true
 redirect_from:
   - /resume
 ---
 
 {% include base_path %}
 
-Education
-======
-* Ph.D in Decentralized Autonomous Organizations,Instituto Superior Técnico, Lisbon Univerisy, 2024-Present
-  * Blockchains represent a unique form of semicommon property, collectively governed through incentives and rules. These rules are programmed in smart contracts, a construct that enabled the appearance of Decentralized Autonomous Organizations (DAOs), introducing novel types of organizations and governance models. This work aims to study these organizations operating in a decentralized and permissionless environments, where a majority of agents are rational. We apply mechanism design frameworks to the governance challenges in DAOs.
-* M.S. in  Computer Science and Engineering, Instituto Superior Técnico, Lisbon Univerisy, 2022-2024
-  * Took the Cyber-security and Algorithms specializations as well as some courses from the math master’s related to Cryptography, Machine Learning, and Theory of Computation, with grades including 18 in Cryptography and Security Protocols, 17 in Software Security, 17 in Introduction to Learning Theory, 16 in Computability and Complexity, and 18 in Advanced Algorithms. The final average grade was 16/20
-* Hands-on Learning for Emerging Technologies in Electronics Engineering, at Beijing Institute of Technology, July 2024
-  * Learned about new electrotechnical concepts and tools and introduced myself to the Chinese culture and history.
-* Exchange Program at Instituto Tecnológico de Buenos Aires, 2023
-  * Engaged in a multicultural environment and completed courses on artificial intelligence in Spanish.
-* B.S. in Information Systems and Computer Engineering, at Instituto Superior Técnico, Lisbon Univerisy, 2019-2022
-  * Covered plenty of different fields in computer science including several programming languages with a highly practical approach with grades including 18 in Distributed Systems, 18 in Logic for Programming, 18 in Machine Learning, 16 in Complex Analysis and Differential Equation and, 17 in Probabilistic and Statistics. The final average grade was 16/20.
-
 Work experience
 ======
 
-* Nov. 2024 - Present: INESC-ID - RESEARCHER
-  * Supervisor: Professor Miguel Correia
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">Teaching Assistant</h3>
+        <span class="timeline-date">Nov 2025 - May 2026</span>
+      </div>
+      <span class="timeline-subtitle">Instituto Superior Técnico</span>
+      <ul>
+        <li>Distributed Systems (Bachelor)</li>
+        <li>Network and Computer Security (Master's)</li>
+      </ul>
+    </div>
+  </div>
 
-* July 2023 - Nov. 2024: INESC-ID & Unlockit - Researcher / Blockchain Engineer 
-  * Applyed academic methodologies to address practical challenges
-  * Engineered and implemented a prototype of two blockchain oracle solutions for a property rental platform built on the Canton Protocol.
-  * Supervisor: Professor Miguel Correia & João Santos
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">First Stage Researcher</h3>
+        <span class="timeline-date">Nov 2024 - Present</span>
+      </div>
+      <span class="timeline-subtitle">INESC-ID</span>
+      <p>Conducts research in distributed systems and game theory. Designs and implements prototypes, writes scientific papers, and communicates complex concepts to interdisciplinary peers.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">Researcher / Blockchain Engineer</h3>
+        <span class="timeline-date">Jul 2023 - Nov 2024</span>
+      </div>
+      <span class="timeline-subtitle">INESC-ID & UNLOCKIT</span>
+      <p>Developed blockchain oracle solutions for a rental system and collaborated on PropTech/Govtech research.</p>
+    </div>
+  </div>
+</div>
+
+Education
+======
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">PhD in Blockchain and Decentralized Economies</h3>
+        <span class="timeline-date">2024–Present</span>
+      </div>
+      <span class="timeline-subtitle">Instituto Superior Técnico</span>
+      <p><strong>Focus:</strong> Governance and Mechanism Design for DAOs.</p>
+      <p>Blockchains represent a unique form of semicommon property, collectively governed through incentives and rules. These rules are programmed in smart contracts, a construct that enabled the appearance of Decentralized Autonomous Organizations (DAOs), introducing novel types of organizations and governance models. This work aims to study these organizations operating in a decentralized and permissionless environments, where a majority of agents are rational. We apply mechanism design frameworks to the governance challenges in DAOs.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">Master's in Computer Science and Engineering</h3>
+        <span class="timeline-date">2022–2024</span>
+      </div>
+      <span class="timeline-subtitle">Instituto Superior Técnico</span>
+      <p><strong>Highlights:</strong> Cyber-security and Algorithms specializations. Final Average Grade: 16/20.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">Exchange Program</h3>
+        <span class="timeline-date">Jul 2024</span>
+      </div>
+      <span class="timeline-subtitle">Beijing Institute of Technology</span>
+      <p>Electronics Engineering & Chinese Culture.</p>
+    </div>
+  </div>
+
+   <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">Exchange Program</h3>
+        <span class="timeline-date">2023</span>
+      </div>
+      <span class="timeline-subtitle">Instituto Tecnológico de Buenos Aires</span>
+      <p>AI courses.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <div class="timeline-content-header">
+        <h3 class="timeline-title">B.S. in Information Systems and Computer Engineering</h3>
+        <span class="timeline-date">2019-2022</span>
+      </div>
+      <span class="timeline-subtitle">Instituto Superior Técnico, Lisbon University</span>
+      <p>Covered plenty of different fields in computer science including several programming languages with a highly practical approach with grades including 18 in Distributed Systems, 18 in Logic for Programming, 18 in Machine Learning, 16 in Complex Analysis and Differential Equation and, 17 in Probabilistic and Statistics. The final average grade was 16/20.</p>
+    </div>
+  </div>
+</div>
+
+Awards and Certificates
+======
+* [Merit Award](/files/meritAward.pdf) - Instituto Superior Técnico
+* [Tokenized RWA Bootcamp](https://collectors.poap.xyz/reservation/nuno.braz%40tecnico.ulisboa.pt/drop/178315) - Chainlink Labs
   
 Skills
 ======
-* Programming & Tools: Python, Java, C++, JavaScript, DAML, Solidity, Hardhat, Git
+* Languages: Python, Java, C++, Daml, Solidity.
 
-* Distributed Ledger Technology
+* Domains: Blockchain, Cyber-Security, Distributed Systems, Machine Learning, Game Theory, Decentralized Finance.
 
-  * Consensus Mechanisms
-
-  * Canton Protocol
-
-* Cryptography
-
-* Distributed Systems: P2P networks and Byzantine fault tolerance.
-
-* Mechanism Design (e.g. auctions, voting mechanisms)
+* Spoken Languages: Portuguese (Native), English (Advanced), Spanish (Advanced), French (Intermediate).
 
 
-{% comment %}
 Publications
 ======
-* Something brilliant coming out...
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-{% endcomment %}
 
 <!--Talks
 ======
@@ -71,6 +151,11 @@ Teaching
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Extra
+Interests & Volunteering
 ======
-* Rugby Player at Sporting Club de Portugal 2022/2025
+* Volunteering: Volunteer at Batu Kapal Conservation, North Sumatra.
+  * Mapped and recorded orangutans, supported wildlife corridors by planting trees, and maintained ecological data.
+
+* Sports: 
+  * Federated Rugby Player
+  * Federated Surf Athlete 
