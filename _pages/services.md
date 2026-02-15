@@ -9,7 +9,7 @@ hide_title: true
 {% include base_path %}
 
 <div class="services-hero">
-  <h1 class="services-hero-title">Oh, and I Also Do Services</h1>
+  <h1 class="services-hero-title">Oh, and I Also Provide Services</h1>
   <p class="services-hero-subtitle">
     Besides research & all the other stuff, I also build things for people. If you need a hand with anything web-related, I'm here to help.
   </p>
@@ -29,7 +29,7 @@ hide_title: true
       <li>Fast loading & lightweight</li>
       <li>I also host them on my server</li>
     </ul>
-    <p class="service-card__note" style="font-size: 0.85em; color: #888; margin-top: 0.8em;">Additional features (custom domain, contact forms, blog section, extra pages, etc.) are available at an extra cost — just let me know what you need.</p>
+    <p class="service-card__note" style="font-size: 0.85em; color: #888; margin-top: 0.8em;">Additional features (custom domain, contact forms, blog section, extra pages, etc.) are available at an extra cost, just let me know what you need.</p>
   </div>
 
   <div class="service-card service-card--business">

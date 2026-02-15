@@ -1,0 +1,300 @@
+<style>
+    .world-map-section {
+        margin: 1rem 0 2rem;
+    }
+
+    .world-map-section .map-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .world-map-section .map-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .world-map-section .map-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        color: #6e7681;
+    }
+
+    .world-map-section .map-subtitle .highlight {
+        color: #0096c7;
+        font-weight: 600;
+    }
+
+    .world-map-section .map-container {
+        position: relative;
+        background: linear-gradient(145deg, #0d1117, #161b22 50%, #0d1117);
+        border-radius: 16px;
+        padding: 1rem 1.5rem;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .world-map-section .map-container svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .world-map-section .map-container .sphere {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.08);
+        stroke-width: 1;
+    }
+
+    .world-map-section .map-container .graticule {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.03);
+        stroke-width: 0.5;
+    }
+
+    .world-map-section .map-container .country {
+        fill: #21262d;
+        stroke: #30363d;
+        stroke-width: 0.5px;
+        transition: fill 0.3s ease, filter 0.3s ease;
+        cursor: default;
+    }
+
+    .world-map-section .map-container .country.visited {
+        fill: #0077b6;
+        cursor: pointer;
+    }
+
+    .world-map-section .map-container .country.visited:hover,
+    .world-map-section .map-container .country.visited.active {
+        fill: #00b4d8;
+        filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.45));
+    }
+
+    .world-map-section .map-container .country-border {
+        fill: none;
+        stroke: #30363d;
+        stroke-width: 0.5px;
+        pointer-events: none;
+    }
+
+    .world-map-section .map-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: rgba(13, 17, 23, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 150, 199, 0.25);
+        border-radius: 10px;
+        padding: 10px 14px;
+        color: #e6edf3;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        z-index: 100;
+        max-width: 220px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .world-map-section .map-tooltip strong {
+        color: #00b4d8;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .world-map-section .map-tooltip p {
+        margin: 4px 0 0;
+        color: #8b949e;
+        font-size: 0.8rem;
+    }
+
+    .world-map-section .map-legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.2rem;
+    }
+
+    .world-map-section .map-legend .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        color: #6e7681;
+    }
+
+    .world-map-section .map-legend .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    .world-map-section .map-legend .legend-item.visited .legend-color {
+        background: #0077b6;
+    }
+
+    .world-map-section .map-legend .legend-item:not(.visited) .legend-color {
+        background: #21262d;
+        border: 1px solid #30363d;
+    }
+
+    @media (max-width: 768px) {
+        .world-map-section .map-title {
+            font-size: 1.5rem;
+        }
+
+        .world-map-section .map-container {
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+    }
+</style>
+
+<div class="world-map-section">
+    <div class="map-header">
+        <p class="map-subtitle">
+            <span class="highlight">19/195</span> countries across
+            <span class="highlight">5/6</span> continents
+        </p>
+    </div>
+
+    <div class="map-container" id="world-map">
+        <div class="map-tooltip" id="map-tooltip"></div>
+    </div>
+
+    <div class="map-legend">
+        <div class="legend-item visited">
+            <span class="legend-color"></span>
+            <span>Visited</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color"></span>
+            <span>Not yet</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script>
+    (function () {
+        var visitedCountries = {
+            "620": { name: "Portugal", comment: "Home 🏠" },
+            "724": { name: "Spain", comment: "🇪🇸" },
+            "250": { name: "France", comment: "🇫🇷" },
+            "380": { name: "Italy", comment: "🇮🇹" },
+            "616": { name: "Poland", comment: "🇵🇱" },
+            "826": { name: "United Kingdom", comment: "🇬🇧" },
+            "578": { name: "Norway", comment: "🇳🇴" },
+            "752": { name: "Sweden", comment: "🇸🇪" },
+            "076": { name: "Brazil", comment: "Delivered Master Thesis. 🇧🇷" },
+            "032": { name: "Argentina", comment: "Exchange semester. ❤️" },
+            "156": { name: "China", comment: "Summer exchange at Beijing Institute of Technology. 🇨🇳" },
+            "360": { name: "Indonesia", comment: "Volunteering at Batu Kapal Conservation. 🦧" },
+            "068": { name: "Bolivia", comment: "High altitude, big landscapes. 🇧🇴" },
+            "604": { name: "Peru", comment: "Colorful streets and music. 🇵🇪" },
+            "858": { name: "Uruguay", comment: "Good meat and unexpected wind. 🇺🇾" },
+            "170": { name: "Colombia", comment: "South American vibes. 🇨🇴" },
+            "840": { name: "United States", comment: "Big cities, bigger distances. 🇺🇸" },
+            "124": { name: "Canada", comment: "Pretty Lakes. 🇨🇦" },
+            "132": { name: "Cape Verde", comment: "High-school trip. 🇨🇻" },
+            "702": { name: "Singapore", comment: "Efficient, and futuristic. 🇸🇬" },
+            "348": { name: "Hungary", comment: "First big trip with friends. 🇭🇺" }
+        };
+
+        var container = document.getElementById('world-map');
+        var tooltip = document.getElementById('map-tooltip');
+        var width = 960;
+        var height = 500;
+
+        var svg = d3.select('#world-map')
+            .append('svg')
+            .attr('viewBox', '0 0 ' + width + ' ' + height)
+            .attr('preserveAspectRatio', 'xMidYMid meet');
+
+        var projection = d3.geoNaturalEarth1()
+            .scale(155)
+            .translate([width / 2, height / 2]);
+
+        var path = d3.geoPath().projection(projection);
+
+        // Subtle graticule grid
+        var graticule = d3.geoGraticule().step([20, 20]);
+        svg.append('path')
+            .datum(graticule())
+            .attr('class', 'graticule')
+            .attr('d', path);
+
+        // Globe outline
+        svg.append('path')
+            .datum({ type: 'Sphere' })
+            .attr('class', 'sphere')
+            .attr('d', path);
+
+        d3.json('https://unpkg.com/world-atlas@2/countries-110m.json').then(function (world) {
+            var countries = topojson.feature(world, world.objects.countries);
+
+            svg.selectAll('.country')
+                .data(countries.features)
+                .enter()
+                .append('path')
+                .attr('d', path)
+                .attr('class', function (d) {
+                    return visitedCountries[d.id] ? 'country visited' : 'country';
+                })
+                .on('mouseenter', function (event, d) {
+                    if (visitedCountries[d.id]) {
+                        var info = visitedCountries[d.id];
+                        tooltip.innerHTML = '<strong>' + info.name + '</strong><p>' + info.comment + '</p>';
+                        tooltip.style.opacity = '1';
+                        d3.select(this).classed('active', true).raise();
+                    }
+                })
+                .on('mousemove', function (event) {
+                    var rect = container.getBoundingClientRect();
+                    var x = event.clientX - rect.left + 15;
+                    var y = event.clientY - rect.top - 15;
+                    var tw = tooltip.offsetWidth;
+                    var th = tooltip.offsetHeight;
+                    if (x + tw > rect.width - 10) x = event.clientX - rect.left - tw - 15;
+                    if (y < 10) y = event.clientY - rect.top + 20;
+                    if (y + th > rect.height - 10) y = rect.height - th - 10;
+                    tooltip.style.left = x + 'px';
+                    tooltip.style.top = y + 'px';
+                })
+                .on('mouseleave', function () {
+                    tooltip.style.opacity = '0';
+                    d3.select(this).classed('active', false);
+                })
+                .on('click', function (event, d) {
+                    if (visitedCountries[d.id]) {
+                        var info = visitedCountries[d.id];
+                        var isVisible = tooltip.style.opacity === '1' && tooltip.dataset.country === String(d.id);
+                        if (isVisible) {
+                            tooltip.style.opacity = '0';
+                            tooltip.dataset.country = '';
+                        } else {
+                            tooltip.innerHTML = '<strong>' + info.name + '</strong><p>' + info.comment + '</p>';
+                            tooltip.dataset.country = String(d.id);
+                            tooltip.style.opacity = '1';
+                            var rect = container.getBoundingClientRect();
+                            tooltip.style.left = (event.clientX - rect.left + 15) + 'px';
+                            tooltip.style.top = (event.clientY - rect.top - 15) + 'px';
+                        }
+                    }
+                });
+
+            // Country borders
+            svg.append('path')
+                .datum(topojson.mesh(world, world.objects.countries, function (a, b) { return a !== b; }))
+                .attr('class', 'country-border')
+                .attr('d', path);
+        });
+    })();
+</script>

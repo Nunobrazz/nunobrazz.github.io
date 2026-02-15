@@ -1,0 +1,169 @@
+// ============================================
+// World Map — "Footprints" page
+// ============================================
+
+.world-map-section {
+    margin: 1rem 0 2rem;
+
+    // --- Header ---
+    .map-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+
+        .map-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .map-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-muted, #6e7681);
+
+            .highlight {
+                color: #0096c7;
+                font-weight: 600;
+            }
+        }
+    }
+
+    // --- Map Container ---
+    .map-container {
+        position: relative;
+        background: linear-gradient(145deg, #0d1117, #161b22 50%, #0d1117);
+        border-radius: 16px;
+        padding: 1rem 1.5rem;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow:
+            0 4px 24px rgba(0, 0, 0, 0.15),
+            0 1px 3px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .sphere {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 1;
+        }
+
+        .graticule {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.03);
+            stroke-width: 0.5;
+        }
+
+        .country {
+            fill: #21262d;
+            stroke: #30363d;
+            stroke-width: 0.5px;
+            transition: fill 0.3s ease, filter 0.3s ease;
+            cursor: default;
+
+            &.visited {
+                fill: #0077b6;
+                cursor: pointer;
+
+                &:hover,
+                &.active {
+                    fill: #00b4d8;
+                    filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.45));
+                }
+            }
+        }
+
+        .country-border {
+            fill: none;
+            stroke: #30363d;
+            stroke-width: 0.5px;
+            pointer-events: none;
+        }
+    }
+
+    // --- Tooltip ---
+    .map-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: rgba(13, 17, 23, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 150, 199, 0.25);
+        border-radius: 10px;
+        padding: 10px 14px;
+        color: #e6edf3;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        z-index: 100;
+        max-width: 220px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+        strong {
+            color: #00b4d8;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        p {
+            margin: 4px 0 0;
+            color: #8b949e;
+            font-size: 0.8rem;
+        }
+    }
+
+    // --- Legend ---
+    .map-legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.2rem;
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted, #6e7681);
+
+            .legend-color {
+                width: 12px;
+                height: 12px;
+                border-radius: 3px;
+                display: inline-block;
+            }
+
+            &.visited .legend-color {
+                background: #0077b6;
+            }
+
+            &:not(.visited) .legend-color {
+                background: #21262d;
+                border: 1px solid #30363d;
+            }
+        }
+    }
+}
+
+// --- Responsive ---
+@media (max-width: 768px) {
+    .world-map-section {
+        .map-header .map-title {
+            font-size: 1.5rem;
+        }
+
+        .map-container {
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+    }
+}
