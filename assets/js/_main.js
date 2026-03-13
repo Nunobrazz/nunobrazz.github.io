@@ -110,16 +110,22 @@ function init() {
   var bumpIt = function () {
     $("body").css("margin-bottom", $(".page__footer").outerHeight(true));
   }
+
+  var didResize = false;
   $(window).resize(function () {
     didResize = true;
   });
-  setInterval(function () {
-    if (didResize) {
-      didResize = false;
-      bumpIt();
-    }
-  }, 250);
-  var didResize = false;
+
+  // Ensure we don't set multiple intervals if init is called multiple times
+  if (!window.bumpItInterval) {
+    window.bumpItInterval = setInterval(function () {
+      if (didResize) {
+        didResize = false;
+        bumpIt();
+      }
+    }, 250);
+  }
+
   bumpIt();
 
   // FitVids init
@@ -139,11 +145,17 @@ function init() {
   });
 
   // Init smooth scroll, this needs to be slightly more than then fixed masthead height
-  $("a").smoothScroll({
+  $("a[href*='#']").smoothScroll({
     offset: -scssMastheadHeight,
     preventDefault: false,
   });
 }
 
-$(document).ready(init);
+// Init on load (in case Turbo event was missed)
+if (document.readyState !== "loading") {
+  init();
+} else {
+  document.addEventListener("DOMContentLoaded", init);
+}
+// Re-init on Turbo navigation
 document.addEventListener("turbo:load", init);

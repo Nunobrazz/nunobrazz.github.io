@@ -29,6 +29,7 @@
     "jquery-smooth-scroll": "^2.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "onchange": "^7.1.0",
     "uglify-js": "^3.17.4"
   },
