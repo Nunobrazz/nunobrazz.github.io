@@ -1,0 +1,116 @@
+/* ==========================================================================
+   CHIP NAV — Horizontal scrolling pill navigation (inside masthead)
+
+   Lives inline between the site title and theme toggle in the masthead.
+   Takes up all remaining horizontal space via flex: 1.
+
+   Layout:
+     .chip-nav              Outer container, overflow:hidden.
+                            ::before / ::after are gradient fade masks.
+     .chip-nav__track       Inner flex row of chips. Translated via JS
+                            transform for elastic drag-scroll.
+     .chip-nav__chip        Individual pill link. .is-active = current page.
+
+   JS:  /assets/js/chip-nav.js
+   HTML: /_includes/masthead.html (embedded inside the masthead)
+   ========================================================================== */
+
+/* ---- Outer container (fills remaining masthead space) ---- */
+.chip-nav {
+  flex: 1;                         /* Take all space between title and toggle */
+  min-width: 0;                    /* Allow flex shrinking below content size */
+  overflow: hidden;                /* Clips the scrollable track */
+  position: relative;              /* Anchor for fade mask pseudo-elements */
+
+  /* Prevent text selection while dragging */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* ---- Gradient fade masks (left & right) ----
+     Hidden by default. JS adds .fade-left / .fade-right
+     to indicate more content is hidden off-screen. */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  /* Left fade — visible when scrolled away from start */
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, var(--global-masthead-bg, var(--global-bg-color)), transparent);
+  }
+
+  /* Right fade — visible when more chips are hidden to the right */
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, var(--global-masthead-bg, var(--global-bg-color)), transparent);
+  }
+
+  &.fade-left::before  { opacity: 1; }
+  &.fade-right::after  { opacity: 1; }
+}
+
+/* ---- Scrollable track (flex row of chips) ---- */
+.chip-nav__track {
+  display: flex;
+  flex-wrap: nowrap;               /* All chips on one line, never wrap */
+  gap: 6px;
+  padding: 4px 0;                  /* Vertical breathing room inside masthead */
+  cursor: grab;
+  will-change: transform;          /* GPU layer for smooth translate3d */
+  touch-action: pan-x;             /* Tell browser we handle horizontal gestures */
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+/* ---- Individual chip (pill link) ---- */
+.chip-nav__chip {
+  flex-shrink: 0;                  /* Never shrink or wrap */
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 15px;
+  font-family: $sans-serif;
+  font-size: 0.8rem;
+  font-weight: 450;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--global-text-color-light);
+  background: var(--global-card-bg);
+  border: 1px solid var(--global-card-border);
+  border-radius: 100px;            /* Fully rounded pill shape */
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+              color 0.2s ease, background 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease;
+
+  /* Hover state — subtle press-in like iOS */
+  &:hover {
+    color: var(--global-text-color);
+    background: var(--global-border-color);
+    border-color: var(--global-dark-border-color);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  /* Active page — inverted colours with subtle glow */
+  &.is-active {
+    background: var(--global-text-color);
+    color: var(--global-bg-color);
+    font-weight: 500;
+    border-color: transparent;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  }
+}

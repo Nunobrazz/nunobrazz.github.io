@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "Web Development Services"
+title: "Services"
 permalink: /services/
 author_profile: true
 hide_title: true

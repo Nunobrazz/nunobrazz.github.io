@@ -1,0 +1,15 @@
+/* ==========================================================================
+   Page transitions — instant swap, no delay
+   ========================================================================== */
+
+/* Turbo progress bar */
+.turbo-progress-bar {
+  height: 2px;
+  background: linear-gradient(90deg, var(--global-link-color), var(--global-link-color-hover));
+  z-index: 9999;
+}
+
+/* Instant content swap — no animation delay */
+#page-content {
+  opacity: 1;
+}

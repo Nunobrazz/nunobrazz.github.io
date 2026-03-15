@@ -21,7 +21,7 @@ Work experience
         <h3 class="timeline-title"><a href="/teaching/">Teaching Assistant</a></h3>
         <span class="timeline-date">Nov 2025 - May 2026</span>
       </div>
-      <span class="timeline-subtitle">Instituto Superior Técnico</span>
+      <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
       <ul>
         <li>Distributed Systems (Bachelor) </li>
         <li>Network and Computer Security (Master's)</li>
@@ -36,7 +36,7 @@ Work experience
         <h3 class="timeline-title">First Stage Researcher</h3>
         <span class="timeline-date">Nov 2024 - Present</span>
       </div>
-      <span class="timeline-subtitle">INESC-ID</span>
+      <span class="timeline-subtitle"><a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a></span>
       <p>Conducts research in distributed systems and game theory. Designs and implements prototypes, writes scientific papers, and communicates complex concepts to interdisciplinary peers.</p>
     </div>
   </div>
@@ -48,7 +48,7 @@ Work experience
         <h3 class="timeline-title">Researcher / Blockchain Engineer</h3>
         <span class="timeline-date">Jul 2023 - Nov 2024</span>
       </div>
-      <span class="timeline-subtitle">INESC-ID & UNLOCKIT</span>
+      <span class="timeline-subtitle"><a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a> & <a href="https://unlockit.io" target="_blank">UNLOCKIT</a></span>
       <p>Developed blockchain oracle solutions for a rental system and collaborated on PropTech/Govtech research.</p>
     </div>
   </div>
@@ -64,7 +64,7 @@ Education
         <h3 class="timeline-title">PhD in Blockchain and Decentralized Economies</h3>
         <span class="timeline-date">2024–Present</span>
       </div>
-      <span class="timeline-subtitle">Instituto Superior Técnico</span>
+      <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
       <p><strong>Focus:</strong> Governance and Mechanism Design for DAOs.</p>
       <p>Blockchains represent a unique form of semicommon property, collectively governed through incentives and rules. These rules are programmed in smart contracts, a construct that enabled the appearance of Decentralized Autonomous Organizations (DAOs), introducing novel types of organizations and governance models. This work aims to study these organizations operating in a decentralized and permissionless environments, where a majority of agents are rational. We apply mechanism design frameworks to the governance challenges in DAOs.</p>
     </div>
@@ -77,7 +77,7 @@ Education
         <h3 class="timeline-title">Master's in Computer Science and Engineering</h3>
         <span class="timeline-date">2022–2024</span>
       </div>
-      <span class="timeline-subtitle">Instituto Superior Técnico</span>
+      <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
       <p><strong>Highlights:</strong> Cyber-security and Algorithms specializations. Final Average Grade: 16/20.</p>
     </div>
   </div>
@@ -89,7 +89,7 @@ Education
         <h3 class="timeline-title">Exchange Program</h3>
         <span class="timeline-date">Jul 2024</span>
       </div>
-      <span class="timeline-subtitle">Beijing Institute of Technology</span>
+      <span class="timeline-subtitle"><a href="https://english.bit.edu.cn" target="_blank">Beijing Institute of Technology</a></span>
       <p>Electronics Engineering & Chinese Culture.</p>
     </div>
   </div>
@@ -101,7 +101,7 @@ Education
         <h3 class="timeline-title">Exchange Program</h3>
         <span class="timeline-date">2023</span>
       </div>
-      <span class="timeline-subtitle">Instituto Tecnológico de Buenos Aires</span>
+      <span class="timeline-subtitle"><a href="https://www.itba.edu.ar" target="_blank">Instituto Tecnológico de Buenos Aires</a></span>
       <p>AI courses.</p>
     </div>
   </div>
@@ -113,7 +113,7 @@ Education
         <h3 class="timeline-title">B.S. in Information Systems and Computer Engineering</h3>
         <span class="timeline-date">2019-2022</span>
       </div>
-      <span class="timeline-subtitle">Instituto Superior Técnico, Lisbon University</span>
+      <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a>, <a href="https://www.ulisboa.pt" target="_blank">Lisbon University</a></span>
       <p>Covered plenty of different fields in computer science including several programming languages with a highly practical approach with grades including 18 in Distributed Systems, 18 in Logic for Programming, 18 in Machine Learning, 16 in Complex Analysis and Differential Equation and, 17 in Probabilistic and Statistics. The final average grade was 16/20.</p>
     </div>
   </div>
@@ -121,8 +121,8 @@ Education
 
 Awards and Certificates
 ======
-* [Merit Award](/files/meritAward.pdf) - Instituto Superior Técnico
-* [Tokenized RWA Bootcamp](https://collectors.poap.xyz/reservation/nuno.braz%40tecnico.ulisboa.pt/drop/178315) - Chainlink Labs
+* [Merit Award](/files/meritAward.pdf) - [Instituto Superior Técnico](https://tecnico.ulisboa.pt){:target="_blank"}
+* [Tokenized RWA Bootcamp](https://collectors.poap.xyz/reservation/nuno.braz%40tecnico.ulisboa.pt/drop/178315) - [Chainlink Labs](https://chain.link){:target="_blank"}
   
 Skills
 ======

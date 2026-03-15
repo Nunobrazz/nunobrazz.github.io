@@ -1,15 +1,14 @@
 /* ==========================================================================
-   SIDEBAR
+   SIDEBAR — Author profile (left column)
+   iOS / Revolut-inspired: soft, rounded, generous spacing.
+   Avatar opens in a lightbox overlay on click.
    ========================================================================== */
 
 /*
-   Default
+   Sidebar container
    ========================================================================== */
 
 .sidebar {
-  -webkit-transform: translate3d(0, 0 , 0);
-          transform: translate3d(0, 0 , 0);
-
   @include clearfix();
   margin-bottom: 1em;
 
@@ -17,26 +16,21 @@
     margin-top: 1em;
   }
 
+  /* Fixed sidebar on large screens */
   @media screen and (min-width: $sidebar-screen-min-width) {
     height: 100vh;
-    overflow-y: auto;               // Add scrollbar if the sidebar is too long
+    overflow-y: auto;
     position: fixed;
-    padding-top: $masthead-height;
+    padding-top: $masthead-height + 16px;
   }
 
   @include breakpoint($large) {
-    @include span(2 of 12);
+    @include span(2.5 of 12);
     opacity: 1;
-    -webkit-transition: opacity 0.2s ease-in-out;
-            transition: opacity 0.2s ease-in-out;
-
-    &:hover {
-      opacity: 1;
-    }
   }
 
   @include breakpoint($x-large) {
-    max-width: $sidebar-link-max-width;
+    max-width: 280px;
     padding-right: 0;
   }
 
@@ -60,6 +54,7 @@
   }
 }
 
+/* Right sidebar (for TOC etc.) */
 .sidebar__right {
   margin-bottom: 1em;
 
@@ -77,32 +72,89 @@
 }
 
 /*
-   Author profile and links
+   Author avatar — clickable, opens lightbox overlay
    ========================================================================== */
 
 .author__avatar {
   display: table-cell;
   vertical-align: top;
-  width: 36px;
-  // set width only, for non-square avatars
-  height: 36px;
+  width: 56px;
+  height: 56px;
 
   @include breakpoint($large) {
     display: block;
     width: auto;
     height: auto;
+    margin-bottom: 1em;
   }
 
   img {
-    max-width: 500px;
-    border-radius: 5%;
+    max-width: 100%;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.25s ease, transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 
     @include breakpoint($large) {
-      padding: 0px;
-      border: 0.5px solid var(--global-border-color);
+      padding: 0;
+      border: 1px solid var(--global-border-color);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+
+      &:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        transform: scale(1.02);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
     }
   }
 }
+
+/* ---- Avatar lightbox overlay ----
+   Created dynamically by JS when the avatar is clicked.
+   Covers the entire viewport with a blurred backdrop.
+   The image is centred and sized to fit comfortably. */
+.avatar-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+
+  /* Fade in */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  &.is-visible {
+    opacity: 1;
+  }
+
+  img {
+    max-width: 85vw;
+    max-height: 80vh;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    object-fit: contain;
+
+    /* Scale up from small */
+    transform: scale(0.85);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &.is-visible img {
+    transform: scale(1);
+  }
+}
+
+/*
+   Author name, bio, pronouns
+   ========================================================================== */
 
 .author__content {
   display: table-cell;
@@ -121,17 +173,21 @@
 
 .author__name {
   margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 
   @include breakpoint($large) {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
   }
 }
+
 .sidebar .author__name {
-  font-family: $sans-serif;
-  font-size: $type-size-5;
+  font-family: $header-font-family;
+  font-size: 1.2em;
 }
 
+/* Hide certain items on mobile, show on desktop */
 .sidebar .author__desktop {
   display: none;
   @media screen and (min-width: 1024px) {
@@ -141,21 +197,30 @@
 
 .author__pronouns {
   margin: 0;
+  color: var(--global-text-color-light);
+  font-size: $type-size-6;
 
   @include breakpoint($large) {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.2em;
+    margin-bottom: 0.4em;
   }
 }
 
 .author__bio {
   margin: 0;
+  color: var(--global-text-color-light);
+  font-size: 0.82em;
+  line-height: 1.55;
 
   @include breakpoint($large) {
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 0.25em;
+    margin-bottom: 1.5em;
   }
 }
+
+/*
+   Author social links — pill-shaped hover, iOS settings-row style
+   ========================================================================== */
 
 .author__urls-wrapper {
   position: relative;
@@ -163,13 +228,10 @@
   vertical-align: middle;
   font-family: $sans-serif;
   z-index: 10;
-  position: relative;
   cursor: pointer;
 
-  li:last-child {
-    a {
-      margin-bottom: 0;
-    }
+  li:last-child a {
+    margin-bottom: 0;
   }
 
   @include breakpoint($large) {
@@ -190,15 +252,18 @@
   position: absolute;
   right: 0;
   margin-top: 15px;
-  padding: 10px;
+  padding: 8px;
   list-style-type: none;
   border: 1px solid var(--global-border-color);
-  border-radius: $border-radius;
+  border-radius: 16px;
   background: var(--global-bg-color);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: -1;
-  box-shadow: 0 0 10px rgba(#000, 0.25);
+  box-shadow: 0 8px 32px rgba(#000, 0.12);
   cursor: default;
 
+  /* On large screens, show inline (no dropdown) */
   @include breakpoint($large) {
     display: block;
     position: relative;
@@ -206,11 +271,12 @@
     padding: 0;
     border: 0;
     background: transparent;
+    backdrop-filter: none;
     box-shadow: none;
   }
 
+  /* Dropdown arrows — mobile only, hidden on desktop */
   &:before {
-    display: block;
     content: "";
     position: absolute;
     top: -11px;
@@ -222,12 +288,11 @@
     z-index: 0;
 
     @include breakpoint($large) {
-      display: none;
+      display: none !important;
     }
   }
 
   &:after {
-    display: block;
     content: "";
     position: absolute;
     top: -10px;
@@ -235,30 +300,47 @@
     width: 0;
     border-style: solid;
     border-width: 0 10px 10px;
-    border-color: #fff transparent;
+    border-color: var(--global-bg-color) transparent;
     z-index: 1;
 
     @include breakpoint($large) {
-      display: none;
+      display: none !important;
     }
   }
 
+  /* All list items — uniform size */
   li {
     white-space: nowrap;
+    font-size: 0.82em;
+    line-height: 1.4;
   }
 
-  a {
-    display: block;
-    margin-bottom: 5px;
-    padding-right: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+  /* Links and plain text items — same size and spacing */
+  a,
+  & > li {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-bottom: 2px;
+    padding: 5px 8px;
     color: inherit;
-    font-size: $type-size-5;
+    font-size: inherit;
     text-decoration: none;
+    border-radius: 10px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
 
-    &:hover {
-      text-decoration: underline;
-    }
+  a:hover {
+    background: var(--global-border-color);
+    color: var(--global-link-color-hover);
+  }
+
+  /* Icons — consistent width for alignment */
+  i {
+    font-size: 1em;
+    width: 1.3em;
+    flex-shrink: 0;
+    text-align: center;
+    opacity: 0.65;
   }
 }

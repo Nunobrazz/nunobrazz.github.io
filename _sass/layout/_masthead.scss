@@ -1,67 +1,77 @@
 /* ==========================================================================
-   MASTHEAD
+   MASTHEAD — Single top bar
+   Layout: [Title] [---chip nav---] [theme toggle]
+
+   The chip nav sits inline between the title and toggle, taking up
+   all available space. It scrolls horizontally with elastic physics
+   (see /assets/js/chip-nav.js).
    ========================================================================== */
 
 .masthead {
   position: fixed;
-  background: var(--global-bg-color);
-  height: fit-content;
   top: 0;
-  width: 100%;
-
-  -webkit-animation: intro 0.3s both;
-          animation: intro 0.3s both;
-  -webkit-animation-delay: 0.15s;
-          animation-delay: 0.15s;
+  left: 0;
+  right: 0;
   z-index: 20;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    height: 1px;
-    background: var(--global-border-color);
-    width: 100%;
-  }
+  /* Glassmorphism — semi-transparent with blur */
+  background: var(--global-masthead-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--global-border-color);
 
+  /* ---- Inner wrapper: single flex row ---- */
   &__inner-wrap {
     @include container;
-    @include clearfix;
-    padding: 0.5em 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.4em 1em;
     font-family: $sans-serif-narrow;
 
     @include breakpoint($x-large) {
       max-width: $x-large;
     }
-
-    nav {
-      z-index: 10;
-    }
-
-    a {
-      text-decoration: none;
-    }
   }
-}
 
-.masthead__menu {
+  /* ---- Section title (left, fixed width) ----
+     Shows the current section name (e.g. "CV", "Projects").
+     Updated dynamically by JS on Turbo navigations. */
+  &__title {
+    flex-shrink: 0;
+    font-family: $header-font-family;
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--global-text-color);
+    white-space: nowrap;
+  }
 
-  ul {
-    margin: 0;
+  /* ---- Theme toggle button (right, fixed width) ---- */
+  &__theme-toggle {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
     padding: 0;
-    clear: both;
-    list-style-type: none;
-  }
-}
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--global-masthead-link-color);
+    cursor: pointer;
+    transition: background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                color 0.2s ease,
+                transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    font-size: 0.95em;
 
-.masthead__menu-item {
-  background-color: var(--global-bg-color);
-  display: block;
-  list-style-type: none;
-  white-space: nowrap;
+    &:hover {
+      background: var(--global-border-color);
+      color: var(--global-masthead-link-color-hover);
+    }
 
-  &--lg {
-    padding-right: 2em;
-    font-weight: 700;
+    &:active {
+      transform: scale(0.9);
+    }
   }
 }

@@ -31,22 +31,23 @@
     margin-bottom: 3em;
 }
 
-/* Individual card */
+/* Individual card — iOS grouped-list feel */
 .service-card {
     position: relative;
-    background-color: var(--global-bg-color, var(--global-background-color));
-    border: 1px solid var(--global-border-color);
-    border-radius: 10px;
+    background-color: var(--global-card-bg);
+    border: 1px solid var(--global-card-border);
+    border-radius: 18px;
     padding: 2em 1.5em 1.8em;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
 }
 
 .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
 }
 
 /* Badge */
@@ -125,10 +126,10 @@
 .services-cta {
     text-align: center;
     padding: 2.5em 1.5em;
-    border: 1px solid var(--global-border-color);
-    border-radius: 10px;
-    background-color: var(--global-bg-color, var(--global-background-color));
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--global-card-border);
+    border-radius: 18px;
+    background-color: var(--global-card-bg);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .services-cta h2 {
@@ -145,19 +146,39 @@
 
 .services-cta__button {
     display: inline-block;
-    padding: 0.65em 2em;
-    background: var(--global-link-color, var(--global-theme-color, #38bdf8));
+    padding: 0.75em 2.4em;
+    background: #3b82f6;
     color: #fff !important;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 100px;
     font-weight: 500;
     font-size: 1em;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease,
+                transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
+                box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .services-cta__button:hover {
-    opacity: 0.88;
+    background: #2563eb;
     transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+.services-cta__button:active {
+    transform: scale(0.96);
+}
+
+/* Dark mode: brighter button that stands out */
+html[data-theme="dark"] .services-cta__button {
+    background: #38bdf8;
+    color: #0a0a0f !important;
+    box-shadow: 0 2px 12px rgba(56, 189, 248, 0.35);
+}
+
+html[data-theme="dark"] .services-cta__button:hover {
+    background: #7dd3fc;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.5);
 }
 
 /* Mobile tweaks */

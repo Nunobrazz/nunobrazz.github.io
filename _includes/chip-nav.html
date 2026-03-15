@@ -1,0 +1,28 @@
+{% include base_path %}
+
+<!-- ============================================================
+     CHIP NAV — Horizontal scrolling pill navigation bar
+
+     Sits below the masthead. Contains one pill ("chip") per page.
+     The active chip is highlighted via the .is-active class, which
+     is set here via Liquid on first render and updated by JS on
+     Turbo navigations (since data-turbo-permanent keeps the DOM).
+
+     Elastic drag-scroll is handled by /assets/js/chip-nav.js.
+     Gradient fade masks are toggled via .fade-left / .fade-right.
+     ============================================================ -->
+<div class="chip-nav" id="chip-nav" data-turbo-permanent>
+  <div class="chip-nav__track" id="chip-nav-track">
+    <!-- Home chip -->
+    <a href="{{ site.baseurl }}/" class="chip-nav__chip{% if page.url == '/' %} is-active{% endif %}">Home</a>
+    <!-- Dynamic chips from _data/navigation.yml -->
+    {% for link in site.data.navigation.main %}
+      {% if link.url contains 'http' %}
+        {% assign domain = '' %}
+      {% else %}
+        {% assign domain = site.baseurl %}
+      {% endif %}
+      <a href="{{ domain }}{{ link.url }}" class="chip-nav__chip{% if page.url == link.url %} is-active{% endif %}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+</div>

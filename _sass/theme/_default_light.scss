@@ -1,5 +1,5 @@
 /* ==========================================================================
-   DEFAULT THEME
+   DEFAULT THEME — Light (Liquid / Revolut-inspired)
    ========================================================================== */
 
 /* Color codes used for the theme */
@@ -10,17 +10,17 @@ $light-gray : mix(#fff, $gray, 50%);
 $lighter-gray : mix(#fff, $gray, 90%);
 
 /* Color codes used for the site */
-$danger-color : #ee5f5b;
-$info-color : #2f7f93;
-$notice-color : #7a8288;
-$success-color : #62c462;
-$warning-color : #f89406;
+$danger-color : #ef4444;
+$info-color : #0ea5e9;
+$notice-color : #64748b;
+$success-color : #22c55e;
+$warning-color : #f59e0b;
 
 /* Other basic settings for the template */
-$border-radius : 4px;
-$box-shadow : 0 1px 1px rgba(0, 0, 0, 0.125);
-$global-transition : all 0.2s ease-in-out;
-$masthead-height : 70px;
+$border-radius : 14px;
+$box-shadow : 0 1px 4px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);
+$global-transition : all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+$masthead-height : 56px;
 $navicon-width : 28px;
 $navicon-height : 4px;
 $sidebar-link-max-width : 250px;
@@ -29,38 +29,25 @@ $sidebar-screen-min-width : 1024px;
 /* Default light theme for the site */
 :root {
     --global-base-color: #475569;
-    /* Slate 600 */
-    --global-bg-color: #f8fafc;
-    /* Slate 50 */
-    --global-bg-image: radial-gradient(#94a3b8 1px, transparent 1px);
-    --global-bg-size: 20px 20px;
-    --global-bg-repeat: repeat;
-    --global-footer-bg-color: #f1f5f9;
-    /* Slate 100 */
-    --global-border-color: #e2e8f0;
-    /* Slate 200 */
-    --global-dark-border-color: #cbd5e1;
-    /* Slate 300 */
+    --global-bg-color: #f8f9fb;
+    --global-bg-image: none;
+    --global-bg-size: auto;
+    --global-bg-repeat: no-repeat;
+    --global-footer-bg-color: rgba(255, 255, 255, 0.6);
+    --global-border-color: rgba(0, 0, 0, 0.06);
+    --global-dark-border-color: rgba(0, 0, 0, 0.1);
     --global-code-background-color: #f1f5f9;
-    /* Slate 100 */
     --global-code-text-color: #334155;
-    /* Slate 700 */
     --global-fig-caption-color: #64748b;
-    /* Slate 500 */
-    --global-link-color: #2563eb;
-    /* Blue 600 */
-    --global-link-color-hover: #1d4ed8;
-    /* Blue 700 */
-    --global-link-color-visited: #1e40af;
-    /* Blue 800 */
-    --global-masthead-link-color: #0f172a;
-    /* Slate 900 */
-    --global-masthead-link-color-hover: #2563eb;
-    /* Blue 600 */
+    --global-link-color: #0f172a;
+    --global-link-color-hover: #3b82f6;
+    --global-link-color-visited: #1e293b;
+    --global-masthead-link-color: #334155;
+    --global-masthead-link-color-hover: #0f172a;
     --global-text-color: #0f172a;
-    /* Slate 900 */
     --global-text-color-light: #64748b;
-    /* Slate 500 */
     --global-thead-color: #f1f5f9;
-    /* Slate 100 */
+    --global-card-bg: rgba(255, 255, 255, 0.7);
+    --global-card-border: rgba(0, 0, 0, 0.06);
+    --global-masthead-bg: rgba(248, 249, 251, 0.8);
 }

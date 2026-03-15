@@ -9,9 +9,10 @@
     @include span(12 of 12);
   }
 
+  /* Archive content area — sits to the right of the 2.5-column sidebar */
   @include breakpoint($large) {
-    @include span(10 of 12 last);
-    @include prefix(0.5 of 12);
+    @include span(9 of 12 last);
+    @include prefix(0.25 of 12);
   }
 
   a {

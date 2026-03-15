@@ -21,6 +21,21 @@
 
 <script>
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+
+  /* Apply saved theme BEFORE any content renders to prevent white flash.
+     Reads the preference from localStorage. Falls back to OS dark-mode
+     preference. If neither is set, defaults to dark. */
+  (function() {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') {
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      /* OS prefers light — leave default (no data-theme) */
+    } else {
+      /* No preference or OS prefers dark — start dark */
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
 </script>
 
 <!-- Turbo for SPA-like navigation -->
