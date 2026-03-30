@@ -1,0 +1,83 @@
+/* ==========================================================================
+   CARD LIST — Stylish cards for projects, teaching, blog posts
+   Replaces the timeline layout on non-CV pages.
+   ========================================================================== */
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.card-list__item {
+  display: block;
+  padding: 1.4em 1.6em;
+  border-radius: 14px;
+  background: var(--global-card-bg);
+  border: 1px solid var(--global-card-border);
+  text-decoration: none;
+  color: var(--global-text-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    border-color: var(--global-theme-color);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.card-list__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom: 0.5em;
+}
+
+.card-list__title {
+  margin: 0;
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--global-text-color);
+  letter-spacing: -0.01em;
+}
+
+.card-list__date {
+  flex-shrink: 0;
+  font-size: 0.82em;
+  color: var(--global-text-color-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.card-list__subtitle {
+  margin: 0 0 0.3em;
+  font-size: 0.88em;
+  color: var(--global-theme-color);
+}
+
+.card-list__excerpt {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+}
+
+.card-list__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0.6em 0 0;
+}
+
+.card-list__tag {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  font-size: 0.75em;
+  border-radius: 6px;
+  background: rgba(var(--gen-hero-card-rgb, 0, 0, 0), 0.15);
+  color: var(--global-text-color-light);
+}

@@ -7,24 +7,21 @@ author_profile: true
 
 {% include base_path %}
 
-<div class="timeline">
+<div class="card-list">
   {% for post in site.teaching reversed %}
-  <div class="timeline-item">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
-      <div class="timeline-content-header">
-        <h3 class="timeline-title"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h3>
-        {% if post.date %}
-        <span class="timeline-date">{{ post.date | date: "%B %Y" }}</span>
-        {% endif %}
-      </div>
-      {% if post.venue %}
-      <span class="timeline-subtitle">{{ post.venue }}</span>
-      {% endif %}
-      {% if post.type %}
-      <p>{{ post.type }}{% if post.location %} · {{ post.location }}{% endif %}</p>
+  <a href="{{ base_path }}{{ post.url }}" class="card-list__item">
+    <div class="card-list__header">
+      <h3 class="card-list__title">{{ post.title }}</h3>
+      {% if post.date %}
+      <span class="card-list__date">{{ post.date | date: "%B %Y" }}</span>
       {% endif %}
     </div>
-  </div>
+    {% if post.venue %}
+    <p class="card-list__subtitle">{{ post.venue }}</p>
+    {% endif %}
+    {% if post.type %}
+    <p class="card-list__excerpt">{{ post.type }}{% if post.location %} · {{ post.location }}{% endif %}</p>
+    {% endif %}
+  </a>
   {% endfor %}
 </div>

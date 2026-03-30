@@ -116,43 +116,89 @@ Education
         <span class="timeline-date">2019-2022</span>
       </div>
       <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a>, <a href="https://www.ulisboa.pt" target="_blank">Lisbon University</a></span>
-      <p>Covered plenty of different fields in computer science including several programming languages with a highly practical approach with grades including 18 in Distributed Systems, 18 in Logic for Programming, 18 in Machine Learning, 16 in Complex Analysis and Differential Equation and, 17 in Probabilistic and Statistics. The final average grade was 16/20.</p>
+      <p>Covered plenty of different fields in computer science including several programming languages with a highly practical approach.</p>
     </div>
   </div>
 </div>
 
-Awards and Certificates
-======
-* [Merit Award](/files/meritAward.pdf) - [Instituto Superior Técnico](https://tecnico.ulisboa.pt){:target="_blank"}
-* [Tokenized RWA Bootcamp](https://collectors.poap.xyz/reservation/nuno.braz%40tecnico.ulisboa.pt/drop/178315) - [Chainlink Labs](https://chain.link){:target="_blank"}
-  
-Skills
-======
-* Languages: Python, Java, C++, Daml, Solidity.
-
-* Domains: Blockchain, Cyber-Security, Distributed Systems, Machine Learning, Game Theory, Decentralized Finance.
-
-* Spoken Languages: Portuguese (Native), English (Advanced), Spanish (Advanced), French (Intermediate).
-
-
 Publications
 ======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
+<div class="timeline">
+  {% for post in site.publications %}
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title">{% if post.paperurl %}<a href="{{ post.paperurl }}">{{ post.title }}</a>{% else %}{{ post.title }}{% endif %}</h3>
+      <p>{{ post.citation }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
-<!--Talks
+Awards and Certificates
 ======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul> <!-->
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title"><a href="/files/meritAward.pdf">Merit Award</a></h3>
+      <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title"><a href="https://collectors.poap.xyz/reservation/nuno.braz%40tecnico.ulisboa.pt/drop/178315">Tokenized RWA Bootcamp</a></h3>
+      <span class="timeline-subtitle"><a href="https://chain.link" target="_blank">Chainlink Labs</a></span>
+    </div>
+  </div>
+</div>
 
+Skills
+======
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title">Languages</h3>
+      <p>Python, Java, C++, Daml, Solidity.</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title">Domains</h3>
+      <p>Blockchain, Cyber-Security, Distributed Systems, Machine Learning, Game Theory, Decentralized Finance.</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title">Spoken Languages</h3>
+      <p>Portuguese (Native), English (Advanced), Spanish (Advanced), French (Intermediate).</p>
+    </div>
+  </div>
+</div>
 
 Interests & Volunteering
 ======
-* Volunteering: Volunteer at Batu Kapal Conservation, North Sumatra.
-  * Mapped and recorded orangutans, supported wildlife corridors by planting trees, and maintained ecological data.
-
-* Sports: 
-  * Federated Rugby Player
-  * Federated Surf Athlete 
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title">Volunteering</h3>
+      <span class="timeline-subtitle">Batu Kapal Conservation, North Sumatra</span>
+      <p>Mapped and recorded orangutans, supported wildlife corridors by planting trees, and maintained ecological data.</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h3 class="timeline-title">Sports</h3>
+      <ul>
+        <li>Federated Rugby Player</li>
+        <li>Federated Surf Athlete</li>
+      </ul>
+    </div>
+  </div>
+</div>

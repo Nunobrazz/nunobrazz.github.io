@@ -9,7 +9,7 @@ hide_title: true
 {% include base_path %}
 
 <div class="services-hero">
-  <h1 class="services-hero-title">Oh, and I Also Provide Services</h1>
+  <h1 class="services-hero-title">I Also Provide Services</h1>
   <p class="services-hero-subtitle">
     Besides research & all the other stuff, I also build things for people. If you need a hand with anything web-related, I'm here to help.
   </p>

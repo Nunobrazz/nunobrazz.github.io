@@ -7,22 +7,18 @@ author_profile: true
 
 {% include base_path %}
 
-<div class="timeline">
+<div class="card-list">
     {% for post in site.portfolio reversed %}
-    <div class="timeline-item">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-            <div class="timeline-content-header">
-                <h3 class="timeline-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                {% if post.date %}
-                <span class="timeline-date">{{ post.date | date: "%Y" }}</span>
-                {% endif %}
-            </div>
-            {% if post.excerpt %}
-            <p>{{ post.excerpt | markdownify | remove: '
-            <p>' | remove: '</p>' }}</p>
+    <a href="{{ post.url }}" class="card-list__item">
+        <div class="card-list__header">
+            <h3 class="card-list__title">{{ post.title }}</h3>
+            {% if post.date %}
+            <span class="card-list__date">{{ post.date | date: "%Y" }}</span>
             {% endif %}
         </div>
-    </div>
+        {% if post.excerpt %}
+        <p class="card-list__excerpt">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+        {% endif %}
+    </a>
     {% endfor %}
 </div>
