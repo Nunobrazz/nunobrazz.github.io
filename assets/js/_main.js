@@ -25,7 +25,7 @@ let determineComputedTheme = () => {
   if (themeSetting != "system") {
     return themeSetting;
   }
-  return (userPref && userPref("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+  return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
 };
 
 // Detect OS/browser dark-mode preference at load time
@@ -42,10 +42,18 @@ let setTheme = (theme) => {
 
   if (use_theme === "dark") {
     $("html").attr("data-theme", "dark");
+    document.documentElement.style.colorScheme = "dark";
     $("#theme-icon").removeClass("fa-sun").addClass("fa-moon");
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function(tc) {
+      tc.setAttribute('content', '#0a1e33');
+    });
   } else if (use_theme === "light") {
     $("html").removeAttr("data-theme");
+    document.documentElement.style.colorScheme = "light";
     $("#theme-icon").removeClass("fa-moon").addClass("fa-sun");
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function(tc) {
+      tc.setAttribute('content', '#d4e8f0');
+    });
   }
 };
 
@@ -133,10 +141,18 @@ function init() {
   fitvids();
 
   // ---- Author profile dropdown (mobile) ----
-  // On small screens the author sidebar collapses behind a "Follow" button.
+  // On small screens the author sidebar collapses behind a "Connect" button.
+  // Reset inline display styles that may persist across Turbo navigations
+  // (the sidebar has data-turbo-permanent, so jQuery's fadeToggle inline
+  // styles survive page swaps).
+  $(".author__urls").css('display', '');
+  $(".author__urls-wrapper button").removeClass("open").attr("aria-expanded", "false");
+
   $(".author__urls-wrapper button").off("click").on("click", function () {
     $(".author__urls").fadeToggle("fast", function () { });
-    $(".author__urls-wrapper button").toggleClass("open");
+    var btn = $(".author__urls-wrapper button");
+    btn.toggleClass("open");
+    btn.attr("aria-expanded", btn.hasClass("open") ? "true" : "false");
   });
   // Re-show the menu if the user resizes past the breakpoint
   jQuery(window).on('resize', function () {
@@ -152,39 +168,63 @@ function init() {
   });
 
   // ---- Avatar lightbox ----
-  // Click on the sidebar avatar to open a full-screen lightbox overlay.
+  // Click on the sidebar or hero avatar to open a full-screen lightbox dialog.
   // Click anywhere on the overlay (or press Escape) to close it.
-  var avatarImg = document.querySelector('.author__avatar img');
+  var avatarImg = document.querySelector('.author__avatar img') || document.querySelector('.hero-bio__avatar img');
   if (avatarImg && !avatarImg._lightboxBound) {
     avatarImg._lightboxBound = true;
+    avatarImg.style.cursor = 'zoom-in';
     avatarImg.addEventListener('click', function () {
-      // Create overlay
+      // Create dialog overlay
       var overlay = document.createElement('div');
       overlay.className = 'avatar-lightbox';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Enlarged avatar image');
+
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'avatar-lightbox__close';
+      closeBtn.setAttribute('aria-label', 'Close lightbox');
+      closeBtn.textContent = '\u00D7';
+      overlay.appendChild(closeBtn);
+
       var img = document.createElement('img');
       img.src = avatarImg.src;
       img.alt = avatarImg.alt;
+      img.width = avatarImg.naturalWidth || 600;
+      img.height = avatarImg.naturalHeight || 600;
       overlay.appendChild(img);
       document.body.appendChild(overlay);
+
+      // Focus the close button for keyboard users
+      closeBtn.focus();
 
       // Trigger entrance animation on next frame
       requestAnimationFrame(function () {
         overlay.classList.add('is-visible');
       });
 
-      // Close on click
-      overlay.addEventListener('click', function close() {
+      var closeLightbox = function () {
         overlay.classList.remove('is-visible');
         overlay.addEventListener('transitionend', function () {
           overlay.remove();
         });
+        // Return focus to the avatar image
+        avatarImg.focus();
+        document.removeEventListener('keydown', onKey);
+      };
+
+      // Close on click outside image
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay || e.target === closeBtn) {
+          closeLightbox();
+        }
       });
 
       // Close on Escape key
       var onKey = function (e) {
         if (e.key === 'Escape') {
-          overlay.click();
-          document.removeEventListener('keydown', onKey);
+          closeLightbox();
         }
       };
       document.addEventListener('keydown', onKey);
@@ -196,6 +236,13 @@ function init() {
   // It dynamically loads d3 + topojson, then renders the SVG map.
   if (document.getElementById('world-map') && typeof window.initWorldMap === 'function') {
     window.initWorldMap();
+  }
+
+  // ---- Generative hero (p5.js particle canvas) ----
+  // initGenerativeHero() is defined in /assets/js/generative-hero.js.
+  // Loads p5.js on demand and starts the sketch if #gen-hero-canvas exists.
+  if (typeof window.initGenerativeHero === 'function') {
+    window.initGenerativeHero();
   }
 
   // ---- Chip nav (horizontal scrolling pill bar) ----

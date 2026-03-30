@@ -1,55 +1,64 @@
 /* ==========================================================================
-   Air skin, based on the Minimal Mistakes skin
+   Air skin — Light theme
+   Sun-bleached sand with deep ocean blue accent
    ========================================================================== */
 
 /* Color codes used for the theme */
-$primary-color              : #0092ca;
-$dark-primary-color         : mix(#000, $primary-color, 40%);
-$darker-primary-color       : mix(#000, $primary-color, 60%);
-$light-primary-color        : mix(#000, $primary-color, 50%);
+$primary-color              : #1b6fa8;
+$dark-primary-color         : mix(#000, $primary-color, 30%);
+$darker-primary-color       : mix(#000, $primary-color, 55%);
+$light-primary-color        : mix(#fff, $primary-color, 40%);
 
-$background                 : #eeeeee;
-$background-light           : mix(#fff, $background, 20%);
-$background-lighter         : mix(#fff, $background, 90%);
-$text                       : #222831;
-$link                       : #393e46;
-$link-dark                  : mix(#000, $link, 25%);
-$link-light                 : mix(#fff, $link, 25%);
-$footer                     : $primary-color;
+$background                 : #d4e8f0;
+$background-light           : mix(#fff, $background, 30%);
+$background-lighter         : mix(#fff, $background, 85%);
+$text                       : #2a2e33;
+$link                       : #1b6fa8;
+$link-dark                  : mix(#000, $link, 20%);
+$link-light                 : mix(#fff, $link, 20%);
+$footer                     : darken($background, 6%);
 
 /* Color codes used for the site */
-$danger-color               : #ee5f5b;
-$info-color                 : #2f7f93;
+$danger-color               : #c75450;
+$info-color                 : #2a8a9e;
 $notice-color               : #7a8288;
-$success-color              : #62c462;
-$warning-color              : #f89406;
+$success-color              : #4a9a5b;
+$warning-color              : #d49536;
 
 /* Other basic settings for the template */
-$border-radius              : 4px;
-$box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
-$global-transition          : all 0.2s ease-in-out;
+$border-radius              : 6px;
+$box-shadow                 : 0 1px 3px rgba(0, 0, 0, 0.08);
+$global-transition          : color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 $masthead-height            : 70px;
 $navicon-width              : 28px;
 $navicon-height             : 4px;
 $sidebar-link-max-width     : 250px;
 $sidebar-screen-min-width   : 1024px;
 
-/* Dark theme for the site */
+/* Light theme (default) */
 :root {
     --global-base-color                 : #{$background};
     --global-bg-color                   : #{$background};
     --global-footer-bg-color            : #{$footer};
-    --global-border-color               : #{$light-primary-color};
-    --global-dark-border-color          : #{$background-light};
-    --global-code-background-color      : #fafafa;
+    --global-border-color               : #{rgba($primary-color, 0.13)};
+    --global-dark-border-color          : #{rgba($primary-color, 0.22)};
+    --global-code-background-color      : #{darken($background, 3%)};
     --global-code-text-color            : #{$darker-primary-color};
     --global-fig-caption-color          : #{$light-primary-color};
     --global-link-color                 : #{$link};
     --global-link-color-hover           : #{$link-dark};
     --global-link-color-visited         : #{$link-light};
     --global-masthead-link-color        : #{$text};
-    --global-masthead-link-color-hover  : #{$link};
+    --global-masthead-link-color-hover  : #{$primary-color};
+    --global-masthead-bg                : #{rgba($background, 0.82)};
     --global-text-color                 : #{$text};
-    --global-text-color-light           : #{$light-primary-color};
+    --global-text-color-light           : #{rgba($text, 0.55)};
     --global-thead-color                : #{$background-lighter};
+    --global-card-bg                    : #{lighten($background, 3%)};
+    --global-card-border                : #{rgba($primary-color, 0.10)};
+    --global-theme-color                : #{$primary-color};
+    --global-accent-color               : #3ca5a0;
+    --global-focus-ring                 : #{rgba($primary-color, 0.45)};
+    --global-grain-opacity              : 0.025;
+    color-scheme                        : light;
 }

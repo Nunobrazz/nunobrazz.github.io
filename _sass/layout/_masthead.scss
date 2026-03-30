@@ -70,6 +70,11 @@
       color: var(--global-masthead-link-color-hover);
     }
 
+    &:focus-visible {
+      outline: 2px solid var(--global-focus-ring);
+      outline-offset: 2px;
+    }
+
     &:active {
       transform: scale(0.9);
     }

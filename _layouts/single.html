@@ -14,9 +14,15 @@ layout: default
 {% endunless %}
 {% endif %}
 
-<div id="main" role="main">
+<main id="main" {% if page.generative_bg %}class="has-generative-bg"{% endif %}>
+  {% if page.generative_bg %}
+  <div class="fluid-bg" id="fluid-bg-canvas"></div>
+  {% include author-hero.html %}
+  {% else %}
   {% include sidebar.html %}
+  {% endif %}
 
+  {% unless page.generative_bg %}
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     {% if page.title %}
     <meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{%
@@ -62,39 +68,39 @@ layout: default
         {{ content }}
 
         {% if page.citation and page.paperurl and page.slidesurl and page.bibtexurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.paperurl }}">Download Paper</a> | <a href="{{ page.slidesurl }}">Download Slides</a> | <a
             href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% elsif page.citation and page.paperurl and page.slidesurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.paperurl }}">Download Paper</a> | <a href="{{ page.slidesurl }}">Download Slides</a></p>
         {% elsif page.citation and page.paperurl and page.bibtexurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.paperurl }}">Download Paper</a> | <a href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% elsif page.citation and page.paperurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.paperurl }}">Download Paper</a></p>
         {% elsif page.citation and page.slidesurl and page.bibtexurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.slidesurl }}">Download Slides</a> | <a href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% elsif page.citation and page.slidesurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.slidesurl }}">Download Slides</a></p>
         {% elsif page.slidesurl and page.bibtexurl %}
-        <p style="font-size: smaller"><a href="{{ page.slidesurl }}">Download Slides</a> | <a
+        <p class="citation-text"><a href="{{ page.slidesurl }}">Download Slides</a> | <a
             href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% elsif page.paperurl and page.bibtexurl %}
-        <p style="font-size: smaller"><a href="{{ page.paperurl }}">Download Paper</a> | <a
+        <p class="citation-text"><a href="{{ page.paperurl }}">Download Paper</a> | <a
             href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% elsif page.citation and page.bibtexurl %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a
+        <p class="citation-text">Recommended citation: {{ page.citation }}<br /><a
             href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% elsif page.citation %}
-        <p style="font-size: smaller">Recommended citation: {{ page.citation }}</p>
+        <p class="citation-text">Recommended citation: {{ page.citation }}</p>
         {% elsif page.slidesurl %}
-        <p style="font-size: smaller"><a href="{{ page.slidesurl }}">Download Slides</a></p>
+        <p class="citation-text"><a href="{{ page.slidesurl }}">Download Slides</a></p>
         {% elsif page.bibtexurl %}
-        <p style="font-size: smaller"><a href="{{ page.bibtexurl }}">Download Bibtex</a></p>
+        <p class="citation-text"><a href="{{ page.bibtexurl }}">Download Bibtex</a></p>
         {% endif %}
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label |
@@ -117,6 +123,7 @@ layout: default
     {% include comments.html %}
     {% endif %}
   </article>
+  {% endunless %}
 
   {% comment %}<!-- only show related on a post page when not disabled -->{% endcomment %}
   {% if page.id and page.related and site.related_posts.size > 0 %}
@@ -132,4 +139,4 @@ layout: default
     </div>
   </div>
   {% endif %}
-</div>
+</main>

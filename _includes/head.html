@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
   rel="stylesheet">
+
+<!-- Preconnect to CDN domains used for scripts -->
+<link rel="preconnect" href="https://esm.sh" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
 <link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ base_path }}/feed.xml{% endif %}"
   type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
@@ -27,14 +32,25 @@
      preference. If neither is set, defaults to dark. */
   (function() {
     var saved = localStorage.getItem('theme');
+    var isDark = false;
     if (saved === 'dark' || saved === 'light') {
-      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      isDark = saved === 'dark';
     } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      /* OS prefers light — leave default (no data-theme) */
+      isDark = false;
     } else {
-      /* No preference or OS prefers dark — start dark */
-      document.documentElement.setAttribute('data-theme', 'dark');
+      isDark = true;
     }
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.style.colorScheme = 'light';
+    }
+    /* Update theme-color meta tags to match background */
+    var tcLight = document.querySelector('#meta-theme-color-light');
+    var tcDark = document.querySelector('#meta-theme-color-dark');
+    if (tcLight) tcLight.setAttribute('content', isDark ? '#0f1923' : '#f2f0eb');
+    if (tcDark) tcDark.setAttribute('content', isDark ? '#0f1923' : '#f2f0eb');
   })();
 </script>
 

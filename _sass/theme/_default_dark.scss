@@ -36,11 +36,11 @@ $sidebar-screen-min-width : 1024px;
 /* Dark theme for the site */
 html[data-theme="dark"] {
     --global-base-color: #94a3b8;
-    --global-bg-color: #0a0a0f;
+    --global-bg-color: #0a1e33;
     --global-bg-image: radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(139, 92, 246, 0.06) 0px, transparent 60%);
     --global-bg-size: 100% 100%;
     --global-bg-repeat: no-repeat;
-    --global-footer-bg-color: rgba(10, 10, 15, 0.8);
+    --global-footer-bg-color: rgba(10, 30, 51, 0.8);
     --global-border-color: rgba(255, 255, 255, 0.06);
     --global-dark-border-color: rgba(255, 255, 255, 0.1);
     --global-code-background-color: rgba(255, 255, 255, 0.05);
@@ -56,5 +56,5 @@ html[data-theme="dark"] {
     --global-thead-color: rgba(255, 255, 255, 0.05);
     --global-card-bg: rgba(255, 255, 255, 0.03);
     --global-card-border: rgba(255, 255, 255, 0.06);
-    --global-masthead-bg: rgba(10, 10, 15, 0.75);
+    --global-masthead-bg: rgba(10, 30, 51, 0.75);
 }

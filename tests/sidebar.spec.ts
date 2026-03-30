@@ -67,8 +67,8 @@ test.describe('Avatar lightbox', () => {
     const lightbox = page.locator('.avatar-lightbox');
     await expect(lightbox).toHaveClass(/is-visible/);
 
-    // Click overlay to close
-    await lightbox.click();
+    // Click the overlay edge (not the image in the center)
+    await lightbox.click({ position: { x: 5, y: 5 } });
 
     // Wait for transition and removal
     await expect(lightbox).not.toBeVisible({ timeout: 2000 });

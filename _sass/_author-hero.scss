@@ -1,0 +1,181 @@
+/* ==========================================================================
+   AUTHOR HERO — Centered bio card over generative background
+   Replaces the sidebar on the Short Bio / homepage.
+   Frosted-glass card with avatar, name, bio, and social icon row.
+   ========================================================================== */
+
+.hero-bio {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.5em 1em;
+  overflow: hidden;
+}
+
+.hero-bio__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  padding: 2.5em 2em 2em;
+  border-radius: 24px;
+  background: rgba(var(--hero-card-rgb, 242, 240, 235), 0.65);
+  backdrop-filter: saturate(140%) blur(24px);
+  -webkit-backdrop-filter: saturate(140%) blur(24px);
+  border: 1px solid rgba(var(--hero-card-border-rgb, 0, 0, 0), 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.10);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ---- Avatar ---- */
+.hero-bio__avatar {
+  margin-bottom: 1.2em;
+
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(var(--hero-card-border-rgb, 0, 0, 0), 0.10);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.25s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    @include breakpoint($medium) {
+      width: 140px;
+      height: 140px;
+    }
+  }
+}
+
+/* ---- Name, pronouns, bio ---- */
+.hero-bio__name {
+  margin: 0 0 0.15em;
+  font-family: $header-font-family;
+  font-size: 1.6em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+
+  @include breakpoint($medium) {
+    font-size: 1.85em;
+  }
+}
+
+.hero-bio__pronouns {
+  margin: 0 0 0.4em;
+  font-size: 0.85em;
+  color: var(--global-text-color-light);
+}
+
+.hero-bio__bio {
+  margin: 0 0 0.3em;
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+}
+
+.hero-bio__text {
+  margin-top: 0.6em;
+  font-size: 0.95em;
+  line-height: 1.65;
+  color: var(--global-text-color);
+
+  p {
+    margin: 0;
+  }
+}
+
+/* ---- Location / employer meta row ---- */
+.hero-bio__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8em 1.2em;
+  margin-top: 1em;
+  font-size: 0.82em;
+  color: var(--global-text-color-light);
+
+  i {
+    opacity: 0.6;
+    margin-right: 0.25em;
+  }
+}
+
+.hero-bio__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+/* ---- Social icon row ---- */
+.hero-bio__social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3em;
+  margin-top: 1.2em;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--global-text-color);
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      background: rgba(var(--hero-card-border-rgb, 0, 0, 0), 0.08);
+      color: var(--global-theme-color);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--global-focus-ring);
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* ---- Theme tokens ---- */
+:root {
+  --hero-card-rgb: 242, 240, 235;
+  --hero-card-border-rgb: 0, 0, 0;
+}
+
+html[data-theme="dark"] {
+  --hero-card-rgb: 20, 30, 42;
+  --hero-card-border-rgb: 255, 255, 255;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bio__avatar img {
+    transition: none;
+  }
+  .hero-bio__social a {
+    transition: none;
+  }
+}

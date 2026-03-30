@@ -2,7 +2,8 @@
 permalink: /
 title: "Short Bio"
 author_profile: true
-redirect_from: 
+generative_bg: true
+redirect_from:
   - /about/
   - /about.html
 ---

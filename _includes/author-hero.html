@@ -1,0 +1,88 @@
+{% include base_path %}
+
+{% if page.author and site.data.authors[page.author] %}
+  {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.author %}
+{% endif %}
+
+<div class="hero-bio" itemscope itemtype="http://schema.org/Person">
+  <div class="hero-bio__card">
+
+    <div class="hero-bio__avatar">
+      {% if author.avatar contains "://" %}
+        <img src="{{ author.avatar }}" alt="{{ author.name }}" width="200" height="200" fetchpriority="high" tabindex="0" />
+      {% else %}
+        <img src="{{ author.avatar | prepend: "/images/" | prepend: base_path }}" alt="{{ author.name }}" width="200" height="200" fetchpriority="high" tabindex="0" />
+      {% endif %}
+    </div>
+
+    <div class="hero-bio__info">
+      <h1 class="hero-bio__name">{{ author.name }}</h1>
+      {% if author.pronouns %}<p class="hero-bio__pronouns">{{ author.pronouns }}</p>{% endif %}
+      {% if author.bio %}<p class="hero-bio__bio">{{ author.bio }}</p>{% endif %}
+
+      {% if page.content and page.content != "" %}
+      <div class="hero-bio__text">
+        {{ content }}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="hero-bio__links">
+      {% if author.location %}
+        <span class="hero-bio__meta-item"><i class="fas fa-fw fa-location-dot" aria-hidden="true"></i>{{ author.location }}</span>
+      {% endif %}
+      {% if author.employer %}
+        <span class="hero-bio__meta-item"><i class="fas fa-fw fa-building-columns" aria-hidden="true"></i>{{ author.employer }}</span>
+      {% endif %}
+    </div>
+
+    <nav class="hero-bio__social" aria-label="Social links">
+      {% if author.email %}
+        <a href="mailto:{{ author.email }}" aria-label="Email"><i class="fas fa-fw fa-envelope"></i></a>
+      {% endif %}
+      {% if author.googlescholar %}
+        <a href="{{ author.googlescholar }}" aria-label="Google Scholar"><i class="ai ai-google-scholar ai-fw"></i></a>
+      {% endif %}
+      {% if author.orcid %}
+        <a href="{{ author.orcid }}" aria-label="ORCID"><i class="ai ai-orcid ai-fw"></i></a>
+      {% endif %}
+      {% if author.researchgate %}
+        <a href="{{ author.researchgate }}" aria-label="ResearchGate"><i class="fab fa-fw fa-researchgate"></i></a>
+      {% endif %}
+      {% if author.github %}
+        <a href="https://github.com/{{ author.github }}" aria-label="GitHub"><i class="fab fa-fw fa-github"></i></a>
+      {% endif %}
+      {% if author.linkedin %}
+        <a href="https://www.linkedin.com/in/{{ author.linkedin }}" aria-label="LinkedIn"><i class="fab fa-fw fa-linkedin"></i></a>
+      {% endif %}
+      {% if author.twitter %}
+        <a href="https://twitter.com/{{ author.twitter }}" aria-label="X (formerly Twitter)"><i class="fab fa-fw fa-x-twitter"></i></a>
+      {% endif %}
+      {% if author.bluesky %}
+        <a href="https://bsky.app/profile/{{ author.bluesky }}" aria-label="Bluesky"><i class="fab fa-fw fa-bluesky"></i></a>
+      {% endif %}
+      {% if author.instagram %}
+        <a href="https://instagram.com/{{ author.instagram }}" aria-label="Instagram"><i class="fab fa-fw fa-instagram"></i></a>
+      {% endif %}
+      {% if author.youtube %}
+        <a href="https://www.youtube.com/@{{ author.youtube }}" aria-label="YouTube"><i class="fab fa-fw fa-youtube"></i></a>
+      {% endif %}
+      {% if author.mastodon %}
+        <a href="{{ author.mastodon }}" aria-label="Mastodon"><i class="fab fa-fw fa-mastodon"></i></a>
+      {% endif %}
+      {% if author.medium %}
+        <a href="{{ author.medium }}" aria-label="Medium"><i class="fab fa-fw fa-medium"></i></a>
+      {% endif %}
+      {% if author.kaggle %}
+        <a href="https://kaggle.com/{{ author.kaggle }}" aria-label="Kaggle"><i class="fab fa-fw fa-kaggle"></i></a>
+      {% endif %}
+      {% if author.stackoverflow %}
+        <a href="https://www.stackoverflow.com/users/{{ author.stackoverflow }}" aria-label="Stack Overflow"><i class="fab fa-fw fa-stack-overflow"></i></a>
+      {% endif %}
+      {% if author.uri %}
+        <a href="{{ author.uri }}" aria-label="Website"><i class="fas fa-fw fa-link"></i></a>
+      {% endif %}
+    </nav>
+
+  </div>
+</div>
