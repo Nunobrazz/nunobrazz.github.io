@@ -10,6 +10,8 @@ redirect_from:
 
 {% include base_path %}
 
+<a href="{{ base_path }}/files/CV.pdf" class="btn btn--inverse" download><i class="fas fa-download"></i> Download CV (PDF)</a>
+
 Work experience
 ======
 
