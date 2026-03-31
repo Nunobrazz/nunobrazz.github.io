@@ -42,32 +42,32 @@
 
     if (isDark) {
       return [
-        '#0a2540',  // abyss navy
-        '#0d3b66',  // deep ocean
-        '#1b6fa8',  // mid ocean blue
-        '#2d9cba',  // bright cerulean
-        '#5db8d4',  // luminous aqua
-        '#4dd8c0',  // seafoam
-        '#7ee8d6',  // bright foam
-        '#1a4a6e',  // teal shadow
+        '#1a5276',  // deep water
+        '#2471a3',  // ocean current
+        '#2e86c1',  // vivid blue
+        '#3498db',  // clear water
+        '#5dade2',  // bright surface
+        '#85c1e9',  // shallow water
+        '#aed6f1',  // sunlit ripple
+        '#21618c',  // undertow
       ];
     } else {
       return [
-        '#2980b9',  // clear ocean blue
-        '#3498db',  // bright sky blue
-        '#5dade2',  // light cerulean
-        '#48c9b0',  // seafoam teal
-        '#76d7c4',  // aquamarine
-        '#85c1e9',  // pale blue
-        '#aed6f1',  // ice blue
-        '#1a7aad',  // deep cerulean
+        '#2e86c1',  // clear water
+        '#3498db',  // bright pool
+        '#5dade2',  // sunlit surface
+        '#85c1e9',  // pale water
+        '#aed6f1',  // ice shimmer
+        '#d4e6f1',  // foam white
+        '#1a5276',  // deep current
+        '#2471a3',  // mid depth
       ];
     }
   }
 
   function _getBackColor() {
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    return isDark ? '#0a1e33' : '#d4e8f0';
+    return isDark ? '#0b1a2e' : '#e8f4f8';
   }
 
   function _startFluid(container) {
@@ -105,10 +105,10 @@
         SPLAT_AMOUNT: 5,
         TRANSPARENT: false,
         BACK_COLOR: _getBackColor(),
-        BRIGHTNESS: 0.5,
+        BRIGHTNESS: 0.7,
         BLOOM: true,
-        BLOOM_INTENSITY: 0.15,
-        BLOOM_THRESHOLD: 0.55,
+        BLOOM_INTENSITY: 0.25,
+        BLOOM_THRESHOLD: 0.45,
         SUNRAYS: true,
         SUNRAYS_WEIGHT: 0.6,
         HOVER: true,

@@ -45,14 +45,14 @@ let setTheme = (theme) => {
     document.documentElement.style.colorScheme = "dark";
     $("#theme-icon").removeClass("fa-sun").addClass("fa-moon");
     document.querySelectorAll('meta[name="theme-color"]').forEach(function(tc) {
-      tc.setAttribute('content', '#0a1e33');
+      tc.setAttribute('content', '#0b1a2e');
     });
   } else if (use_theme === "light") {
     $("html").removeAttr("data-theme");
     document.documentElement.style.colorScheme = "light";
     $("#theme-icon").removeClass("fa-moon").addClass("fa-sun");
     document.querySelectorAll('meta[name="theme-color"]').forEach(function(tc) {
-      tc.setAttribute('content', '#d4e8f0');
+      tc.setAttribute('content', '#e8f4f8');
     });
   }
 };

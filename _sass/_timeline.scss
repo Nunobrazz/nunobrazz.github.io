@@ -91,6 +91,41 @@
   color: var(--global-text-color-light);
 }
 
+/* Surf gallery — slides open on click */
+.surf-gallery-toggle {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
+.surf-gallery {
+  display: flex;
+  gap: 0.6em;
+  margin-top: 1em;
+  overflow-x: auto;
+  animation: gallerySlide 0.35s ease;
+
+  img {
+    width: auto;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+@keyframes gallerySlide {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 200px; }
+}
+
 /* Mobile responsiveness */
 @media screen and (max-width: 600px) {
   .timeline::after {

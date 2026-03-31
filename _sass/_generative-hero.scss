@@ -97,12 +97,12 @@ body:has(#main.has-generative-bg) {
 
 /* Theme-specific card background values */
 :root {
-  --gen-hero-card-rgb: 212, 232, 240;
+  --gen-hero-card-rgb: 232, 244, 248;
   --gen-hero-border-rgb: 0, 0, 0;
 }
 
 html[data-theme="dark"] {
-  --gen-hero-card-rgb: 10, 30, 51;
+  --gen-hero-card-rgb: 11, 26, 46;
   --gen-hero-border-rgb: 255, 255, 255;
 }
 

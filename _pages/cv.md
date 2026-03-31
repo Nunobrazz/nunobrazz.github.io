@@ -63,7 +63,7 @@ Education
     <div class="timeline-marker"></div>
     <div class="timeline-content">
       <div class="timeline-content-header">
-        <h3 class="timeline-title">PhD in Blockchain and Decentralized Economies</h3>
+        <h3 class="timeline-title">PhD in Computer Science and Engineering</h3>
         <span class="timeline-date">2024–Present</span>
       </div>
       <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
@@ -80,7 +80,7 @@ Education
         <span class="timeline-date">2022–2024</span>
       </div>
       <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
-      <p><strong>Highlights:</strong> Cyber-security and Algorithms specializations. Final Average Grade: 16/20.</p>
+      <p><strong>Highlights:</strong> Cyber-security and Algorithms specializations.</p>
     </div>
   </div>
 
@@ -168,7 +168,7 @@ Skills
     <div class="timeline-marker"></div>
     <div class="timeline-content">
       <h3 class="timeline-title">Domains</h3>
-      <p>Blockchain, Cyber-Security, Distributed Systems, Machine Learning, Game Theory, Decentralized Finance.</p>
+      <p>Blockchain, Cyber-Security, Distributed Systems, Game Theory, Decentralized Finance.</p>
     </div>
   </div>
   <div class="timeline-item">
@@ -197,8 +197,61 @@ Interests & Volunteering
       <h3 class="timeline-title">Sports</h3>
       <ul>
         <li>Federated Rugby Player</li>
-        <li>Federated Surf Athlete</li>
+        <li><a href="#" class="surf-gallery-toggle">Federated Surf Athlete</a></li>
       </ul>
+      <div class="surf-gallery" style="display:none;">
+        <img src="/files/surf.JPG" alt="Surfing" loading="lazy" />
+        <img src="/files/tubo zoomed.JPG" alt="Barrel surfing" loading="lazy" />
+        <img src="/files/Manobra_cropped.JPG" alt="Surf manoeuvre" loading="lazy" />
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('click', function(e) {
+  // Toggle gallery
+  var toggle = e.target.closest('.surf-gallery-toggle');
+  if (toggle) {
+    e.preventDefault();
+    var gallery = toggle.closest('.timeline-content').querySelector('.surf-gallery');
+    if (gallery) {
+      gallery.style.display = gallery.style.display === 'none' ? 'flex' : 'none';
+    }
+    return;
+  }
+
+  // Lightbox for gallery photos
+  var img = e.target.closest('.surf-gallery img');
+  if (img) {
+    var overlay = document.createElement('div');
+    overlay.className = 'avatar-lightbox';
+    overlay.setAttribute('role', 'dialog');
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'avatar-lightbox__close';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.textContent = '\u00D7';
+    overlay.appendChild(closeBtn);
+
+    var bigImg = document.createElement('img');
+    bigImg.src = img.src;
+    bigImg.alt = img.alt;
+    overlay.appendChild(bigImg);
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+
+    var close = function() {
+      overlay.classList.remove('is-visible');
+      overlay.addEventListener('transitionend', function() { overlay.remove(); });
+    };
+    overlay.addEventListener('click', function(ev) {
+      if (ev.target === overlay || ev.target === closeBtn) close();
+    });
+    document.addEventListener('keydown', function onKey(ev) {
+      if (ev.key === 'Escape') { close(); document.removeEventListener('keydown', onKey); }
+    });
+  }
+});
+</script>
