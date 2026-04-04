@@ -1,0 +1,262 @@
+/* ==========================================================================
+   CV ACCORDION — Collapsible sections with fluid motion
+   ========================================================================== */
+
+.cv-accordion {
+  --accordion-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --accordion-duration: 0.5s;
+  --chevron-size: 1.4em;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Section wrapper ── */
+.cv-section {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: cv-section-entrance 0.6s var(--accordion-ease) forwards;
+  border-bottom: 1px solid var(--global-border-color);
+  transition: border-color 0.3s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.is-open {
+    border-color: transparent;
+  }
+}
+
+/* Staggered entrance */
+@for $i from 1 through 7 {
+  .cv-section:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.08}s;
+  }
+}
+
+@keyframes cv-section-entrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Clickable header ── */
+.cv-section__header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 1.25em 1.5em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  transition: background 0.25s ease;
+
+  &:hover .cv-section__title {
+    color: var(--global-theme-color);
+  }
+
+  &:hover .cv-section__chevron {
+    color: var(--global-theme-color);
+  }
+}
+
+/* Section icon */
+.cv-section__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  flex-shrink: 0;
+  color: var(--global-theme-color);
+  background: transparent;
+  border: 2px solid var(--global-border-color);
+  transition: transform 0.35s var(--accordion-ease), border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+
+  .is-open & {
+    background: var(--global-theme-color);
+    border-color: var(--global-theme-color);
+    color: #fff;
+    transform: scale(1.05);
+  }
+}
+
+/* Title + count */
+.cv-section__title-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.cv-section__title {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: 1.3em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+  margin: 0;
+  line-height: 1.3;
+  transition: color 0.25s ease;
+
+  .is-open & {
+    color: var(--global-theme-color);
+  }
+}
+
+.cv-section__count {
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--global-text-color-light);
+  margin-top: 0.15em;
+  font-variant-numeric: tabular-nums;
+
+  .is-open & {
+    color: var(--global-theme-color);
+  }
+}
+
+/* Chevron */
+.cv-section__chevron {
+  width: var(--chevron-size);
+  height: var(--chevron-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--global-text-color-light);
+  transition: transform 0.4s var(--accordion-ease), color 0.3s ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .is-open & {
+    transform: rotate(180deg);
+    color: var(--global-theme-color);
+  }
+}
+
+/* ── Collapsible body ── */
+.cv-section__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--accordion-duration) var(--accordion-ease);
+
+  .is-open & {
+    grid-template-rows: 1fr;
+  }
+}
+
+.cv-section__body-inner {
+  overflow: hidden;
+  padding: 0 1.5em;
+  opacity: 0;
+  transition: opacity 0.35s ease 0.05s, padding 0.35s ease;
+
+  .is-open & {
+    opacity: 1;
+    padding: 0 1.5em 1.5em;
+  }
+}
+
+/* ── Progress bar accent ── */
+.cv-section__progress {
+  height: 2px;
+  background: linear-gradient(90deg, var(--global-theme-color), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--accordion-ease) 0.1s;
+
+  .is-open & {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Publication/project links row ── */
+.cv-section__links {
+  display: flex;
+  gap: 1.2em;
+  margin-top: 1em;
+  font-size: 0.88em;
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+
+    i {
+      margin-right: 0.3em;
+    }
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}
+
+/* ── Override timeline styling inside accordion ── */
+.cv-section .timeline {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 600px) {
+  .cv-section__header {
+    padding: 1em 1.1em;
+    gap: 0.75em;
+  }
+
+  .cv-section__icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85em;
+  }
+
+  .cv-section__title {
+    font-size: 1.1em;
+  }
+
+  .cv-section__body-inner {
+    padding: 0 1.1em;
+
+    .is-open & {
+      padding: 0 1.1em 1.1em;
+    }
+  }
+}
+
+/* ── "Expand all / Collapse all" toggle ── */
+.cv-accordion__controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.25em;
+}
+
+.cv-accordion__toggle-all {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: 0.82em;
+  font-weight: 500;
+  color: var(--global-text-color-light);
+  background: none;
+  border: 1px solid var(--global-border-color);
+  border-radius: 6px;
+  padding: 0.35em 0.9em;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    color: var(--global-theme-color);
+    border-color: var(--global-theme-color);
+    background: rgba(128, 128, 128, 0.04);
+  }
+}

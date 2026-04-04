@@ -19,6 +19,11 @@
       <h1 class="hero-bio__name">{{ author.name }}</h1>
       {% if author.pronouns %}<p class="hero-bio__pronouns">{{ author.pronouns }}</p>{% endif %}
       {% if author.bio %}<p class="hero-bio__bio">{{ author.bio }}</p>{% endif %}
+      {% if author.keywords %}
+      <div class="author__keywords">
+        {% for kw in author.keywords %}<span class="author__keyword">{{ kw }}</span>{% endfor %}
+      </div>
+      {% endif %}
 
       {% if page.content and page.content != "" %}
       <div class="hero-bio__text">
