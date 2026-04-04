@@ -1,0 +1,4 @@
+---
+layout: null
+---
+[{% assign party_files = site.static_files | where_exp: "file", "file.path contains '/files/party/encrypted/'" %}{% for file in party_files %}{% if file.extname == '.enc' %}"{{ file.path }}"{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}]

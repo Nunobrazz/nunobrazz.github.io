@@ -25,6 +25,29 @@ layout: compress
 
 
 
+  <!-- Party mode PIN overlay -->
+  <div class="pin-overlay" id="pin-overlay">
+    <button class="pin-overlay__close" aria-label="Close">&times;</button>
+    <div class="pin-overlay__card">
+      <div class="pin-overlay__title">Enter access code</div>
+      <div class="pin-overlay__inputs">
+        <input class="pin-overlay__digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+        <input class="pin-overlay__digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+        <input class="pin-overlay__digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+        <input class="pin-overlay__digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+      </div>
+      <div class="pin-overlay__error" id="pin-error"></div>
+    </div>
+  </div>
+
+  <!-- Party mode page -->
+  <div class="party-mode" id="party-mode">
+    <button class="party-mode__close" aria-label="Exit party mode">&times;</button>
+    <div class="party-mode__gallery" id="party-gallery">
+      <div class="party-mode__empty">Add photos to /files/party/ to see them here</div>
+    </div>
+  </div>
+
   {% include scripts.html %}
 
 </body>

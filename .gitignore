@@ -20,3 +20,7 @@ package-lock.json
 .vscode/
 # Ingnore this helper script
 run.sh
+
+# Party mode — original photos (never committed)
+files/party/photos/
+
