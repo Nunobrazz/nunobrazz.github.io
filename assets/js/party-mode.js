@@ -85,7 +85,7 @@
     for (var e = 0; e < 30; e++) { flamesHtml += '<div class="party-mode__ember"></div>'; }
     flamesHtml += '</div>';
     decryptScreen.innerHTML = flamesHtml +
-      '<div class="party-mode__decrypt-text">Decrypting ' + encryptedFiles.length + ' files</div>' +
+      '<div class="party-mode__decrypt-text">Decoding hidden memories</div>' +
       '<div class="party-mode__decrypt-spinner"></div>';
     gallery.appendChild(decryptScreen);
 
