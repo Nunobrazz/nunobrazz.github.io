@@ -1,6 +1,12 @@
 /* CV Accordion — toggle logic for collapsible sections
    Works with both initial page load and Turbo navigation. */
 (function () {
+  // Guard: only bind document-level listeners once (Turbo re-activates body
+  // scripts on every navigation, which would add duplicate handlers and cause
+  // the toggle to fire twice — cancelling itself out).
+  if (window.__cvAccordionBound) return;
+  window.__cvAccordionBound = true;
+
   function initAccordion() {
     // Only run if accordion sections exist on the page
     if (!document.querySelector('.cv-section__header')) return;
