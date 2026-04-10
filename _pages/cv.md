@@ -37,6 +37,18 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-content-header">
+                <h3 class="timeline-title">First Stage Researcher</h3>
+                <span class="timeline-date">Nov 2024 - Present</span>
+              </div>
+              <span class="timeline-subtitle"><a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a></span>
+              <p>Conducts research in distributed systems and game theory. Designs and implements prototypes, writes scientific papers, and communicates complex concepts to interdisciplinary peers.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-content-header">
                 <h3 class="timeline-title"><a href="/teaching/">Teaching Assistant</a></h3>
                 <span class="timeline-date">Nov 2025 - May 2026</span>
               </div>
@@ -45,18 +57,6 @@ redirect_from:
                 <li>Distributed Systems (Bachelor)</li>
                 <li>Network and Computer Security (Master's)</li>
               </ul>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-content-header">
-                <h3 class="timeline-title">First Stage Researcher</h3>
-                <span class="timeline-date">Nov 2024 - Present</span>
-              </div>
-              <span class="timeline-subtitle"><a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a></span>
-              <p>Conducts research in distributed systems and game theory. Designs and implements prototypes, writes scientific papers, and communicates complex concepts to interdisciplinary peers.</p>
             </div>
           </div>
 
@@ -241,15 +241,15 @@ redirect_from:
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title">Languages</h3>
-              <p>Python, Java, C++, Daml, Solidity.</p>
+              <h3 class="timeline-title">Domains</h3>
+              <p>Blockchain, Cyber-Security, Distributed Systems, Game Theory, Decentralized Finance.</p>
             </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title">Domains</h3>
-              <p>Blockchain, Cyber-Security, Distributed Systems, Game Theory, Decentralized Finance.</p>
+              <h3 class="timeline-title">Tools</h3>
+              <p>Python, Java, C++, Daml, Solidity.</p>
             </div>
           </div>
           <div class="timeline-item">

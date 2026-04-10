@@ -25,7 +25,7 @@ Today, people’s money is stored digitally in bank databases. Transfering money
 
   * Direct Debit Core (SDD)[Rulebook](https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2025-10/EPC016-06%202025%20SDD%20Core%20Rulebook%20version%201.1.pdf): Allows creditors to collect payments from debtors' accounts with prior authorization.
 
-  * Business-to-Business [Rulebook](https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2024-11/EPC222-07%202025%20SDD%20B2B%20Rulebook%20version%201.0.pdf): Allows creditors to collect payments from debtors' accounts with prior authorization, tailored for business-to-business.
+  * Business-to-Business [Rulebook](https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2024-11/EPC222-07%202025%20SDD%20B2B%20Rulebook%20version%201.0.pdf): Allows creditors to collect payments from debtors' accounts with prior authorization.
 
   * Instant Credit Transfer (SCT Inst) [Rulebook](https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2025-10/EPC004-16%202025%20SCT%20Instant%20Rulebook%20v1.1.pdf): Instant credit transfer.
 
