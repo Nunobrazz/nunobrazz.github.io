@@ -159,16 +159,8 @@
   }
 }
 
-/* ---- Theme tokens ---- */
-:root {
-  --hero-card-rgb: 242, 240, 235;
-  --hero-card-border-rgb: 0, 0, 0;
-}
-
-html[data-theme="dark"] {
-  --hero-card-rgb: 20, 30, 42;
-  --hero-card-border-rgb: 255, 255, 255;
-}
+/* Theme tokens (--hero-card-rgb, --hero-card-border-rgb) are defined
+   in _sass/theme/_default_light.scss and _default_dark.scss */
 
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {

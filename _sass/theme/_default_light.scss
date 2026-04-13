@@ -1,53 +1,88 @@
 /* ==========================================================================
-   DEFAULT THEME — Light (Liquid / Revolut-inspired)
+   DEFAULT THEME — Light mode
+   Clean, modern light palette with teal accent
+
+   ALL CSS custom properties used across the site are defined here.
+   To create a new theme, copy this file and change the values.
    ========================================================================== */
 
-/* Color codes used for the theme */
-$gray : #7a8288;
-$dark-gray : mix(#000, $gray, 40%);
-$darker-gray : mix(#000, $gray, 60%);
-$light-gray : mix(#fff, $gray, 50%);
-$lighter-gray : mix(#fff, $gray, 90%);
+/* ---- SCSS variables (used by mixins/Susy grid, not in CSS output) ---- */
+$gray                       : #7a8288;
+$dark-gray                  : mix(#000, $gray, 40%);
+$darker-gray                : mix(#000, $gray, 60%);
+$light-gray                 : mix(#fff, $gray, 50%);
+$lighter-gray               : mix(#fff, $gray, 90%);
 
-/* Color codes used for the site */
-$danger-color : #ef4444;
-$info-color : #0ea5e9;
-$notice-color : #64748b;
-$success-color : #22c55e;
-$warning-color : #f59e0b;
+$danger-color               : #ef4444;
+$info-color                 : #0ea5e9;
+$notice-color               : #64748b;
+$success-color              : #22c55e;
+$warning-color              : #f59e0b;
 
-/* Other basic settings for the template */
-$border-radius : 14px;
-$box-shadow : 0 1px 4px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);
-$global-transition : all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-$masthead-height : 56px;
-$navicon-width : 28px;
-$navicon-height : 4px;
-$sidebar-link-max-width : 250px;
-$sidebar-screen-min-width : 1024px;
+$border-radius              : 14px;
+$box-shadow                 : 0 1px 4px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);
+$global-transition          : all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+$masthead-height            : 56px;
+$navicon-width              : 28px;
+$navicon-height             : 4px;
+$sidebar-link-max-width     : 250px;
+$sidebar-screen-min-width   : 1024px;
 
-/* Default light theme for the site */
+
+/* ---- CSS custom properties (light mode = :root) ---- */
 :root {
-    --global-base-color: #475569;
-    --global-bg-color: #e8f4f8;
-    --global-bg-image: none;
-    --global-bg-size: auto;
-    --global-bg-repeat: no-repeat;
-    --global-footer-bg-color: rgba(255, 255, 255, 0.6);
-    --global-border-color: rgba(0, 0, 0, 0.06);
-    --global-dark-border-color: rgba(0, 0, 0, 0.1);
-    --global-code-background-color: #f1f5f9;
-    --global-code-text-color: #334155;
-    --global-fig-caption-color: #64748b;
-    --global-link-color: #0f172a;
-    --global-link-color-hover: #3b82f6;
-    --global-link-color-visited: #1e293b;
-    --global-masthead-link-color: #334155;
-    --global-masthead-link-color-hover: #0f172a;
-    --global-text-color: #0f172a;
-    --global-text-color-light: #64748b;
-    --global-thead-color: #f1f5f9;
-    --global-card-bg: rgba(255, 255, 255, 0.7);
-    --global-card-border: rgba(0, 0, 0, 0.06);
-    --global-masthead-bg: rgba(232, 244, 248, 0.8);
+
+    /* — Background & surfaces — */
+    --global-base-color             : #475569;
+    --global-bg-color               : #e8f4f8;
+    --global-bg-image               : none;
+    --global-bg-size                : auto;
+    --global-bg-repeat              : no-repeat;
+    --global-footer-bg-color        : rgba(255, 255, 255, 0.6);
+    --global-card-bg                : rgba(255, 255, 255, 0.7);
+    --global-card-border            : rgba(0, 0, 0, 0.06);
+    --global-thead-color            : #f1f5f9;
+    --global-code-background-color  : #f1f5f9;
+    --global-grain-opacity          : 0.02;
+
+    /* — Borders — */
+    --global-border-color           : rgba(0, 0, 0, 0.06);
+    --global-dark-border-color      : rgba(0, 0, 0, 0.1);
+
+    /* — Typography — */
+    --global-text-color             : #0f172a;
+    --global-text-color-light       : #64748b;
+    --global-code-text-color        : #334155;
+    --global-fig-caption-color      : #64748b;
+
+    /* — Links — */
+    --global-link-color             : #0f172a;
+    --global-link-color-hover       : #3b82f6;
+    --global-link-color-visited     : #1e293b;
+
+    /* — Accent / brand — */
+    --global-theme-color            : #0f766e;
+    --global-theme-color-rgb        : 15, 118, 110;
+    --global-accent-color           : #14b8a6;
+    --global-focus-ring             : rgba(15, 118, 110, 0.45);
+
+    /* — Masthead / navigation — */
+    --global-masthead-bg            : rgba(232, 244, 248, 0.8);
+    --global-masthead-link-color    : #334155;
+    --global-masthead-link-color-hover : #0f172a;
+
+    /* — Floating Island nav — */
+    --island-bg                     : rgba(240, 248, 252, 0.72);
+    --island-border                 : rgba(0, 0, 0, 0.08);
+    --island-shadow                 : 0 4px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    --island-glow                   : 0 0 40px rgba(15, 118, 110, 0.06);
+    --island-chip-hover             : rgba(0, 0, 0, 0.04);
+    --island-divider                : rgba(0, 0, 0, 0.08);
+    --island-btn-hover              : rgba(0, 0, 0, 0.06);
+
+    /* — Hero / generative background — */
+    --hero-card-rgb                 : 242, 240, 235;
+    --hero-card-border-rgb          : 0, 0, 0;
+    --gen-hero-card-rgb             : 232, 244, 248;
+    --gen-hero-border-rgb           : 0, 0, 0;
 }

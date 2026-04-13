@@ -276,6 +276,14 @@ function init() {
   if (sectionTitle) {
     sectionTitle.textContent = activeName || document.title.split(' ')[0];
   }
+
+  // ---- Island nav: sliding highlight + scroll collapse ----
+  // initIslandNav() is defined in /assets/js/island-nav.js.
+  // Positions the highlight pill behind the active chip and sets up
+  // scroll-based collapse/expand of the floating island.
+  if (typeof window.initIslandNav === 'function') {
+    window.initIslandNav();
+  }
 }
 
 

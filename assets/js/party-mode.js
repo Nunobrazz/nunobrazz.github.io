@@ -7,6 +7,57 @@
   var encryptedFiles = [];
   var decryptedBlobs = []; // cache so we don't re-decrypt
 
+  // --- Brute-force protection ---
+  var MAX_ATTEMPTS    = 5;      // Lock after this many consecutive failures
+  var BASE_COOLDOWN   = 2000;   // 2s after first fail, doubles each time
+  var LOCKOUT_MINUTES = 5;      // Full lockout duration after MAX_ATTEMPTS
+
+  function getAttemptState() {
+    try {
+      var raw = localStorage.getItem('pin_attempts');
+      if (!raw) return { count: 0, lockedUntil: 0 };
+      var state = JSON.parse(raw);
+      // If lockout has expired, reset
+      if (state.lockedUntil && Date.now() > state.lockedUntil) {
+        clearAttemptState();
+        return { count: 0, lockedUntil: 0 };
+      }
+      return state;
+    } catch (e) {
+      return { count: 0, lockedUntil: 0 };
+    }
+  }
+
+  function setAttemptState(state) {
+    try { localStorage.setItem('pin_attempts', JSON.stringify(state)); } catch (e) {}
+  }
+
+  function clearAttemptState() {
+    try { localStorage.removeItem('pin_attempts'); } catch (e) {}
+  }
+
+  function recordFailure() {
+    var state = getAttemptState();
+    state.count++;
+    if (state.count >= MAX_ATTEMPTS) {
+      state.lockedUntil = Date.now() + LOCKOUT_MINUTES * 60 * 1000;
+    }
+    setAttemptState(state);
+    return state;
+  }
+
+  function getCooldownMs(failCount) {
+    if (failCount <= 1) return 0;
+    // Exponential backoff: 2s, 4s, 8s, 16s...
+    return Math.min(BASE_COOLDOWN * Math.pow(2, failCount - 2), 30000);
+  }
+
+  function formatTimeLeft(ms) {
+    var secs = Math.ceil(ms / 1000);
+    if (secs >= 60) return Math.ceil(secs / 60) + 'm ' + (secs % 60) + 's';
+    return secs + 's';
+  }
+
   // --- Load the manifest of .enc files ---
   function loadManifest() {
     fetch('/party-photos.json')
@@ -252,10 +303,36 @@
   function showPinOverlay() {
     var overlay = document.getElementById('pin-overlay');
     if (!overlay) return;
-    overlay.classList.add('is-visible');
+
+    var errorEl = document.getElementById('pin-error');
     var inputs = overlay.querySelectorAll('.pin-overlay__digit');
-    inputs.forEach(function (inp) { inp.value = ''; });
-    document.getElementById('pin-error').textContent = '';
+
+    // Check if locked out before even showing
+    var state = getAttemptState();
+    if (state.lockedUntil && Date.now() < state.lockedUntil) {
+      overlay.classList.add('is-visible');
+      inputs.forEach(function (inp) { inp.value = ''; inp.disabled = true; });
+      var timeLeft = state.lockedUntil - Date.now();
+      errorEl.textContent = 'Locked. Try again in ' + formatTimeLeft(timeLeft);
+      // Auto-unlock countdown
+      var lockTimer = setInterval(function () {
+        var remaining = state.lockedUntil - Date.now();
+        if (remaining <= 0) {
+          clearInterval(lockTimer);
+          clearAttemptState();
+          errorEl.textContent = '';
+          inputs.forEach(function (inp) { inp.disabled = false; });
+          inputs[0].focus();
+        } else {
+          errorEl.textContent = 'Locked. Try again in ' + formatTimeLeft(remaining);
+        }
+      }, 1000);
+      return;
+    }
+
+    overlay.classList.add('is-visible');
+    inputs.forEach(function (inp) { inp.value = ''; inp.disabled = false; });
+    errorEl.textContent = '';
     setTimeout(function () { inputs[0].focus(); }, 100);
   }
 
@@ -317,8 +394,9 @@
     var errorEl = document.getElementById('pin-error');
 
     inputs.forEach(function (input, idx) {
+      // Sanitize: strip anything that isn't a single digit 0-9
       input.addEventListener('input', function () {
-        this.value = this.value.replace(/[^0-9]/g, '');
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1);
         if (this.value.length === 1 && idx < inputs.length - 1) {
           inputs[idx + 1].focus();
         }
@@ -326,23 +404,52 @@
         var code = '';
         inputs.forEach(function (inp) { code += inp.value; });
         if (code.length === 4) {
+          // Validate: must be exactly 4 digits
+          if (!/^\d{4}$/.test(code)) {
+            inputs.forEach(function (inp) { inp.value = ''; });
+            inputs[0].focus();
+            return;
+          }
+
+          // Check lockout
+          var state = getAttemptState();
+          if (state.lockedUntil && Date.now() < state.lockedUntil) {
+            errorEl.textContent = 'Locked. Try again in ' + formatTimeLeft(state.lockedUntil - Date.now());
+            inputs.forEach(function (inp) { inp.value = ''; inp.disabled = true; });
+            return;
+          }
+
           // Disable inputs while verifying
           inputs.forEach(function (inp) { inp.disabled = true; });
           errorEl.textContent = '';
 
-          verifyPin(code).then(function (valid) {
-            inputs.forEach(function (inp) { inp.disabled = false; });
-            if (valid) {
-              activatePartyMode(code);
-            } else {
-              errorEl.textContent = 'ACCESS DENIED';
-              errorEl.style.animation = 'none';
-              void errorEl.offsetHeight;
-              errorEl.style.animation = '';
-              inputs.forEach(function (inp) { inp.value = ''; });
-              setTimeout(function () { inputs[0].focus(); }, 300);
-            }
-          });
+          // Apply cooldown delay based on previous failures
+          var cooldown = getCooldownMs(state.count);
+          setTimeout(function () {
+            verifyPin(code).then(function (valid) {
+              if (valid) {
+                clearAttemptState();
+                inputs.forEach(function (inp) { inp.disabled = false; });
+                activatePartyMode(code);
+              } else {
+                var newState = recordFailure();
+
+                if (newState.lockedUntil) {
+                  // Locked out
+                  errorEl.textContent = 'Too many attempts. Locked for ' + LOCKOUT_MINUTES + ' minutes';
+                  inputs.forEach(function (inp) { inp.value = ''; });
+                } else {
+                  var remaining = MAX_ATTEMPTS - newState.count;
+                  errorEl.textContent = 'Wrong code. ' + remaining + ' attempt' + (remaining === 1 ? '' : 's') + ' left';
+                  errorEl.style.animation = 'none';
+                  void errorEl.offsetHeight;
+                  errorEl.style.animation = '';
+                  inputs.forEach(function (inp) { inp.value = ''; inp.disabled = false; });
+                  setTimeout(function () { inputs[0].focus(); }, 300);
+                }
+              }
+            });
+          }, cooldown);
         }
       });
 
@@ -357,8 +464,8 @@
 
       input.addEventListener('paste', function (e) {
         e.preventDefault();
-        var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
-        for (var i = 0; i < Math.min(paste.length, 4); i++) {
+        var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '').slice(0, 4);
+        for (var i = 0; i < paste.length; i++) {
           inputs[i].value = paste[i];
         }
         if (paste.length >= 4) {

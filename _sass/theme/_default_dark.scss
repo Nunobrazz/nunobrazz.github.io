@@ -1,60 +1,96 @@
 /* ==========================================================================
-   DARK THEME — Liquid / Revolut-inspired
+   DARK THEME — Midnight Mist
+   Cool near-neutral dark with teal-mint accent
+
+   ALL CSS custom properties used across the site are defined here.
+   To create a new theme, copy this file and change the values.
    ========================================================================== */
 
-/* Color codes used for the theme */
-$gray : #7a8288;
-$dark-gray : mix(#000, $gray, 40%);
-$darker-gray : mix(#000, $gray, 60%);
-$light-gray : mix(#fff, $gray, 50%);
+/* ---- SCSS variables (used by mixins/Susy grid, not in CSS output) ---- */
+$gray                       : #7a8288;
+$dark-gray                  : mix(#000, $gray, 40%);
+$darker-gray                : mix(#000, $gray, 60%);
+$light-gray                 : mix(#fff, $gray, 50%);
 
-$background : #474747;
-$background-light : mix(#fff, $background, 80%);
-$background-lighter : mix(#fff, $background, 90%);
-$text : #ffffff;
-$link : #0ea1c5;
-$link-dark : mix(#000, $link, 25%);
-$link-light : mix(#fff, $link, 25%);
+$background                 : #474747;
+$background-light           : mix(#fff, $background, 80%);
+$background-lighter         : mix(#fff, $background, 90%);
+$text                       : #ffffff;
+$link                       : #0ea1c5;
+$link-dark                  : mix(#000, $link, 25%);
+$link-light                 : mix(#fff, $link, 25%);
 
-/* Color codes used for the site */
-$danger-color : #ef4444;
-$info-color : #0ea5e9;
-$notice-color : #64748b;
-$success-color : #22c55e;
-$warning-color : #f59e0b;
+$danger-color               : #f07070;
+$info-color                 : #4ecdc4;
+$notice-color               : #8a8f96;
+$success-color              : #22c55e;
+$warning-color              : #f59e0b;
 
-/* Other basic settings for the template */
-$border-radius : 14px;
-$box-shadow : 0 1px 4px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);
-$global-transition : all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-$masthead-height : 56px;
-$navicon-width : 28px;
-$navicon-height : 4px;
-$sidebar-link-max-width : 250px;
-$sidebar-screen-min-width : 1024px;
+$border-radius              : 14px;
+$box-shadow                 : 0 1px 4px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);
+$global-transition          : all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+$masthead-height            : 56px;
+$navicon-width              : 28px;
+$navicon-height             : 4px;
+$sidebar-link-max-width     : 250px;
+$sidebar-screen-min-width   : 1024px;
 
-/* Dark theme for the site */
+
+/* ---- CSS custom properties (dark mode) ---- */
 html[data-theme="dark"] {
-    --global-base-color: #94a3b8;
-    --global-bg-color: #0b1a2e;
-    --global-bg-image: radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(139, 92, 246, 0.06) 0px, transparent 60%);
-    --global-bg-size: 100% 100%;
-    --global-bg-repeat: no-repeat;
-    --global-footer-bg-color: rgba(11, 26, 46, 0.8);
-    --global-border-color: rgba(255, 255, 255, 0.06);
-    --global-dark-border-color: rgba(255, 255, 255, 0.1);
-    --global-code-background-color: rgba(255, 255, 255, 0.05);
-    --global-code-text-color: #e2e8f0;
-    --global-fig-caption-color: #94a3b8;
-    --global-link-color: #f1f5f9;
-    --global-link-color-hover: #38bdf8;
-    --global-link-color-visited: #cbd5e1;
-    --global-masthead-link-color: #e2e8f0;
-    --global-masthead-link-color-hover: #ffffff;
-    --global-text-color: #f1f5f9;
-    --global-text-color-light: #94a3b8;
-    --global-thead-color: rgba(255, 255, 255, 0.05);
-    --global-card-bg: rgba(255, 255, 255, 0.03);
-    --global-card-border: rgba(255, 255, 255, 0.06);
-    --global-masthead-bg: rgba(11, 26, 46, 0.75);
+
+    /* — Background & surfaces — */
+    --global-base-color             : #94a3b8;
+    --global-bg-color               : #111118;
+    --global-bg-image               : radial-gradient(ellipse at 20% 0%, rgba(78, 205, 196, 0.06) 0px, transparent 60%),
+                                      radial-gradient(ellipse at 80% 100%, rgba(78, 205, 196, 0.03) 0px, transparent 60%);
+    --global-bg-size                : 100% 100%;
+    --global-bg-repeat              : no-repeat;
+    --global-footer-bg-color        : rgba(14, 14, 20, 0.8);
+    --global-card-bg                : rgba(255, 255, 255, 0.04);
+    --global-card-border            : rgba(255, 255, 255, 0.07);
+    --global-thead-color            : rgba(255, 255, 255, 0.05);
+    --global-code-background-color  : rgba(255, 255, 255, 0.05);
+    --global-grain-opacity          : 0.035;
+
+    /* — Borders — */
+    --global-border-color           : rgba(255, 255, 255, 0.07);
+    --global-dark-border-color      : rgba(255, 255, 255, 0.12);
+
+    /* — Typography — */
+    --global-text-color             : #e8eaed;
+    --global-text-color-light       : #8a8f96;
+    --global-code-text-color        : #a5f3eb;
+    --global-fig-caption-color      : #8a8f96;
+
+    /* — Links — */
+    --global-link-color             : #e8eaed;
+    --global-link-color-hover       : #4ecdc4;
+    --global-link-color-visited     : #cbd5e1;
+
+    /* — Accent / brand — */
+    --global-theme-color            : #4ecdc4;
+    --global-theme-color-rgb        : 78, 205, 196;
+    --global-accent-color           : #3be8d0;
+    --global-focus-ring             : rgba(78, 205, 196, 0.5);
+
+    /* — Masthead / navigation — */
+    --global-masthead-bg            : rgba(17, 17, 24, 0.82);
+    --global-masthead-link-color    : #e8eaed;
+    --global-masthead-link-color-hover : #ffffff;
+
+    /* — Floating Island nav — */
+    --island-bg                     : rgba(28, 28, 38, 0.78);
+    --island-border                 : rgba(255, 255, 255, 0.10);
+    --island-shadow                 : 0 4px 24px rgba(0, 0, 0, 0.40), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --island-glow                   : 0 0 40px rgba(78, 205, 196, 0.10);
+    --island-chip-hover             : rgba(255, 255, 255, 0.06);
+    --island-divider                : rgba(255, 255, 255, 0.08);
+    --island-btn-hover              : rgba(255, 255, 255, 0.08);
+
+    /* — Hero / generative background — */
+    --hero-card-rgb                 : 20, 20, 28;
+    --hero-card-border-rgb          : 255, 255, 255;
+    --gen-hero-card-rgb             : 17, 17, 24;
+    --gen-hero-border-rgb           : 255, 255, 255;
 }

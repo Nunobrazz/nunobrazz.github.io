@@ -7,11 +7,9 @@ redirect_from:
 - /wordpress/blog-posts/
 ---
 
-{% include base_path %}
-
 <div class="card-list">
   {% for post in site.posts %}
-  <a href="{{ base_path }}{{ post.url }}" class="card-list__item">
+  <a href="{{ site.baseurl }}{{ post.url }}" class="card-list__item">
     <div class="card-list__header">
       <h3 class="card-list__title">{{ post.title }}</h3>
       {% if post.date %}

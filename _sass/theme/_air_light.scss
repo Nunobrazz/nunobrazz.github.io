@@ -60,5 +60,15 @@ $sidebar-screen-min-width   : 1024px;
     --global-accent-color               : #3ca5a0;
     --global-focus-ring                 : #{rgba($primary-color, 0.45)};
     --global-grain-opacity              : 0.025;
+
+    /* Floating Island nav */
+    --island-bg                         : #{rgba(lighten($background, 5%), 0.72)};
+    --island-border                     : #{rgba($primary-color, 0.12)};
+    --island-shadow                     : 0 4px 24px #{rgba($primary-color, 0.10)}, 0 0 0 1px #{rgba($primary-color, 0.08)};
+    --island-glow                       : 0 0 40px #{rgba($primary-color, 0.06)};
+    --island-chip-hover                 : #{rgba($primary-color, 0.06)};
+    --island-divider                    : #{rgba($primary-color, 0.10)};
+    --island-btn-hover                  : #{rgba($primary-color, 0.08)};
+
     color-scheme                        : light;
 }

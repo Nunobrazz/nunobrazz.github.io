@@ -11,19 +11,19 @@ body {
     z-index: -1;
     opacity: 0.5;
     background:
-      radial-gradient(ellipse at 15% 20%, rgba(93, 184, 212, 0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 80%, rgba(77, 216, 192, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(27, 111, 168, 0.08) 0%, transparent 60%);
+      radial-gradient(ellipse at 15% 20%, rgba(78, 205, 196, 0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(59, 232, 208, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(15, 118, 110, 0.06) 0%, transparent 60%);
     transition: opacity 0.6s ease;
   }
 }
 
 html[data-theme="dark"] body::before {
-  opacity: 0.35;
+  opacity: 0.3;
   background:
-    radial-gradient(ellipse at 15% 20%, rgba(93, 184, 212, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 80%, rgba(77, 216, 192, 0.10) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(27, 111, 168, 0.12) 0%, transparent 60%);
+    radial-gradient(ellipse at 15% 20%, rgba(78, 205, 196, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 80%, rgba(59, 232, 208, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(78, 205, 196, 0.04) 0%, transparent 60%);
 }
 
 /* Hide the static ambient bg on the homepage — the fluid replaces it */
@@ -95,16 +95,8 @@ body:has(#main.has-generative-bg) {
   }
 }
 
-/* Theme-specific card background values */
-:root {
-  --gen-hero-card-rgb: 232, 244, 248;
-  --gen-hero-border-rgb: 0, 0, 0;
-}
-
-html[data-theme="dark"] {
-  --gen-hero-card-rgb: 11, 26, 46;
-  --gen-hero-border-rgb: 255, 255, 255;
-}
+/* Theme tokens (--gen-hero-card-rgb, --gen-hero-border-rgb) are defined
+   in _sass/theme/_default_light.scss and _default_dark.scss */
 
 /* Reduced motion: hide fluid canvas */
 @media (prefers-reduced-motion: reduce) {

@@ -2,7 +2,7 @@
 title: "An Approach to Blockchain Voting for RWA Governance"
 collection: publications
 category: conferences
-permalink: /publication/2025-01-01-proach-blockchain-voting
+permalink: /publication/2025-01-01-approach-blockchain-voting
 excerpt: 'This paper proposes a blockchain-based voting mechanism for for Real World Asset governance.'
 date: 2025-01-01
 venue: '23rd International Symposium on Network Computing and Applications (NCA), IEEE'

@@ -82,8 +82,9 @@
   height: 56px;
 
   @include breakpoint($large) {
-    display: block;
-    width: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
     height: auto;
     margin-bottom: 1em;
   }
@@ -197,6 +198,7 @@
     width: 100%;
     padding-left: 0;
     padding-right: 0;
+    text-align: center;
   }
 }
 
@@ -258,23 +260,16 @@
 
 .author__keyword {
   display: inline-block;
-  font-size: 0.78em;
-  font-weight: 600;
-  font-family: "Space Grotesk", "Inter", sans-serif;
-  padding: 0.3em 0.75em;
+  font-size: 0.68em;
+  font-weight: 450;
+  font-family: $sans-serif;
+  padding: 0.2em 0.55em;
   border-radius: 999px;
-  border: 1.5px solid var(--global-theme-color);
-  color: var(--global-theme-color);
-  background: rgba(var(--global-theme-color-rgb, 0, 0, 0), 0.06);
-  letter-spacing: 0.02em;
-  line-height: 1.5;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
-
-  &:hover {
-    background: var(--global-theme-color);
-    color: #fff;
-    transform: scale(1.05);
-  }
+  border: 1px solid var(--global-border-color);
+  color: var(--global-text-color-light);
+  background: transparent;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
 }
 
 /*
@@ -324,7 +319,9 @@
 
   /* On large screens, show inline (no dropdown) */
   @include breakpoint($large) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     margin: 0;
     padding: 0;

@@ -1,23 +1,31 @@
 {% include base_path %}
 
 <!-- ============================================================
-     MASTHEAD — Single top bar with:
-       - Site title (left)
-       - Chip nav (centre) — horizontal scrolling pill navigation
-       - Theme toggle (right)
+     MASTHEAD — Floating Island navigation
+       - Centered floating capsule (not full-width)
+       - Section title (left edge)
+       - Chip nav with sliding highlight (centre)
+       - Icon buttons as circular dots (right edge)
+       - Collapses to minimal pill on scroll down
 
      The chip nav track is drag-scrollable with elastic rubber-band
      physics. See /assets/js/chip-nav.js for the scroll engine.
+     The sliding highlight is managed by /assets/js/island-nav.js.
      ============================================================ -->
 <nav class="masthead" aria-label="Primary navigation">
-  <div class="masthead__inner-wrap">
+  <div class="masthead__island" id="masthead-island">
 
-    <!-- Current section name — shows the active page title (e.g. "CV", "Projects").
-         Falls back to site title on the home page. Updated by JS on Turbo navigations. -->
+    <!-- Current section name — left edge of the capsule -->
     <span class="masthead__title" id="masthead-section-title">{% if page.url == '/' %}{{ site.title }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span>
 
-    <!-- Chip nav — scrollable pill row -->
+    <!-- Divider between title and nav -->
+    <span class="masthead__divider" aria-hidden="true"></span>
+
+    <!-- Chip nav — scrollable row with sliding highlight backdrop -->
     <div class="chip-nav" id="chip-nav" data-turbo-permanent>
+      <!-- Sliding highlight pill — positioned by JS behind the active chip -->
+      <div class="chip-nav__highlight" id="chip-nav-highlight" aria-hidden="true"></div>
+
       <div class="chip-nav__track" id="chip-nav-track">
         <a href="{{ site.baseurl }}/" class="chip-nav__chip{% if page.url == '/' %} is-active{% endif %}">Home</a>
         {% for link in site.data.navigation.main %}
@@ -31,13 +39,16 @@
       </div>
     </div>
 
-    <!-- Party mode toggle -->
-    <button id="party-toggle" class="masthead__theme-toggle" aria-label="Party mode" title="Party mode">
+    <!-- Divider between nav and buttons -->
+    <span class="masthead__divider" aria-hidden="true"></span>
+
+    <!-- Party mode toggle — circular icon -->
+    <button id="party-toggle" class="masthead__btn" aria-label="Party mode" title="Party mode">
       <i class="fa-solid fa-bolt" aria-hidden="true"></i>
     </button>
 
-    <!-- Theme toggle button -->
-    <button id="theme-toggle" class="masthead__theme-toggle" aria-label="Toggle theme">
+    <!-- Theme toggle — circular icon -->
+    <button id="theme-toggle" class="masthead__btn" aria-label="Toggle theme">
       <i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true"></i>
     </button>
 

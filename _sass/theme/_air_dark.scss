@@ -1,27 +1,27 @@
 /* ==========================================================================
    Air skin — Dark theme
-   Deep midnight ocean with luminous aqua accent
+   Midnight Mist — cool near-neutral dark with teal-mint accent
    ========================================================================== */
 
 /* Color codes used for the theme */
-$primary-color              : #5db8d4;
+$primary-color              : #4ecdc4;
 $dark-primary-color         : mix(#000, $primary-color, 25%);
 $darker-primary-color       : mix(#000, $primary-color, 50%);
 $light-primary-color        : mix(#fff, $primary-color, 30%);
 
-$background                 : #0a1e33;
+$background                 : #111118;
 $background-light           : mix(#fff, $background, 12%);
 $background-lighter         : mix(#fff, $background, 85%);
-$text                       : #e2e6ea;
-$link                       : #5db8d4;
+$text                       : #e8eaed;
+$link                       : #4ecdc4;
 $link-dark                  : mix(#fff, $link, 15%);
 $link-light                 : mix(#000, $link, 15%);
-$footer                     : darken($background, 3%);
+$footer                     : darken($background, 2%);
 
 /* Color codes used for the site */
-$danger-color               : #e87272;
-$info-color                 : #5db8d4;
-$notice-color               : #7a8288;
+$danger-color               : #f07070;
+$info-color                 : #4ecdc4;
+$notice-color               : #8a8f96;
 $success-color              : #6ec97e;
 $warning-color              : #e8a84c;
 
@@ -57,8 +57,18 @@ html[data-theme="dark"] {
     --global-card-bg                    : #{lighten($background, 4%)};
     --global-card-border                : #{rgba(#fff, 0.06)};
     --global-theme-color                : #{$primary-color};
-    --global-accent-color               : #4dd8c0;
+    --global-accent-color               : #3be8d0;
     --global-focus-ring                 : #{rgba($primary-color, 0.5)};
     --global-grain-opacity              : 0.035;
+
+    /* Floating Island nav */
+    --island-bg                         : #{rgba(lighten($background, 6%), 0.78)};
+    --island-border                     : #{rgba(#fff, 0.10)};
+    --island-shadow                     : 0 4px 24px #{rgba(#000, 0.35)}, 0 0 0 1px #{rgba(#fff, 0.06)};
+    --island-glow                       : 0 0 40px #{rgba($primary-color, 0.12)};
+    --island-chip-hover                 : #{rgba(#fff, 0.06)};
+    --island-divider                    : #{rgba(#fff, 0.08)};
+    --island-btn-hover                  : #{rgba(#fff, 0.08)};
+
     color-scheme                        : dark;
 }

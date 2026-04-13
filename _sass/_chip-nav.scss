@@ -1,121 +1,137 @@
 /* ==========================================================================
-   CHIP NAV — Horizontal scrolling pill navigation (inside masthead)
+   CHIP NAV — Floating Island navigation chips with sliding highlight
 
-   Lives inline between the site title and theme toggle in the masthead.
-   Takes up all remaining horizontal space via flex: 1.
+   Chips have no individual backgrounds or borders. Instead, a single
+   "highlight" element slides behind the active chip like a spotlight.
+   The highlight is absolutely positioned inside .chip-nav and its
+   position/size are set by JS (island-nav.js).
 
    Layout:
-     .chip-nav              Outer container, overflow:hidden.
-                            ::before / ::after are gradient fade masks.
-     .chip-nav__track       Inner flex row of chips. Translated via JS
-                            transform for elastic drag-scroll.
-     .chip-nav__chip        Individual pill link. .is-active = current page.
+     .chip-nav              Outer container, overflow:hidden, relative.
+     .chip-nav__highlight   Sliding backdrop pill (positioned by JS).
+     .chip-nav__track       Inner flex row of chips.
+     .chip-nav__chip        Individual text link. .is-active = current page.
 
-   JS:  /assets/js/chip-nav.js
-   HTML: /_includes/masthead.html (embedded inside the masthead)
+   JS:  /assets/js/chip-nav.js (drag scroll)
+        /assets/js/island-nav.js (highlight + collapse)
    ========================================================================== */
 
-/* ---- Outer container (fills remaining masthead space) ---- */
+/* ---- Outer container ---- */
 .chip-nav {
-  flex: 1;                         /* Take all space between title and toggle */
-  min-width: 0;                    /* Allow flex shrinking below content size */
-  overflow: hidden;                /* Clips the scrollable track */
-  position: relative;              /* Anchor for fade mask pseudo-elements */
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
 
-  /* Prevent text selection while dragging */
   user-select: none;
   -webkit-user-select: none;
 
-  /* ---- Gradient fade masks (left & right) ----
-     Hidden by default. JS adds .fade-left / .fade-right
-     to indicate more content is hidden off-screen. */
+  /* Gradient fade masks (left & right) */
   &::before,
   &::after {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 32px;
-    z-index: 2;
+    width: 28px;
+    z-index: 3;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
 
-  /* Left fade — visible when scrolled away from start */
   &::before {
     left: 0;
-    background: linear-gradient(to right, var(--global-masthead-bg, var(--global-bg-color)), transparent);
+    background: linear-gradient(to right, var(--island-bg, var(--global-bg-color)), transparent);
   }
 
-  /* Right fade — visible when more chips are hidden to the right */
   &::after {
     right: 0;
-    background: linear-gradient(to left, var(--global-masthead-bg, var(--global-bg-color)), transparent);
+    background: linear-gradient(to left, var(--island-bg, var(--global-bg-color)), transparent);
   }
 
   &.fade-left::before  { opacity: 1; }
   &.fade-right::after  { opacity: 1; }
 }
 
-/* ---- Scrollable track (flex row of chips) ---- */
+/* ---- Sliding dot indicator ----
+   A small dot that slides beneath the active chip.
+   Transitions are handled via CSS; JS sets left + width. */
+.chip-nav__highlight {
+  display: none;
+}
+
+/* ---- Scrollable track ---- */
 .chip-nav__track {
   display: flex;
-  flex-wrap: nowrap;               /* All chips on one line, never wrap */
-  gap: 6px;
-  padding: 4px 0;                  /* Vertical breathing room inside masthead */
+  flex-wrap: nowrap;
+  gap: 2px;
+  padding: 4px 4px;
   cursor: grab;
-  will-change: transform;          /* GPU layer for smooth translate3d */
-  touch-action: pan-x;             /* Tell browser we handle horizontal gestures */
+  will-change: transform;
+  touch-action: pan-x;
+  position: relative;
+  z-index: 2; /* Above the highlight */
 
   &:active {
     cursor: grabbing;
   }
 }
 
-/* ---- Individual chip (pill link) ---- */
+/* ---- Individual chip (text-only link) ---- */
 .chip-nav__chip {
-  flex-shrink: 0;                  /* Never shrink or wrap */
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  padding: 6px 15px;
+  padding: 6px 13px;
   font-family: $sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 450;
   letter-spacing: 0.01em;
   line-height: 1;
   white-space: nowrap;
   text-decoration: none;
-  color: var(--global-text-color-light);
-  background: var(--global-card-bg);
-  border: 1px solid var(--global-card-border);
-  border-radius: 100px;            /* Fully rounded pill shape */
-  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-              color 0.2s ease, background 0.2s ease,
-              border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 100px;
+  position: relative;
 
-  /* Hover state — subtle press-in like iOS */
+  /* No background, no border — ghost style */
+  color: var(--global-text-color-light);
+  background: transparent;
+  border: none;
+
+  transition: color 0.2s ease,
+              background 0.15s ease,
+              padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              font-size 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* Hover: underline instead of background */
   &:hover {
     color: var(--global-text-color);
-    background: var(--global-border-color);
-    border-color: var(--global-dark-border-color);
+    background: transparent;
+    text-decoration: underline;
+    text-decoration-color: var(--global-theme-color);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
   }
 
   &:active {
     transform: scale(0.95);
   }
 
+  &:focus,
   &:focus-visible {
-    outline: 2px solid var(--global-focus-ring);
-    outline-offset: 2px;
+    outline: none;
   }
 
-  /* Active page — theme accent with subtle glow */
+  /* Active page — same underline as hover, persistent */
   &.is-active {
-    background: var(--global-theme-color);
-    color: #fff;
-    font-weight: 500;
-    border-color: transparent;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    color: var(--global-text-color);
+    font-weight: 550;
+    background: transparent;
+    text-decoration: underline;
+    text-decoration-color: var(--global-theme-color);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
   }
 }
