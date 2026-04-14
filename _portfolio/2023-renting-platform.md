@@ -1,11 +1,11 @@
 ---
-title: "Blockchain Based Property Rental Platform"
-excerpt: "A blockchain-based rental platform proof-of-concept built with Daml."
+title: "A Lease Management System in DAML"
+excerpt: "A Lease Management System in DAML with automated rent payments and dispute resolution via arbitrators"
 collection: portfolio
 date: 2023-01-01
 ---
 
-A blockchain-based rental platform proof-of-concept built with [Daml](https://daml.com/). This project demonstrates a decentralized lease management system featuring automated rent payments, maintenance issue reporting, and dispute resolution via arbitrators.
+A rental platform proof-of-concept built with [Daml](https://daml.com/). This project demonstrates a lease management system featuring automated rent payments, maintenance issue reporting, and dispute resolution via arbitrators.
 
 [View on GitHub](https://github.com/Nunobrazz/renting-platform)
 
