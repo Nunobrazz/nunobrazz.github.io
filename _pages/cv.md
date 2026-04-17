@@ -193,7 +193,7 @@ redirect_from:
       <div class="cv-section__icon"><i class="fas fa-award"></i></div>
       <div class="cv-section__title-group">
         <h2 class="cv-section__title">Awards & Certificates</h2>
-        <div class="cv-section__count">2 items</div>
+        <div class="cv-section__count">3 items</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -203,6 +203,13 @@ redirect_from:
     <div class="cv-section__body">
       <div class="cv-section__body-inner">
         <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title"><a href="/files/teachingSteamStudents.pdf">Teaching STEAM Students</a></h3>
+              <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></span>
+            </div>
+          </div>
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
