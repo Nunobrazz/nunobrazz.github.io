@@ -2,33 +2,50 @@
    SERVICES PAGE
    ========================================================================== */
 
+/* Kill scroll on the entire page when services is shown */
+html:has(.services-page),
+html:has(.services-page) body {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Full-page layout — no scroll */
+.services-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - #{$masthead-height} - 4em);
+    overflow: hidden;
+}
+
+
 /* Hero */
 .services-hero {
     text-align: center;
-    margin-bottom: 2.5em;
+    margin-bottom: 1.2em;
 }
 
 .services-hero-title {
-    font-size: 2em;
+    font-size: 1.6em;
     font-weight: 500;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.15em;
     color: var(--global-text-color);
 }
 
 .services-hero-subtitle {
-    font-size: 1.1em;
+    font-size: 1em;
     color: var(--global-text-color-light);
     max-width: 600px;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 /* Card grid */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5em;
-    margin-bottom: 3em;
+    gap: 1em;
+    margin-bottom: 1.2em;
 }
 
 /* Individual card — iOS grouped-list feel */
@@ -37,7 +54,7 @@
     background-color: var(--global-card-bg);
     border: 1px solid var(--global-card-border);
     border-radius: 18px;
-    padding: 2em 1.5em 1.8em;
+    padding: 1.2em 1.3em 1.1em;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
                 box-shadow 0.3s ease;
@@ -92,10 +109,10 @@
 
 /* Description */
 .service-card__desc {
-    font-size: 0.95em;
+    font-size: 0.9em;
     color: var(--global-text-color-light);
-    line-height: 1.55;
-    margin-bottom: 1em;
+    line-height: 1.45;
+    margin-bottom: 0.7em;
     flex-grow: 1;
 }
 
@@ -109,8 +126,8 @@
 .service-card__features li {
     position: relative;
     padding-left: 1.4em;
-    margin-bottom: 0.45em;
-    font-size: 0.9em;
+    margin-bottom: 0.3em;
+    font-size: 0.85em;
     color: var(--global-text-color);
 }
 
@@ -122,37 +139,35 @@
     font-weight: 700;
 }
 
-/* CTA section */
+/* CTA section — no card, just centered text */
 .services-cta {
     text-align: center;
-    padding: 2.5em 1.5em;
-    border: 1px solid var(--global-card-border);
-    border-radius: 18px;
-    background-color: var(--global-card-bg);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    padding: 0.8em 0 0;
 }
 
 .services-cta h2 {
     font-weight: 500;
-    margin-bottom: 0.3em;
+    font-size: 1.2em;
+    margin-bottom: 0.2em;
 }
 
 .services-cta p {
     color: var(--global-text-color-light);
     max-width: 500px;
-    margin: 0 auto 1.2em;
-    line-height: 1.55;
+    margin: 0 auto 0.7em;
+    font-size: 0.95em;
+    line-height: 1.5;
 }
 
 .services-cta__button {
     display: inline-block;
-    padding: 0.75em 2.4em;
+    padding: 0.6em 2em;
     background: #3b82f6;
     color: #fff !important;
     text-decoration: none;
     border-radius: 100px;
     font-weight: 500;
-    font-size: 1em;
+    font-size: 0.9em;
     transition: background 0.2s ease,
                 transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
                 box-shadow 0.2s ease;
@@ -179,6 +194,64 @@ html[data-theme="dark"] .services-cta__button {
 html[data-theme="dark"] .services-cta__button:hover {
     background: #7dd3fc;
     box-shadow: 0 4px 20px rgba(56, 189, 248, 0.5);
+}
+
+/* CTA button as <button> reset */
+button.services-cta__button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.services-cta__button--active {
+    background: #2563eb !important;
+    transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .services-cta__button--active {
+    background: #7dd3fc !important;
+}
+
+/* Contact methods — horizontal pill row, always visible */
+.contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+    margin-top: 0.6em;
+}
+
+.contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.5em 1.1em;
+    border-radius: 100px;
+    background: var(--global-bg-color);
+    border: 1.5px solid var(--global-card-border);
+    text-decoration: none !important;
+    color: var(--global-text-color) !important;
+    font-size: 0.82em;
+    font-weight: 500;
+    transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                box-shadow 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+}
+
+.contact-pill svg {
+    color: var(--global-theme-color);
+    flex-shrink: 0;
+}
+
+.contact-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-color: var(--global-theme-color);
+    background: var(--global-card-bg);
+}
+
+.contact-pill:active {
+    transform: scale(0.95);
 }
 
 /* Mobile tweaks */
