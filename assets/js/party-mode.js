@@ -131,12 +131,11 @@
     gallery.innerHTML = '';
     var decryptScreen = document.createElement('div');
     decryptScreen.className = 'party-mode__decrypt-screen';
-    // Build ember particles
     var flamesHtml = '<div class="party-mode__flames">';
     for (var e = 0; e < 30; e++) { flamesHtml += '<div class="party-mode__ember"></div>'; }
     flamesHtml += '</div>';
     decryptScreen.innerHTML = flamesHtml +
-      '<div class="party-mode__decrypt-text">Decoding hidden memories</div>' +
+      '<div class="party-mode__decrypt-text">Decoding</div>' +
       '<div class="party-mode__decrypt-spinner"></div>';
     gallery.appendChild(decryptScreen);
 
@@ -147,34 +146,6 @@
       var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
     }
 
-    // Decrypt all files
-    var results = [];
-    // Decrypt in batches of 4 for performance
-    for (var b = 0; b < shuffled.length; b += 4) {
-      var batch = shuffled.slice(b, b + 4);
-      var batchResults = await Promise.allSettled(batch.map(function (src) {
-        return decryptFile(src, pin).then(function (data) {
-          var mime = mimeFromEncName(src);
-          var blob = new Blob([data], { type: mime });
-          return { url: URL.createObjectURL(blob), mime: mime, name: src };
-        });
-      }));
-      batchResults.forEach(function (r) {
-        if (r.status === 'fulfilled') results.push(r.value);
-      });
-    }
-
-    // Remove decrypt screen
-    if (decryptScreen.parentNode) decryptScreen.remove();
-
-    if (results.length === 0) {
-      gallery.innerHTML = '<div class="party-mode__empty">Could not decrypt any files</div>';
-      return;
-    }
-
-    gallery.innerHTML = '';
-    decryptedBlobs = results;
-
     var sizes = [
       { w: 220, h: 170 }, { w: 260, h: 200 }, { w: 200, h: 260 },
       { w: 280, h: 190 }, { w: 180, h: 240 }, { w: 250, h: 180 },
@@ -182,7 +153,24 @@
       { w: 240, h: 170 }, { w: 210, h: 280 }
     ];
 
-    results.forEach(function (item, idx) {
+    var photoCount = 0;
+    decryptedBlobs = [];
+
+    var renderedNames = {};
+    function appendPhoto(item) {
+      // Deduplicate — skip if this file was already rendered
+      if (renderedNames[item.name]) {
+        console.warn('[party] Skipping duplicate:', item.name);
+        return;
+      }
+      renderedNames[item.name] = true;
+
+      // Remove decrypt screen once the first photo is ready
+      if (decryptScreen.parentNode) decryptScreen.remove();
+
+      decryptedBlobs.push(item);
+      var idx = photoCount++;
+
       var div = document.createElement('div');
       div.className = 'party-mode__photo';
 
@@ -229,7 +217,28 @@
       })(item));
 
       gallery.appendChild(div);
-    });
+    }
+
+    // Progressive decryption — render each photo as soon as it's ready
+    for (var b = 0; b < shuffled.length; b += 6) {
+      var batch = shuffled.slice(b, b + 6);
+      var batchResults = await Promise.allSettled(batch.map(function (src) {
+        return decryptFile(src, pin).then(function (data) {
+          var mime = mimeFromEncName(src);
+          var blob = new Blob([data], { type: mime });
+          return { url: URL.createObjectURL(blob), mime: mime, name: src };
+        });
+      }));
+      batchResults.forEach(function (r) {
+        if (r.status === 'fulfilled') appendPhoto(r.value);
+      });
+    }
+
+    // If nothing decrypted at all
+    if (photoCount === 0) {
+      if (decryptScreen.parentNode) decryptScreen.remove();
+      gallery.innerHTML = '<div class="party-mode__empty">Could not decrypt any files</div>';
+    }
   }
 
   // --- Lightbox ---
@@ -493,8 +502,11 @@
     }
   });
 
-  // --- Init ---
+  // --- Init (only once) ---
+  var initialized = false;
   function init() {
+    if (initialized) return;
+    initialized = true;
     loadManifest();
     initPinInputs();
   }

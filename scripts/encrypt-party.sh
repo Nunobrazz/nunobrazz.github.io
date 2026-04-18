@@ -7,6 +7,11 @@
 # Reads originals from  files/party/photos/
 # Writes encrypted to   files/party/encrypted/
 #
+# Before encrypting:
+#   - Converts HEIC files to JPEG via sips (macOS)
+#   - Replaces spaces with hyphens in filenames
+#   - Removes stale .enc files with no matching original
+#
 # The PIN is read interactively so it never appears in
 # shell history or process lists.
 # ─────────────────────────────────────────────────────────
@@ -22,7 +27,39 @@ if [ ! -d "$PHOTOS_DIR" ]; then
   exit 1
 fi
 
-# Prompt for PIN (hidden input)
+# ── Step 1: Sanitise filenames (spaces → hyphens) ──
+echo "Sanitising filenames..."
+cd "$PHOTOS_DIR"
+for f in *; do
+  new=$(echo "$f" | tr ' ' '-')
+  if [ "$f" != "$new" ]; then
+    mv "$f" "$new"
+    echo "  Renamed: $f -> $new"
+  fi
+done
+
+# ── Step 2: Convert HEIC to JPEG ──
+echo "Checking for HEIC files..."
+for f in *.HEIC *.heic; do
+  [ -f "$f" ] || continue
+  out="${f%.*}.jpg"
+  echo "  Converting: $f -> $out"
+  sips -s format jpeg "$f" --out "$out" >/dev/null 2>&1
+  rm "$f"
+done
+# Also check .jpg/.JPG files that are secretly HEIC
+for f in *.jpg *.JPG *.jpeg; do
+  [ -f "$f" ] || continue
+  mime=$(file -b --mime-type "$f")
+  if [ "$mime" = "image/heic" ]; then
+    echo "  Converting (misnamed HEIC): $f"
+    tmp="${f}.tmp.jpg"
+    sips -s format jpeg "$f" --out "$tmp" >/dev/null 2>&1
+    mv "$tmp" "$f"
+  fi
+done
+
+# ── Step 3: Prompt for PIN ──
 read -s -p "Enter party PIN: " PIN
 echo
 
@@ -33,7 +70,7 @@ fi
 
 mkdir -p "$ENC_DIR"
 
-# Use Node.js for encryption (crypto module is built-in)
+# ── Step 4: Encrypt & clean up stale files ──
 node -e "
 const crypto = require('crypto');
 const fs = require('fs');
@@ -55,6 +92,9 @@ if (files.length === 0) {
   process.exit(0);
 }
 
+// Build set of expected .enc filenames
+const expectedEnc = new Set();
+
 console.log('Encrypting ' + files.length + ' files...');
 
 // Format: [16 bytes salt][12 bytes IV][ciphertext + 16 bytes auth tag]
@@ -62,6 +102,7 @@ files.forEach((file, i) => {
   const name = path.basename(file, path.extname(file));
   const ext = path.extname(file).toLowerCase().slice(1);
   const outName = name + '.' + ext + '.enc';
+  expectedEnc.add(outName);
 
   console.log('  [' + (i+1) + '/' + files.length + '] ' + file + ' -> ' + outName);
 
@@ -82,5 +123,20 @@ files.forEach((file, i) => {
   fs.writeFileSync(path.join(encDir, outName), output);
 });
 
-console.log('Done! Encrypted files are in ' + encDir);
+// Remove stale .enc files that no longer have a matching original
+const encFiles = fs.readdirSync(encDir).filter(f => f.endsWith('.enc'));
+let removed = 0;
+encFiles.forEach(f => {
+  if (!expectedEnc.has(f)) {
+    fs.unlinkSync(path.join(encDir, f));
+    console.log('  Removed stale: ' + f);
+    removed++;
+  }
+});
+
+if (removed > 0) {
+  console.log('Cleaned up ' + removed + ' stale encrypted file(s).');
+}
+
+console.log('Done! ' + files.length + ' encrypted files in ' + encDir);
 " "$PIN" "$PHOTOS_DIR" "$ENC_DIR"
