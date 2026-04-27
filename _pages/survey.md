@@ -514,15 +514,12 @@ hide_title: true
 
 <script>
 var GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxA67wD1nzifeICtUC5G7-WSkmPUIjrLm03_tBFfJWfMvKn6XNmBG07iTxtdIRPB78wnw/exec';
-
-// Language toggle
 var currentLang = 'pt';
 
 function setLang(lang) {
   currentLang = lang;
   var allPt = document.querySelectorAll('[data-lang="pt"]');
   var allEn = document.querySelectorAll('[data-lang="en"]');
-
   if (lang === 'pt') {
     allPt.forEach(function(el) { el.style.display = ''; });
     allEn.forEach(function(el) { el.style.display = 'none'; });
@@ -536,10 +533,8 @@ function setLang(lang) {
   }
 }
 
-// Show/hide rest of survey based on interest
 var interestRadios = document.querySelectorAll('input[name="interest"]');
 var detailsDiv = document.getElementById('survey-details');
-
 interestRadios.forEach(function(radio) {
   radio.addEventListener('change', function() {
     if (this.value === 'yes' || this.value === 'maybe') {
@@ -550,10 +545,8 @@ interestRadios.forEach(function(radio) {
   });
 });
 
-// Show frequency only when subscription is selected
 var purchaseRadios = document.querySelectorAll('input[name="purchase_type"]');
 var frequencyField = document.getElementById('frequency-field');
-
 purchaseRadios.forEach(function(radio) {
   radio.addEventListener('change', function() {
     if (this.value === 'subscription' || this.value === 'both') {
@@ -564,10 +557,8 @@ purchaseRadios.forEach(function(radio) {
   });
 });
 
-// Submit
 document.getElementById('survey-form').addEventListener('submit', function(e) {
   e.preventDefault();
-
   var form = e.target;
   var submitBtn = form.querySelector('.survey-submit');
   var ptSpan = submitBtn.querySelector('[data-lang="pt"]');
@@ -575,10 +566,8 @@ document.getElementById('survey-form').addEventListener('submit', function(e) {
   if (ptSpan) ptSpan.textContent = 'A enviar...';
   if (enSpan) enSpan.textContent = 'Sending...';
   submitBtn.disabled = true;
-
   var data = new FormData(form);
   var response = {};
-
   var entries = data.entries();
   var entry = entries.next();
   while (!entry.done) {
@@ -595,14 +584,12 @@ document.getElementById('survey-form').addEventListener('submit', function(e) {
     }
     entry = entries.next();
   }
-
   var flat = {};
   for (var k in response) {
     flat[k] = Array.isArray(response[k]) ? response[k].join(', ') : response[k];
   }
   flat.timestamp = new Date().toISOString();
   flat.language = currentLang;
-
   fetch(GOOGLE_SHEET_URL, {
     method: 'POST',
     mode: 'no-cors',
