@@ -28,8 +28,8 @@ main:
   - title: "Footprints"
     url: /footprints/
 
-  - title: "Services"
-    url: /services/
+  #- title: "Services"
+  #  url: /services/
     
 
   # - title: "CV"
