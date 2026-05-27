@@ -122,6 +122,34 @@
   }
 }
 
+/* GitHub button (projects page) */
+.project-github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.35em 0.85em;
+  font-size: 0.82em;
+  font-weight: 600;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  color: #fff;
+  background: #24292e;
+  border-radius: 6px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: #444d56;
+    transform: translateY(-1px);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
 /* Chevron */
 .cv-section__chevron {
   width: var(--chevron-size);

@@ -9,10 +9,10 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default" # Currently available options are "default", "air"
-title                    : "Profile"
+title                    : "Nuno Braz"
 title_separator          : "-"
 name                     : &name "Nuno Braz"
-description              : &description "Academic and Professional Work"   # Update this with a general description of your site, this is the default if not overridden by a page
+description              : &description "CS Engineer and Researcher at INESC-ID working on Blockchain, Game Theory, Security, and Distributed Systems."   # Update this with a general description of your site, this is the default if not overridden by a page
 url                      : https://nunobrazz.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
@@ -26,7 +26,8 @@ author:
   avatar           : "Photo surf 2.png"
   name             : "Nuno Braz"
   pronouns         : # example: "she/her"  
-  bio              : "CS Engineer · Researcher · TA"
+  bio              : "CS Engineer · Researcher · TA @ IST"
+  bio_logo         : "ist-logo.png"
   keywords         : ["Blockchain", "Game Theory", "Security", "Distributed Systems"]
   location         : "🌍"
   employer         : "INESC-ID"
@@ -141,14 +142,17 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  # Social media default site image
-og_description           :  # Social media default site image description
+og_image                 : "Photo surf 2.png"
+og_description           : "CS Engineer and Researcher at INESC-ID working on Blockchain, Game Theory, Security, and Distributed Systems."
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
-  type                   : # Person or Organization (defaults to Person)
-  name                   : # If the user or organization name differs from the site's name
-  links: # An array of links to social media profiles
+  type                   : "Person"
+  name                   : "Nuno Braz"
+  links:
+    - "https://www.linkedin.com/in/nuno-braz"
+    - "https://github.com/nunobrazz"
+    - "http://orcid.org/0009-0003-1151-3696"
 
 
 # Analytics

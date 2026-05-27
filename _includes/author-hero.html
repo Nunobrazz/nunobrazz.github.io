@@ -18,7 +18,7 @@
     <div class="hero-bio__info">
       <h1 class="hero-bio__name">{{ author.name }}</h1>
       {% if author.pronouns %}<p class="hero-bio__pronouns">{{ author.pronouns }}</p>{% endif %}
-      {% if author.bio %}<p class="hero-bio__bio">{{ author.bio }}</p>{% endif %}
+      {% if author.bio %}<p class="hero-bio__bio">{{ author.bio }}{% if author.bio_logo %} <img class="hero-bio__inline-logo" src="{{ author.bio_logo | prepend: "/images/" | prepend: base_path }}" alt="IST" />{% endif %}</p>{% endif %}
       {% if author.keywords %}
       <div class="author__keywords">
         {% for kw in author.keywords %}<span class="author__keyword">{{ kw }}</span>{% endfor %}

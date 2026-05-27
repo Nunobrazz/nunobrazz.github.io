@@ -1,6 +1,7 @@
 ---
 layout: archive
-title: "CV"
+title: "CV — Nuno Braz"
+description: "Curriculum vitae of Nuno Braz — education, research experience, publications, and teaching at INESC-ID / IST."
 permalink: /cv/
 author_profile: true
 hide_title: true
@@ -110,7 +111,7 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <h3 class="timeline-title">Blockchain</h3>
-              <p>ERC standards, OpenZeppelin, Canton Network, Hardhat</p>
+              <p>Hardhat, ERC standards, OpenZeppelin, Canton Network, Splice</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -320,6 +321,7 @@ redirect_from:
       <div class="cv-section__icon"><i class="fas fa-language"></i></div>
       <div class="cv-section__title-group">
         <h2 class="cv-section__title">Languages</h2>
+        <div class="cv-section__count">4 languages</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -328,7 +330,36 @@ redirect_from:
     <div class="cv-section__progress"></div>
     <div class="cv-section__body">
       <div class="cv-section__body-inner">
-        <p>Portuguese (native) | English (advanced) | Spanish (advanced) | French (working proficiency)</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Portuguese</h3>
+              <p>Native</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">English</h3>
+              <p>Advanced</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Spanish</h3>
+              <p>Advanced</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">French</h3>
+              <p>Working proficiency</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -338,7 +369,7 @@ redirect_from:
     <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
       <div class="cv-section__icon"><i class="fas fa-heart"></i></div>
       <div class="cv-section__title-group">
-        <h2 class="cv-section__title">Extras</h2>
+        <h2 class="cv-section__title">Other Stuff</h2>
         <div class="cv-section__count">2 entries</div>
       </div>
       <div class="cv-section__chevron">

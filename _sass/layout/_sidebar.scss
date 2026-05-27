@@ -266,8 +266,8 @@
   padding: 0.2em 0.55em;
   border-radius: 999px;
   border: 1px solid var(--global-border-color);
-  color: var(--global-text-color-light);
-  background: transparent;
+  color: var(--global-text-color);
+  background: var(--global-bg-color);
   letter-spacing: 0.01em;
   line-height: 1.4;
 }

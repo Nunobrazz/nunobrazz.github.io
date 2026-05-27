@@ -1,230 +1,249 @@
 /* ==========================================================================
-   GENERATIVE HERO — WebGL Fluid Simulation
-   GPU-accelerated Navier-Stokes fluid dynamics behind the bio section.
-   Uses webgl-fluid-enhanced v0.5.2 (UMD) for real-time interactive liquid flow
-   with ocean/beach-inspired blue tones.
+   GENERATIVE HERO — Lightweight Canvas Particle Waves
+   A tech-futuristic ocean-inspired background using only Canvas 2D.
+   No external libraries. Draws a flowing particle grid that reacts to mouse.
    Called from init() in _main.js on every Turbo navigation.
    ========================================================================== */
 
+/* --- Original WebGL Fluid Simulation (commented out — too heavy) ---
 (function () {
   var _initialized = false;
+  ... [webgl-fluid-enhanced v0.5.2 code removed for performance] ...
+})();
+--- End original --- */
+
+(function () {
+  var _initialized = false;
+  var _animFrame = null;
   var _observer = null;
-  var _splatInterval = null;
-  // v0.5.2 UMD exports to window["webgl-fluid-enhanced"]
-  var _getFluid = function () { return window["webgl-fluid-enhanced"]; };
 
   window.initGenerativeHero = function () {
     var container = document.getElementById('fluid-bg-canvas');
     if (!container) return;
-
-    // Skip if already initialized for this container
     if (_initialized && container.querySelector('canvas')) return;
-
-    // Respect reduced-motion preference
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // Load WebGL-Fluid-Enhanced UMD on demand (only once)
-    if (!_getFluid()) {
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/webgl-fluid-enhanced@0.5.2/dist/webgl-fluid-enhanced.umd.min.js';
-      script.onload = function () { _startFluid(container); };
-      script.onerror = function () {
-        console.warn('WebGL Fluid: CDN load failed');
-      };
-      document.head.appendChild(script);
-    } else {
-      _startFluid(container);
-    }
-  };
-
-  function _getColorPalette() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-    if (isDark) {
-      return [
-        '#1a5276',  // deep water
-        '#2471a3',  // ocean current
-        '#2e86c1',  // vivid blue
-        '#3498db',  // clear water
-        '#5dade2',  // bright surface
-        '#85c1e9',  // shallow water
-        '#aed6f1',  // sunlit ripple
-        '#21618c',  // undertow
-      ];
-    } else {
-      return [
-        '#2e86c1',  // clear water
-        '#3498db',  // bright pool
-        '#5dade2',  // sunlit surface
-        '#85c1e9',  // pale water
-        '#aed6f1',  // ice shimmer
-        '#d4e6f1',  // foam white
-        '#1a5276',  // deep current
-        '#2471a3',  // mid depth
-      ];
-    }
-  }
-
-  function _getBackColor() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    return isDark ? '#0b1a2e' : '#e8f4f8';
-  }
-
-  function _startFluid(container) {
-    var fluid = _getFluid();
-    if (!fluid) return;
-
-    if (_observer) {
-      _observer.disconnect();
-      _observer = null;
-    }
-
-    // Clear leftover canvases from previous Turbo page swaps
     container.innerHTML = '';
 
-    // Create a canvas element for the fluid simulation
     var canvas = document.createElement('canvas');
     canvas.style.display = 'block';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     container.appendChild(canvas);
 
-    try {
-      fluid.simulation(canvas, {
-        SIM_RESOLUTION: 128,
-        DYE_RESOLUTION: 1024,
-        CAPTURE_RESOLUTION: 512,
-        DENSITY_DISSIPATION: 0.965,
-        VELOCITY_DISSIPATION: 0.975,
-        PRESSURE: 0.8,
-        PRESSURE_ITERATIONS: 20,
-        CURL: 30,
-        SPLAT_RADIUS: 0.35,
-        SPLAT_FORCE: 5000,
-        INITIAL: true,
-        SPLAT_AMOUNT: 5,
-        TRANSPARENT: false,
-        BACK_COLOR: _getBackColor(),
-        BRIGHTNESS: 0.7,
-        BLOOM: true,
-        BLOOM_INTENSITY: 0.25,
-        BLOOM_THRESHOLD: 0.45,
-        SUNRAYS: true,
-        SUNRAYS_WEIGHT: 0.6,
-        HOVER: true,
-        COLOR_PALETTE: _getColorPalette(),
-        COLOR_UPDATE_SPEED: 8,
-      });
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-      _initialized = true;
+    // --- Config ---
+    var COLS = 30;
+    var ROWS = 18;
+    var PARTICLE_SIZE = 2.2;
+    var WAVE_SPEED = 0.0006;
+    var WAVE_AMP = 22;
+    var MOUSE_RADIUS = 150;
+    var MOUSE_STRENGTH = 40;
+    var LINE_ALPHA = 0.28;
+    var CONNECT_DIST = 60;
 
-      // Fire extra splats to fill the canvas
-      setTimeout(function () {
-        try { fluid.splats(); } catch (e) {}
-      }, 200);
+    var mouse = { x: -9999, y: -9999 };
+    var particles = [];
+    var time = 0;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-      // Keep the simulation alive with periodic splats
-      if (_splatInterval) clearInterval(_splatInterval);
-      _splatInterval = setInterval(function () {
-        try { fluid.splats(); } catch (e) {}
-      }, 3000);
-
-      // Forward mouse/touch events from #main to the fluid as splats.
-      // The library only listens on the canvas, but the hero card sits on top.
-      var main = document.getElementById('main');
-      var dragging = false;
-      var lastX = 0, lastY = 0;
-
-      function _splatAt(clientX, clientY, dx, dy) {
-        var rect = canvas.getBoundingClientRect();
-        var x = (clientX - rect.left) / rect.width;
-        var y = 1.0 - (clientY - rect.top) / rect.height;
-        // Clamp to canvas bounds
-        if (x < 0 || x > 1 || y < 0 || y > 1) return;
-        try {
-          fluid.splat(
-            x * canvas.clientWidth,
-            (1.0 - y) * canvas.clientHeight,
-            dx * 8,
-            dy * 8
-          );
-        } catch (e) {}
-      }
-
-      document.addEventListener('mousedown', function (e) {
-        dragging = true;
-        lastX = e.clientX;
-        lastY = e.clientY;
-        _splatAt(e.clientX, e.clientY, 0, 0);
-      });
-
-      window.addEventListener('mousemove', function (e) {
-        if (!dragging) return;
-        var dx = e.clientX - lastX;
-        var dy = e.clientY - lastY;
-        lastX = e.clientX;
-        lastY = e.clientY;
-        _splatAt(e.clientX, e.clientY, dx, dy);
-      });
-
-      window.addEventListener('mouseup', function () {
-        dragging = false;
-      });
-
-      document.addEventListener('touchstart', function (e) {
-        var t = e.touches[0];
-        dragging = true;
-        lastX = t.clientX;
-        lastY = t.clientY;
-        _splatAt(t.clientX, t.clientY, 0, 0);
-      }, { passive: true });
-
-      document.addEventListener('touchmove', function (e) {
-        if (!dragging) return;
-        var t = e.touches[0];
-        var dx = t.clientX - lastX;
-        var dy = t.clientY - lastY;
-        lastX = t.clientX;
-        lastY = t.clientY;
-        _splatAt(t.clientX, t.clientY, dx, dy);
-      }, { passive: true });
-
-      window.addEventListener('touchend', function () {
-        dragging = false;
-      });
-
-    } catch (e) {
-      console.warn('WebGL Fluid: init failed', e);
-      return;
+    function isDark() {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
     }
 
-    // Re-init colours on theme change
-    _observer = new MutationObserver(function (mutations) {
-      var f = _getFluid();
-      if (!f) return;
-      for (var m of mutations) {
-        if (m.attributeName === 'data-theme' || m.attributeName === 'style') {
-          try {
-            f.config({
-              COLOR_PALETTE: _getColorPalette(),
-              BACK_COLOR: _getBackColor(),
-            });
-            f.splats();
-          } catch (e) {}
-          break;
+    function getColors() {
+      if (isDark()) {
+        return {
+          bg: '#111118',              // dark background
+          particle: [40, 200, 120],   // vivid green
+          particle2: [100, 230, 150], // bright green
+          line: [50, 210, 130],       // green
+        };
+      } else {
+        return {
+          bg: '#d4e8f0',              // light background
+          particle: [20, 160, 80],    // rich green
+          particle2: [50, 190, 110],  // bright green
+          line: [30, 170, 90],        // green
+        };
+      }
+    }
+
+    function resize() {
+      var w = container.clientWidth;
+      var h = container.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      initParticles(w, h);
+    }
+
+    function initParticles(w, h) {
+      particles = [];
+      var spacingX = w / (COLS - 1);
+      var spacingY = h / (ROWS - 1);
+      for (var row = 0; row < ROWS; row++) {
+        for (var col = 0; col < COLS; col++) {
+          particles.push({
+            baseX: col * spacingX,
+            baseY: row * spacingY,
+            x: col * spacingX,
+            y: row * spacingY,
+            // Random per-particle values for organic motion
+            phaseX1: Math.random() * Math.PI * 2,
+            phaseY1: Math.random() * Math.PI * 2,
+            phaseX2: Math.random() * Math.PI * 2,
+            phaseY2: Math.random() * Math.PI * 2,
+            speedX1: 0.4 + Math.random() * 0.6,
+            speedY1: 0.4 + Math.random() * 0.6,
+            speedX2: 0.2 + Math.random() * 0.4,
+            speedY2: 0.2 + Math.random() * 0.4,
+            ampX: 0.6 + Math.random() * 0.8,
+            ampY: 0.6 + Math.random() * 0.8,
+          });
         }
+      }
+    }
+
+    function draw(ts) {
+      time = ts * WAVE_SPEED;
+      var w = container.clientWidth;
+      var h = container.clientHeight;
+      var colors = getColors();
+
+      // Clear
+      ctx.fillStyle = colors.bg;
+      ctx.fillRect(0, 0, w, h);
+
+      // Update particles — each drifts with its own random organic motion
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+
+        // Two layered sine waves per axis, each with random phase and speed
+        var dx1 = Math.sin(time * p.speedX1 + p.phaseX1) * WAVE_AMP * p.ampX;
+        var dx2 = Math.cos(time * p.speedX2 + p.phaseX2) * WAVE_AMP * p.ampX * 0.5;
+        var dy1 = Math.cos(time * p.speedY1 + p.phaseY1) * WAVE_AMP * p.ampY;
+        var dy2 = Math.sin(time * p.speedY2 + p.phaseY2) * WAVE_AMP * p.ampY * 0.5;
+
+        p.x = p.baseX + dx1 + dx2;
+        p.y = p.baseY + dy1 + dy2;
+
+        // Mouse repulsion
+        var dx = p.x - mouse.x;
+        var dy = p.y - mouse.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          var force = (1 - dist / MOUSE_RADIUS) * MOUSE_STRENGTH;
+          p.x += (dx / dist) * force;
+          p.y += (dy / dist) * force;
+        }
+      }
+
+      // Draw connecting lines (only to neighbors)
+      ctx.lineWidth = 0.8;
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        var col = i % COLS;
+        var row = Math.floor(i / COLS);
+
+        // Right neighbor
+        if (col < COLS - 1) {
+          var right = particles[i + 1];
+          var d = Math.abs(p.x - right.x) + Math.abs(p.y - right.y);
+          if (d < CONNECT_DIST * 2) {
+            var alpha = LINE_ALPHA * (1 - d / (CONNECT_DIST * 2));
+            ctx.strokeStyle = 'rgba(' + colors.line[0] + ',' + colors.line[1] + ',' + colors.line[2] + ',' + alpha + ')';
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(right.x, right.y);
+            ctx.stroke();
+          }
+        }
+
+        // Bottom neighbor
+        if (row < ROWS - 1) {
+          var below = particles[i + COLS];
+          var d = Math.abs(p.x - below.x) + Math.abs(p.y - below.y);
+          if (d < CONNECT_DIST * 2) {
+            var alpha = LINE_ALPHA * (1 - d / (CONNECT_DIST * 2));
+            ctx.strokeStyle = 'rgba(' + colors.line[0] + ',' + colors.line[1] + ',' + colors.line[2] + ',' + alpha + ')';
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(below.x, below.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        var t = (Math.sin(time + p.phase) + 1) * 0.5;
+        var r = Math.floor(colors.particle[0] + (colors.particle2[0] - colors.particle[0]) * t);
+        var g = Math.floor(colors.particle[1] + (colors.particle2[1] - colors.particle[1]) * t);
+        var b = Math.floor(colors.particle[2] + (colors.particle2[2] - colors.particle[2]) * t);
+
+        // Glow
+        var dx = p.x - mouse.x;
+        var dy = p.y - mouse.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        var size = PARTICLE_SIZE;
+        var alpha = 0.85;
+        if (dist < MOUSE_RADIUS) {
+          var proximity = 1 - dist / MOUSE_RADIUS;
+          size += proximity * 2;
+          alpha = 0.6 + proximity * 0.4;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+        ctx.fill();
+      }
+
+      _animFrame = requestAnimationFrame(draw);
+    }
+
+    // Events
+    document.addEventListener('mousemove', function (e) {
+      var rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+
+    document.addEventListener('touchmove', function (e) {
+      var t = e.touches[0];
+      var rect = canvas.getBoundingClientRect();
+      mouse.x = t.clientX - rect.left;
+      mouse.y = t.clientY - rect.top;
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', function () {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    window.addEventListener('resize', resize);
+    resize();
+    _animFrame = requestAnimationFrame(draw);
+    _initialized = true;
+
+    // Theme changes
+    _observer = new MutationObserver(function (mutations) {
+      for (var m of mutations) {
+        if (m.attributeName === 'data-theme' || m.attributeName === 'style') break;
       }
     });
     _observer.observe(document.documentElement, { attributes: true });
-  }
+  };
 
-  // Cleanup on Turbo before-render to prevent stale instances
+  // Cleanup on Turbo navigation
   document.addEventListener('turbo:before-render', function () {
     _initialized = false;
-    if (_splatInterval) { clearInterval(_splatInterval); _splatInterval = null; }
-    if (_observer) {
-      _observer.disconnect();
-      _observer = null;
-    }
+    if (_animFrame) { cancelAnimationFrame(_animFrame); _animFrame = null; }
+    if (_observer) { _observer.disconnect(); _observer = null; }
   });
 })();

@@ -3,13 +3,13 @@ title: "DMsim — Decision Making Simulator"
 excerpt: "A Python simulator for comparing Decision Markets and VCG auctions as collective decision-making mechanisms, powered by LLM-generated agents."
 collection: portfolio
 date: 2026-01-01
+project_category: "Projects"
+github_url: "https://github.com/Nunobrazz/dmsim"
 ---
 
 **How do you get a group of people — each with their own interests and private information — to make a good collective decision?**
 
 Think of a DAO voting on a risky proposal. Some members want it approved because they'll profit. Others think it's too dangerous. Nobody shares the full picture. DMsim lets you test two fundamentally different answers to this problem.
-
-[View on GitHub](https://github.com/Nunobrazz/dmsim)
 
 ## The Two Mechanisms
 
