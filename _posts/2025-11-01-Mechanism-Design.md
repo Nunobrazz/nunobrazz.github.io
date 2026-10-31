@@ -1,6 +1,7 @@
 ---
 title: 'Mechanism Design'
 date: 2025-11-14
+published: false # hidden from the site; set to true to restore
 permalink: /posts/2025/MechanismDesign/
 tags:
   - Mechanism Design
