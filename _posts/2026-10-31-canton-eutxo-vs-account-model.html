@@ -1,0 +1,191 @@
+---
+title: 'eUTXO vs account model in Canton'
+date: 2026-10-31 12:02:00
+permalink: /posts/2026/canton-eutxo-vs-account-model/
+excerpt: 'A counter contract in Ethereum and in Canton: execution order, identity, retries and contention.'
+tags:
+  - Canton
+---
+{% raw %}
+<style>
+.ckb {
+  --ckb-surface: #ffffff; --ckb-ink: #18212d; --ckb-muted: #5c6778; --ckb-line: #dce1e8;
+  --ckb-axis: #9aa4b2; --ckb-accent: #2c5bd9; --ckb-accent-2: #d9622b; --ckb-critical: #c2413a;
+  --ckb-tint: #eceff4; --ckb-code: #edf0f5;
+  --surface: var(--ckb-surface);
+  --cds-chart-axis: var(--ckb-axis); --cds-chart-grid: var(--ckb-line);
+  --cds-chart-categorical-1: var(--ckb-accent); --cds-chart-categorical-2: var(--ckb-accent-2);
+  --cds-chart-reference-tint: var(--ckb-tint); --cds-chart-status-critical: var(--ckb-critical);
+  --cds-text-primary: var(--ckb-ink); --cds-text-secondary: var(--ckb-muted);
+}
+html[data-theme="dark"] .ckb {
+  --ckb-surface: #151c26; --ckb-ink: #e4e9f1; --ckb-muted: #96a1b2; --ckb-line: #273140;
+  --ckb-axis: #5d6878; --ckb-accent: #7fa2ff; --ckb-accent-2: #f08a5a; --ckb-critical: #f07068;
+  --ckb-tint: #1c2531; --ckb-code: #1a222d;
+}
+.ckb-series { font-size: 0.8em; color: var(--ckb-muted); padding: 0.6em 0; margin-bottom: 1.5em; border-bottom: 1px solid var(--ckb-line); }
+.ckb .tldr { border: 1px solid var(--ckb-line); border-radius: 10px; padding: 1em 1.2em 0.2em; margin-bottom: 1.5em; }
+.ckb .eyebrow { font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ckb-muted); margin: 0 0 0.6em; }
+.ckb figure.dia { max-width: 780px; margin: 1.2em 0; padding: 8px; border: 1px solid var(--ckb-line); border-radius: 10px; background: var(--ckb-surface); overflow-x: auto; display: block; }
+.ckb figure.dia svg { display: block; width: 100%; min-width: 600px; height: auto; font-family: inherit; }
+.ckb figure.dia figcaption { font-size: 0.7em; color: var(--ckb-muted); padding: 6px 6px 2px; }
+.ckb .table-wrap { overflow-x: auto; margin: 0.5em 0 1.2em; }
+.ckb table { border-collapse: collapse; width: 100%; font-size: 0.85em; display: table; }
+.ckb th, .ckb td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--ckb-line); }
+.ckb th { background: var(--ckb-tint); }
+.ckb pre { overflow-x: auto; }
+.ckb li pre { margin-top: 0.6em; }
+
+</style>
+<div class="ckb">
+<nav class="ckb-series" aria-label="Canton notes">Canton notes: <a href="/posts/2026/canton-architecture/">Canton architecture</a> · <strong>eUTXO vs account model in Canton</strong> · <a href="/posts/2026/canton-decentralization/">How Canton achieves decentralization</a> · <a href="/posts/2026/canton-glossary/">Canton glossary</a></nav>
+<section class="tldr" id="eutxo-tldr" aria-labelledby="eutxo-tldr-h">
+        <p class="eyebrow" id="eutxo-tldr-h">TL;DR</p>
+        <p>In the account model a contract is a mutable object at a fixed address; in the eUTXO model a contract is an immutable value that is replaced on every change.</p>
+        <ul>
+          <li><strong>Account model (Ethereum):</strong> a contract (e.g. a counter) lives at <code>0xC0FFEE</code> forever. An increment overwrites its storage in place.</li>
+          <li><strong>eUTXO model (Canton):</strong> the counter is a chain of versions <code>#A → #B → #C</code>. An increment archives one version and creates the next, with a new contract ID.</li>
+          <li><strong>The root cause is execution order.</strong> Ethereum orders transactions first and then executes them against global state. Canton executes first, privately, and then orders, so each transaction must pin its exact inputs.</li>
+          <li><strong>What follows for the backend:</strong> stale IDs, contention rejections, re-reads, and modeling a stable business ID in the application.</li>
+        </ul>
+      </section>
+
+      <h2 id="eutxo-submitting">Submitting a command</h2>
+      <p>One key difference between the two models is whether a transaction is executed <strong>before</strong> or <strong>after</strong> it is ordered.</p>
+      <figure class="dia"><svg viewBox="0 0 760 276" role="img" aria-label="Ethereum orders then executes; Canton executes then orders" font-size="13"><defs><marker id="pipe-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--cds-chart-axis)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" style="fill:var(--cds-text-primary)">Ethereum orders then executes; Canton executes then orders</text><text x="24" y="64" font-weight="600" style="fill:var(--cds-text-primary)">Ethereum</text><text x="24" y="180" font-weight="600" style="fill:var(--cds-text-primary)">Canton</text><g fill="none" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"><path d="M175 108H211" marker-end="url(#pipe-arrow)"></path><path d="M362 108H398" marker-end="url(#pipe-arrow)"></path><path d="M549 108H585" marker-end="url(#pipe-arrow)"></path><path d="M175 224H211" marker-end="url(#pipe-arrow)"></path><path d="M362 224H398" marker-end="url(#pipe-arrow)"></path><path d="M549 224H585" marker-end="url(#pipe-arrow)"></path></g><g><rect x="24" y="80" width="151" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="99.5" y="104" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Submit</text><text x="99.5" y="120" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">names 0xC0FFEE</text></g><g><rect x="211" y="80" width="151" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="286.5" y="104" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Order</text><text x="286.5" y="120" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">tx placed in a block</text></g><g><rect x="398" y="80" width="151" height="56" rx="8" fill-opacity="0.12" stroke-width="2" style="fill:var(--cds-chart-categorical-1);stroke:var(--cds-chart-categorical-1)"></rect><text x="473.5" y="104" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Execute</text><text x="473.5" y="120" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-primary)">every node re-runs</text></g><g><rect x="585" y="80" width="151" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="660.5" y="104" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Commit</text><text x="660.5" y="120" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">storage overwritten</text></g><g><rect x="24" y="196" width="151" height="56" rx="8" fill-opacity="0.12" stroke-width="2" style="fill:var(--cds-chart-categorical-1);stroke:var(--cds-chart-categorical-1)"></rect><text x="99.5" y="220" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Execute</text><text x="99.5" y="236" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-primary)">pins input contracts</text></g><g><rect x="211" y="196" width="151" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="286.5" y="220" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Order</text><text x="286.5" y="236" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">sequencer, encrypted</text></g><g><rect x="398" y="196" width="151" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="473.5" y="220" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Validate</text><text x="473.5" y="236" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">inputs still active?</text></g><g><rect x="585" y="196" width="151" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="660.5" y="220" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">Commit</text><text x="660.5" y="236" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">mediator verdict</text></g></svg><figcaption>execution order in each model · 4 stages</figcaption></figure>
+      <ul>
+        <li><strong>Ethereum (order-then-execute):</strong> every node holds the global state and re-runs every transaction in block order. A transaction never needs to name a version; concurrent writers are simply serialized.</li>
+        <li><strong>Canton (execute-then-order):</strong> no node holds global state, and the sequencer cannot read payloads, so it cannot execute anything. The submitter executes on its local view, which fixes the exact contract versions it consumes before ordering. Stakeholders then only check those versions are still active.</li>
+        <li><strong>Canton gets:</strong> privacy (only stakeholders see or validate) and parallelism (disjoint contracts never conflict). <strong>At the cost of:</strong> client-side retries, due to stale contract IDs.</li>
+      </ul>
+
+      <h2 id="eutxo-account">The counter in the account model (Ethereum)</h2>
+      <p>In the account model the counter is one object at one address, and an increment overwrites its storage in place.</p>
+<pre><code>contract Counter {
+    uint public value;
+    function increment() public { value += 1; }
+}
+// deployed once at 0xC0FFEE, forever</code></pre>
+      <ul>
+        <li><strong>State is a global mutable map:</strong> <code>address → {code, storage}</code>. Every full node holds all of it.</li>
+        <li><strong>A transaction names the address:</strong> "call <code>increment()</code> on <code>0xC0FFEE</code>".</li>
+        <li><strong>Execution reads the current value at that moment.</strong> Three increments turn storage slot <code>value</code> from 0 to 1 to 2 to 3, and the address never changes.</li>
+        <li><code>0xC0FFEE</code> is both the instance and the <strong>business object</strong> (the real-world thing the application cares about, which keeps its identity while its state changes).</li>
+      </ul>
+
+      <h2 id="eutxo-utxo">The counter in the eUTXO model (Canton)</h2>
+      <p>In the eUTXO model the counter is a chain of immutable versions, and an increment consumes one version and creates the next.</p>
+<pre><code>template Counter
+  with
+    owner : Party
+    name  : Text      -- stable business ID, e.g. "visits"
+    value : Int
+  where
+    signatory owner
+
+    choice Increment : ContractId Counter
+      controller owner
+      do create this with value = value + 1   -- archive this, create the next</code></pre>
+      <ul>
+        <li><strong>UTXO = unspent transaction output.</strong> In Bitcoin it is a coin that can be spent exactly once. <strong>Extended</strong> UTXO (Cardano, Canton) lets that output carry code and data, so it can be a contract.</li>
+        <li><strong>Ledger state is the set of unspent outputs:</strong> in Canton, the Active Contract Set (ACS). There is no mutable storage, only create and archive.</li>
+        <li><strong>A transaction names the exact version it consumes:</strong> "exercise <code>Increment</code> on <code>#A</code>". That version must still be unspent when the transaction commits.</li>
+        <li><strong>Each increment yields a new contract ID:</strong> <code>#A</code> (0), then <code>#B</code> (1), then <code>#C</code> (2), then <code>#D</code> (3). Only the newest one is active.</li>
+        <li><strong>Identity must be modeled:</strong> the contract ID names one version. The stable thing the backend tracks is a field like <code>name = "visits"</code>.</li>
+      </ul>
+
+      <h2 id="eutxo-increments">Three increments in both models</h2>
+      <p>The same three increments leave one object in Ethereum and a chain of four versions in Canton, of which only the last is active.</p>
+      <figure class="dia"><svg viewBox="0 0 760 324" role="img" aria-label="Account model overwrites one object; eUTXO replaces versions" font-size="13"><defs><marker id="glance-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--cds-chart-axis)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" style="fill:var(--cds-text-primary)">Account model overwrites one object; eUTXO replaces versions</text><text x="24" y="64" font-weight="600" style="fill:var(--cds-text-primary)">Account model (Ethereum): three increments, one address</text><g><rect x="24" y="80" width="712" height="88" rx="8" stroke-width="1.25" style="fill:var(--cds-chart-reference-tint);stroke:var(--cds-chart-axis)"></rect><text x="40" y="102" font-size="11.5" style="fill:var(--cds-text-secondary)">0xC0FFEE: the same object the whole time, storage slot overwritten</text></g><g><rect x="60" y="116" width="120" height="40" rx="8" fill="none" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><rect x="240" y="116" width="120" height="40" rx="8" fill="none" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><rect x="420" y="116" width="120" height="40" rx="8" fill="none" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><rect x="600" y="116" width="120" height="40" rx="8" fill="none" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"></rect><text x="120" y="140" text-anchor="middle" style="fill:var(--cds-text-primary)">value = 0</text><text x="300" y="140" text-anchor="middle" style="fill:var(--cds-text-primary)">value = 1</text><text x="480" y="140" text-anchor="middle" style="fill:var(--cds-text-primary)">value = 2</text><text x="660" y="140" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">value = 3</text></g><g fill="none" stroke-width="1.25" style="stroke:var(--cds-chart-axis)"><path d="M180 136H240" marker-end="url(#glance-arrow)"></path><path d="M360 136H420" marker-end="url(#glance-arrow)"></path><path d="M540 136H600" marker-end="url(#glance-arrow)"></path><path d="M180 252H240" marker-end="url(#glance-arrow)"></path><path d="M360 252H420" marker-end="url(#glance-arrow)"></path><path d="M540 252H600" marker-end="url(#glance-arrow)"></path></g><text x="24" y="208" font-weight="600" style="fill:var(--cds-text-primary)">eUTXO model (Canton): three increments, four contract IDs</text><g><rect x="60" y="224" width="120" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" stroke-dasharray="4 4" style="stroke:var(--cds-chart-axis)"></rect><text x="120" y="248" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-secondary)">#A</text><text x="120" y="264" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">visits, 0</text><text x="120" y="300" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">archived</text></g><g><rect x="240" y="224" width="120" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" stroke-dasharray="4 4" style="stroke:var(--cds-chart-axis)"></rect><text x="300" y="248" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-secondary)">#B</text><text x="300" y="264" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">visits, 1</text><text x="300" y="300" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">archived</text></g><g><rect x="420" y="224" width="120" height="56" rx="8" fill="none" fill-opacity="1" stroke-width="1.25" stroke-dasharray="4 4" style="stroke:var(--cds-chart-axis)"></rect><text x="480" y="248" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-secondary)">#C</text><text x="480" y="264" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">visits, 2</text><text x="480" y="300" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">archived</text></g><g><rect x="600" y="224" width="120" height="56" rx="8" fill-opacity="0.12" stroke-width="2" stroke-dasharray="none" style="fill:var(--cds-chart-categorical-1);stroke:var(--cds-chart-categorical-1)"></rect><text x="660" y="248" text-anchor="middle" font-weight="600" style="fill:var(--cds-text-primary)">#D</text><text x="660" y="264" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-primary)">visits, 3</text><text x="660" y="300" text-anchor="middle" font-size="11.5" font-weight="600" style="fill:var(--cds-text-primary)">active (in the ACS)</text></g></svg><figcaption>the same three increments in both models</figcaption></figure>
+      <p>Each arrow is one increment. In Canton, holding <code>#B</code> after <code>#D</code> exists means holding a dead reference: exercising on it fails.</p>
+
+      <h2 id="eutxo-backend">Backend responsibilities: Ethereum vs Canton</h2>
+      <p>The account model hands the backend identity, so the backend does not need to worry about lookup and serialization. In Canton the backend needs to worry about both.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Concern</th><th>Ethereum backend</th><th>Canton backend</th></tr></thead>
+        <tbody>
+          <tr><td>Which counter?</td><td>Hard-code <code>0xC0FFEE</code></td><td>Store a business ID (<code>name</code>) and the <strong>last known contract ID</strong></td></tr>
+          <tr><td>Finding it</td><td><code>eth_call</code> on the address, any node</td><td>ACS query on the backend's own participant, filtered by party, template and <code>name</code>; or a projection kept from the update stream</td></tr>
+          <tr><td>After an edit</td><td>Nothing changes</td><td>Take the new contract ID from the exercise result</td></tr>
+          <tr><td>Concurrent writers</td><td>Serialized; all succeed</td><td>First wins; others get archived or locked rejections, back off, re-read, retry</td></tr>
+          <tr><td>Replay protection</td><td>Account <strong>nonce</strong>: a strict per-sender sequence number; a stuck nonce blocks later transactions</td><td><strong><code>commandId</code></strong>: an idempotency key the backend chooses, per intent; duplicates rejected within the dedup window; no ordering between commands</td></tr>
+          <tr><td>Did the transaction land?</td><td>Receipt by transaction hash</td><td>Completion matched by <code>commandId</code>, then the transaction by <code>updateId</code></td></tr>
+          <tr><td>Two identical counters</td><td>Impossible: two deployments have two addresses</td><td>Possible: two creates give two contract IDs with equal payloads. A business ID field makes duplicates detectable.</td></tr>
+        </tbody>
+      </table></div>
+      <p>In short: a Canton contract ID identifies a <strong>version</strong>, a <code>commandId</code> identifies an <strong>intent</strong>, and the business ID identifies the <strong>thing</strong>. In Ethereum, the contract address and the business ID are the same thing.</p>
+
+      <h2 id="eutxo-concurrent">If two backends increment at once</h2>
+      <p>In the account model both increments succeed and the counter reaches 2; in the eUTXO model the second one is rejected and must re-read and retry.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Step</th><th>Account model (Ethereum)</th><th>eUTXO model (Canton)</th></tr></thead>
+        <tbody>
+          <tr><td>0. Start</td><td><code>0xC0FFEE</code>: value 0</td><td>Active: <code>#A</code> {visits, 0}</td></tr>
+          <tr><td>1. Both backends read</td><td>Both see value 0</td><td>Both see <code>#A</code> (value 0)</td></tr>
+          <tr><td>2. Backend 1 submits</td><td><code>increment()</code> on <code>0xC0FFEE</code></td><td><code>Increment</code> on <code>#A</code></td></tr>
+          <tr><td>3. Backend 2 submits</td><td><code>increment()</code> on <code>0xC0FFEE</code></td><td><code>Increment</code> on <code>#A</code></td></tr>
+          <tr><td>4. Ordering</td><td>Both land in a block, one after the other</td><td>Sequencer orders Backend 1 first</td></tr>
+          <tr><td>5. Backend 1 result</td><td>Value 1</td><td><code>#A</code> archived, <code>#B</code> {visits, 1} created</td></tr>
+          <tr><td>6. Backend 2 result</td><td>Value 2: runs against the state left by Backend 1</td><td><strong>Rejected:</strong> <code>#A</code> is archived (or locked, if both were in flight at once)</td></tr>
+          <tr><td>7. Backend 2 retry</td><td>Nothing; the transaction succeeded</td><td><a href="#eutxo-reread">Re-read the ACS</a> by <code>name = "visits"</code>, find <code>#B</code>, exercise <code>Increment</code> on <code>#B</code> → <code>#C</code> {visits, 2}</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 id="eutxo-reread">How the re-read works in the ACS</h3>
+      <p>Where each request goes is shown in <a href="/posts/2026/canton-architecture/">Canton architecture</a>.</p>
+      <ol class="steps">
+        <li><strong>Read the ledger end:</strong> <code>GET /v2/state/ledger-end</code> → offset X. The ledger end is the offset of the newest update this participant has indexed: the head of its local log. Querying the ACS there returns the latest state this participant knows.</li>
+        <li><strong>Query the ACS at offset X</strong>, for example filtered by party and template (<code>Alice</code>, <code>Counter</code>) → only <code>#B</code> comes back. <code>#A</code> was archived by Backend 1, so it is no longer active.
+<pre><code>POST /v2/state/active-contracts
+{
+  "activeAtOffset": 10460,
+  "filter": { "filtersByParty": {
+    "Alice::1220...": { "templateFilters": ["#counter-app:Main:Counter"] }
+  } }
+}</code></pre>
+        </li>
+        <li><strong>Filter in the backend:</strong> keep the entry whose <code>name == "visits"</code> → <code>#B</code>.</li>
+        <li><strong>Exercise <code>Increment</code> on <code>#B</code></strong> → <code>#C</code> {visits, 2}. This is a command submission (<code>POST /v2/commands/submit-and-wait</code>): the participant interprets it, then it goes through the sequencer and mediator like any transaction.</li>
+      </ol>
+
+      <h2 id="eutxo-contention">Contention</h2>
+      <p>Contention is several in-flight transactions trying to consume the same contract; in the eUTXO model only one can win, and the others are rejected.</p>
+      <figure class="dia"><svg viewBox="0 0 760 296" role="img" aria-label="While T1 is in flight #B is locked; after it commits #B is gone" font-size="13"><defs><marker id="cont-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--cds-chart-axis)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" style="fill:var(--cds-text-primary)">While T1 is in flight #B is locked; after it commits #B is gone</text><g><rect x="320" y="72" width="200" height="180" style="fill:var(--cds-chart-reference-tint)"></rect><text x="420" y="64" text-anchor="middle" font-size="11.5" font-weight="600" style="fill:var(--cds-text-primary)">#B locked</text></g><g><line x1="520" x2="520" y1="72" y2="252" stroke-width="1.25" stroke-dasharray="4 4" style="stroke:var(--cds-chart-categorical-1)"></line><text x="628" y="64" text-anchor="middle" font-size="11.5" font-weight="600" style="fill:var(--cds-text-primary)">#B archived, #C active</text></g><g><path d="M200 264H720" stroke-width="1.25" fill="none" marker-end="url(#cont-arrow)" style="stroke:var(--cds-chart-axis)"></path><text x="720" y="284" text-anchor="end" font-size="11.5" style="fill:var(--cds-text-secondary)">time</text></g><g><text x="24" y="112" font-weight="600" style="fill:var(--cds-text-primary)">T1: Increment on #B</text><text x="24" y="128" font-size="11.5" style="fill:var(--cds-text-secondary)">Backend 1</text><rect x="320" y="105" width="200" height="14" rx="7" fill-opacity="0.18" stroke-width="1.25" style="fill:var(--cds-chart-categorical-1);stroke:var(--cds-chart-categorical-1)"></rect><path d="M320 104l8 8l-8 8l-8 -8z" style="fill:var(--cds-chart-categorical-1)"></path><path d="M520 104l8 8l-8 8l-8 -8z" style="fill:var(--cds-chart-categorical-1)"></path><text x="420" y="98" text-anchor="middle" font-size="11.5" style="fill:var(--cds-text-secondary)">validation until verdict</text><text x="534" y="116" font-size="11.5" style="fill:var(--cds-text-primary)">commit: #B → #C</text></g><g><text x="24" y="168" font-weight="600" style="fill:var(--cds-text-primary)">T2: Increment on #B</text><text x="24" y="184" font-size="11.5" style="fill:var(--cds-text-secondary)">Backend 2, during the lock</text><path d="M400 160l8 8l-8 8l-8 -8z" style="fill:var(--cds-chart-status-critical)"></path><text x="414" y="172" font-size="11.5" style="fill:var(--cds-text-primary)">rejected: locked</text></g><g><text x="24" y="224" font-weight="600" style="fill:var(--cds-text-primary)">T3: Increment on #B</text><text x="24" y="240" font-size="11.5" style="fill:var(--cds-text-secondary)">Backend 3, stale ID</text><path d="M600 216l8 8l-8 8l-8 -8z" style="fill:var(--cds-chart-status-critical)"></path><text x="614" y="228" font-size="11.5" style="fill:var(--cds-text-primary)">rejected: archived</text></g></svg><figcaption>lock window on #B · 3 transactions</figcaption></figure>
+      <p>The shaded band is the <strong>lock window</strong>: from the moment T1 is validated until its verdict, the participant holds <code>#B</code> locked. Any other transaction on <code>#B</code> in that window is rejected as <em>locked</em>; any transaction after the commit is rejected as <em>archived</em>, because <code>#B</code> no longer exists.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Rejection</th><th>What it means</th><th>What the backend does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Locked</strong></td><td>Another transaction on the same contract is in flight; it may be accepted or rejected, so the contract may end up active or archived. So the transaction is locked out, and will probably be rejected in the future.</td><td>Back off briefly, re-read, retry</td></tr>
+          <tr><td><strong>Archived / not found</strong></td><td>Another transaction already consumed the contract</td><td>Re-read to find the successor, then retry</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>Account model contrast:</strong> in Ethereum, a hot contract never rejects; every call to <code>0xC0FFEE</code> is queued in block order and executed against the latest state. Contention costs are replaced by ordering costs (gas bidding, waiting for inclusion).</p>
+      <p><strong>Why a counter is the worst case:</strong> every increment consumes the same contract, so throughput is capped at one committed increment per lock window, no matter how many backends submit.</p>
+
+      <h2 id="eutxo-mapping">Concept mapping</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ethereum</th><th>Canton</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Contract at an address</td><td>Template + business ID</td><td>The stable "thing"</td></tr>
+          <tr><td>Storage at a moment</td><td>One contract (one version)</td><td>Immutable once created</td></tr>
+          <tr><td>Storage write</td><td>Consuming choice: archive + create</td><td>New contract ID every time</td></tr>
+          <tr><td>World state (state trie)</td><td>ACS, partitioned by party</td><td>No node holds all of it</td></tr>
+          <tr><td>Full node</td><td>Participant node</td><td>Holds only its parties' contracts</td></tr>
+          <tr><td>Block producer / ordering</td><td>Sequencer</td><td>Orders encrypted blobs, never executes</td></tr>
+          <tr><td>Every node re-executes</td><td>Submitter executes; stakeholders re-execute their views to validate</td><td>Privacy by design</td></tr>
+          <tr><td>Account nonce</td><td><code>commandId</code> + dedup window</td><td>Idempotency key, not a sequence</td></tr>
+          <tr><td>Transaction hash</td><td><code>updateId</code></td><td>Assigned at commit</td></tr>
+          <tr><td>Block number</td><td>Offset</td><td>Local to each participant</td></tr>
+          <tr><td>Receipt / logs</td><td>Completion + update stream</td><td>Matched by <code>commandId</code> / <code>updateId</code></td></tr>
+          <tr><td>Reorg risk</td><td>None: final at commit</td><td>Mediator verdict is final</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Sources</h3>
+      <ul class="sources">
+        <li><a href="https://docs.canton.network/overview/reference/ledger-model-detailed">Canton ledger model (detailed)</a></li>
+        <li><a href="https://docs.canton.network/overview/reference/transaction-lifecycle">Transaction lifecycle</a></li>
+        <li><a href="https://docs.canton.network/overview/reference/canton-protocol-specification">Canton protocol specification</a></li>
+      </ul>
+</div>
+{% endraw %}
