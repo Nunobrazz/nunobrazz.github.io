@@ -1,0 +1,14 @@
+---
+title: "Belief-Aware Pivotal Mechanism for DAO Committees"
+collection: publications
+category: conferences
+permalink: /publication/2026-10-02-belief-aware-pivotal-mechanism
+excerpt: 'We propose a mechanism for binary DAO committee decisions that augments the pivotal mechanism with outcome-contingent rewards to elicit both preferences and beliefs.'
+date: 2026-10-02
+venue: '8th Conference on Advances in Financial Technologies (AFT 2026), LIPIcs vol. 395'
+paperurl: 'https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2026.17'
+citation: 'Nuno Braz, Diogo Poças, and Miguel Correia. (2026). &quot;Belief-Aware Pivotal Mechanism for DAO Committees.&quot; <i>8th Conference on Advances in Financial Technologies (AFT 2026)</i>, LIPIcs vol. 395, pp. 17:1&ndash;17:22.'
+---
+Decentralized Autonomous Organizations (DAOs) increasingly delegate decisions to small committees whose members hold two independent kinds of private information: idiosyncratic preferences over alternatives (what they want) and beliefs about which alternative best serves the organization (what they know). Members have no reason to reveal what they know unless they are incentivized to do so. Standard voting rules are designed to extract only what members want. If these two pieces of information are not aligned, the organization can end up making a suboptimal decision. Existing mechanisms for eliciting (extracting) beliefs from experts, such as Decision Scoring Rules and Decision Markets, face well-known impossibility results in multi-agent settings under deterministic decision rules, and ignore the fact that agents can have idiosyncratic preferences over alternatives. This paper proposes a mechanism for binary committee decisions that augments the pivotal mechanism, an instance of the Groves mechanism, with a reward that depends on the outcome distributed after a boolean signal, indicating success or failure of the outcome, is observed. The mechanism aggregates the experts' private information to maximize the probability that its decision agrees with a weighted linear pooling of the experts' beliefs, framing the designer's problem as classification rather than welfare maximization. An affine family of reward rules is proposed, and the region of parameters that simultaneously satisfy dominant-strategy incentive compatibility, interim individual rationality, and budget feasibility is derived. In informative-belief environments, the mechanism outperforms majority voting, including majority voting augmented with the same outcome-contingent rewards, especially when the committee's average preferences are biased against the superior alternative.
+
+[Paper (LIPIcs, AFT 2026)](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2026.17) · [arXiv:2603.28705](https://arxiv.org/abs/2603.28705)

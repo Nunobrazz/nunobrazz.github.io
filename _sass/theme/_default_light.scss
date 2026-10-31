@@ -34,7 +34,7 @@ $sidebar-screen-min-width   : 1024px;
 
     /* — Background & surfaces — */
     --global-base-color             : #475569;
-    --global-bg-color               : #e8f4f8;
+    --global-bg-color               : #d4e8f0;
     --global-bg-image               : none;
     --global-bg-size                : auto;
     --global-bg-repeat              : no-repeat;
@@ -51,7 +51,7 @@ $sidebar-screen-min-width   : 1024px;
 
     /* — Typography — */
     --global-text-color             : #0f172a;
-    --global-text-color-light       : #64748b;
+    --global-text-color-light       : #475569;
     --global-code-text-color        : #334155;
     --global-fig-caption-color      : #64748b;
 
@@ -72,7 +72,7 @@ $sidebar-screen-min-width   : 1024px;
     --global-masthead-link-color-hover : #0f172a;
 
     /* — Floating Island nav — */
-    --island-bg                     : rgba(240, 248, 252, 0.72);
+    --island-bg                     : rgba(240, 248, 252, 0.35);
     --island-border                 : rgba(0, 0, 0, 0.08);
     --island-shadow                 : 0 4px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
     --island-glow                   : 0 0 40px rgba(15, 118, 110, 0.06);

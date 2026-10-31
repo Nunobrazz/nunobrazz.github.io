@@ -62,7 +62,7 @@ $sidebar-screen-min-width   : 1024px;
     --global-grain-opacity              : 0.025;
 
     /* Floating Island nav */
-    --island-bg                         : #{rgba(lighten($background, 5%), 0.72)};
+    --island-bg                         : #{rgba(lighten($background, 5%), 0.35)};
     --island-border                     : #{rgba($primary-color, 0.12)};
     --island-shadow                     : 0 4px 24px #{rgba($primary-color, 0.10)}, 0 0 0 1px #{rgba($primary-color, 0.08)};
     --island-glow                       : 0 0 40px #{rgba($primary-color, 0.06)};

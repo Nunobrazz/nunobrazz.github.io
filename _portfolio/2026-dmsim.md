@@ -1,5 +1,5 @@
 ---
-title: "DMsim — Decision Making Simulator"
+title: "DMsim - Decision Making Simulator"
 excerpt: "A Python simulator for comparing Decision Markets and VCG auctions as collective decision-making mechanisms, powered by LLM-generated agents."
 collection: portfolio
 date: 2026-01-01

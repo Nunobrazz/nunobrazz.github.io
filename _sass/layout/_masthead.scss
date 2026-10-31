@@ -28,10 +28,10 @@
     padding: 6px 8px;
     border-radius: 50px;
 
-    /* Glassmorphism surface */
+    /* Liquid-glass surface — heavy blur + saturation, very low opacity */
     background: var(--island-bg);
-    backdrop-filter: saturate(180%) blur(24px);
-    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(200%) blur(36px);
+    -webkit-backdrop-filter: saturate(200%) blur(36px);
     border: 1px solid var(--island-border);
     box-shadow: var(--island-shadow), var(--island-glow);
 

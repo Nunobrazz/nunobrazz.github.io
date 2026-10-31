@@ -18,13 +18,13 @@ redirect_from:
     <button class="cv-accordion__toggle-all" data-action="expand">Expand all</button>
   </div>
 
-  <!-- ═══ WORK EXPERIENCE ═══ -->
+  <!-- ═══ RESEARCH ═══ -->
   <div class="cv-section">
     <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
-      <div class="cv-section__icon"><i class="fas fa-briefcase"></i></div>
+      <div class="cv-section__icon"><i class="fas fa-flask"></i></div>
       <div class="cv-section__title-group">
-        <h2 class="cv-section__title">Experience</h2>
-        <div class="cv-section__count">3 positions</div>
+        <h2 class="cv-section__title">Research</h2>
+        <div class="cv-section__count">2 publications</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -43,28 +43,47 @@ redirect_from:
               </div>
               <span class="timeline-subtitle"><a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a></span>
               <ul>
-                <li>Designed a mechanism design protocol for accountable decision-making in DAOs; published results in 3 papers.</li>
+                <li>Designed a mechanism design protocol for accountable decision-making in DAOs; published results in 2 papers.</li>
                 <li>Built a DAO smart contract system (Solidity, ERC-1155) for fractionalized real-world asset governance.</li>
                 <li>Presented and discussed research with peers at INESC-ID's distributed systems group.</li>
               </ul>
             </div>
           </div>
+        </div>
 
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-content-header">
-                <h3 class="timeline-title"><a href="/teaching/">Teaching Assistant</a></h3>
-                <span class="timeline-date">Nov 2025 - May 2026</span>
-              </div>
-              <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
-              <ul>
-                <li>Taught 20+ students across two courses: <em>Network and Computer Security</em> (Master's) and <em>Distributed Systems</em> (Bachelor's).</li>
-                <li>Developed course material including a blockchain for a cryptocurrency using gRPC in Java.</li>
-              </ul>
-            </div>
-          </div>
+        <h3 class="timeline-title">Interests</h3>
+        <ul style="list-style: disc; padding-left: 1.5em; margin-bottom: 1.25em;">
+          <li>Game Theory and Mechanism Design</li>
+          <li>Information Aggregation</li>
+          <li>Digital Assets</li>
+          <li>Cryptography</li>
+        </ul>
 
+        <h3 class="timeline-title">Publications</h3>
+        <ul style="list-style: disc; padding-left: 1.5em;">
+          <li><strong>N. Braz</strong>, D. Poças, M. Correia, "<a href="https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2026.17">Belief-Aware Pivotal Mechanism for DAO Committees</a>," in <em>8th Conference on Advances in Financial Technologies (AFT 2026)</em>, LIPIcs vol. 395, pp. 17:1--17:22, 2026.</li>
+          <li><strong>N. Braz</strong>, "An Approach to Blockchain Voting for RWA Governance," in <em>2025 IEEE NCA</em>, pp. 312--313, IEEE, 2025. Blockchain-based voting using Threshold Homomorphic Encryption and Signatures of Knowledge.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INDUSTRY ═══ -->
+  <div class="cv-section">
+    <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
+      <div class="cv-section__icon"><i class="fas fa-briefcase"></i></div>
+      <div class="cv-section__title-group">
+        <h2 class="cv-section__title">Industry</h2>
+        <div class="cv-section__count">1 position</div>
+      </div>
+      <div class="cv-section__chevron">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+    </div>
+    <div class="cv-section__progress"></div>
+    <div class="cv-section__body">
+      <div class="cv-section__body-inner">
+        <div class="timeline">
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
@@ -84,13 +103,13 @@ redirect_from:
     </div>
   </div>
 
-  <!-- ═══ TECHNICAL SKILLS ═══ -->
+  <!-- ═══ TEACHING ═══ -->
   <div class="cv-section">
     <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
-      <div class="cv-section__icon"><i class="fas fa-code"></i></div>
+      <div class="cv-section__icon"><i class="fas fa-chalkboard-teacher"></i></div>
       <div class="cv-section__title-group">
-        <h2 class="cv-section__title">Technical Skills</h2>
-        <div class="cv-section__count">4 categories</div>
+        <h2 class="cv-section__title">Teaching</h2>
+        <div class="cv-section__count">2 courses</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -103,78 +122,30 @@ redirect_from:
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title">Languages</h3>
-              <p>Python, Solidity, Java, C/C++, Daml, SQL</p>
+              <div class="timeline-content-header">
+                <h3 class="timeline-title"><a href="/teaching/2025-network-computer-security">Network and Computer Security</a></h3>
+                <span class="timeline-date">Nov 2025 - Present</span>
+              </div>
+              <span class="timeline-subtitle">Teaching Assistant &middot; Master's course &middot; <a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
+              <ul>
+                <li>Topics: secure code development, communication protocols, cryptography.</li>
+                <li>Prepared and delivered practical lab sessions; mentored students and graded course projects.</li>
+              </ul>
             </div>
           </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Blockchain</h3>
-              <p>Hardhat, ERC standards, OpenZeppelin, Canton Network, Splice</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Tools</h3>
-              <p>Git, Docker, gRPC, LaTeX, Linux</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Research</h3>
-              <p>Mechanism Design, Game Theory, Information Aggregation</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ═══ PROJECTS ═══ -->
-  <div class="cv-section">
-    <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
-      <div class="cv-section__icon"><i class="fas fa-project-diagram"></i></div>
-      <div class="cv-section__title-group">
-        <h2 class="cv-section__title">Projects</h2>
-        <div class="cv-section__count">4 projects</div>
-      </div>
-      <div class="cv-section__chevron">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </div>
-    </div>
-    <div class="cv-section__progress"></div>
-    <div class="cv-section__body">
-      <div class="cv-section__body-inner">
-        <div class="timeline">
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/cnwla" target="_blank">cnwla -- Canton Network Ledger API CLI</a></h3>
-              <p>A CLI for Canton Network ledgers. Wraps the HTTP JSON Ledger API v2 with ergonomic commands.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/dmsim" target="_blank">DMsim -- Decision Making Simulator</a></h3>
-              <p>A Python simulator for comparing Decision Markets and VCG auctions as collective decision-making mechanisms, powered by LLM-generated agents.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/rwa-governance" target="_blank">DAO for Fractionalized Real World Asset Governance</a></h3>
-              <p>A simplified DAO designed for Real World Asset (RWA) governance, using the ERC-1155 standard.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/renting-platform" target="_blank">A Lease Management System in DAML</a></h3>
-              <p>A rental platform proof-of-concept built with Daml, featuring automated rent payments, maintenance issue reporting, and dispute resolution via arbitrators.</p>
+              <div class="timeline-content-header">
+                <h3 class="timeline-title"><a href="/teaching/2026-distributed-systems">Distributed Systems</a></h3>
+                <span class="timeline-date">Feb 2026 - Present</span>
+              </div>
+              <span class="timeline-subtitle">Teaching Assistant &middot; Undergraduate course &middot; <a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
+              <ul>
+                <li>Topics: RPC, shared memory, coordination, fault tolerance, security.</li>
+                <li>Developed course material including a cryptocurrency blockchain implementation using gRPC in Java.</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -250,13 +221,13 @@ redirect_from:
     </div>
   </div>
 
-  <!-- ═══ PUBLICATIONS ═══ -->
+  <!-- ═══ PROJECTS ═══ -->
   <div class="cv-section">
     <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
-      <div class="cv-section__icon"><i class="fas fa-file-alt"></i></div>
+      <div class="cv-section__icon"><i class="fas fa-project-diagram"></i></div>
       <div class="cv-section__title-group">
-        <h2 class="cv-section__title">Publications</h2>
-        <div class="cv-section__count">3 papers</div>
+        <h2 class="cv-section__title">Projects</h2>
+        <div class="cv-section__count">5 projects</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -265,11 +236,43 @@ redirect_from:
     <div class="cv-section__progress"></div>
     <div class="cv-section__body">
       <div class="cv-section__body-inner">
-        <ul style="list-style: disc; padding-left: 1.5em;">
-          <li><strong>N. Braz</strong>, M. Correia, "Binary Decisions in DAOs: Accountability and Belief Aggregation via Linear Opinion Pools," <em>arXiv preprint</em>, 2025.</li>
-          <li><strong>N. Braz</strong>, "An Approach to Blockchain Voting for RWA Governance," in <em>2025 IEEE NCA</em>, pp. 312--313, IEEE, 2025. Blockchain-based voting using Threshold Homomorphic Encryption and Signatures of Knowledge.</li>
-          <li><strong>N. Braz</strong>, J. Santos, T. Dias, M. Correia, "Blockchain Oracles for Real Estate Rental," <em>arXiv preprint arXiv:2504.06180</em>, 2025.</li>
-        </ul>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title"><a href="https://github.com/unlockitio/concordia" target="_blank">Concordia -- Canton Allocation Primitives</a></h3>
+              <p>An open-source Daml interface library for privacy-preserving, multi-party allocation and decision workflows on the Canton Network, with private majority vote, sealed-bid auction, and weighted governance reference implementations.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/cnwla" target="_blank">cnwla -- Canton Network Ledger API CLI</a></h3>
+              <p>A CLI for Canton Network ledgers. Wraps the HTTP JSON Ledger API v2 with ergonomic commands.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/dmsim" target="_blank">DMsim -- Decision Making Simulator</a></h3>
+              <p>A Python simulator for comparing Decision Markets and VCG auctions as collective decision-making mechanisms, powered by LLM-generated agents.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/rwa-governance" target="_blank">DAO for Fractionalized Real World Asset Governance</a></h3>
+              <p>A simplified DAO designed for Real World Asset (RWA) governance, using the ERC-1155 standard.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/renting-platform" target="_blank">A Lease Management System in DAML</a></h3>
+              <p>A rental platform proof-of-concept built with Daml, featuring automated rent payments, maintenance issue reporting, and dispute resolution via arbitrators.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

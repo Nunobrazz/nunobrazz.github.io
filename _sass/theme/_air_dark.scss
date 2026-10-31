@@ -62,7 +62,7 @@ html[data-theme="dark"] {
     --global-grain-opacity              : 0.035;
 
     /* Floating Island nav */
-    --island-bg                         : #{rgba(lighten($background, 6%), 0.78)};
+    --island-bg                         : #{rgba(lighten($background, 6%), 0.40)};
     --island-border                     : #{rgba(#fff, 0.10)};
     --island-shadow                     : 0 4px 24px #{rgba(#000, 0.35)}, 0 0 0 1px #{rgba(#fff, 0.06)};
     --island-glow                       : 0 0 40px #{rgba($primary-color, 0.12)};

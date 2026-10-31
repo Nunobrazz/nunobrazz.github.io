@@ -15,12 +15,6 @@
 <nav class="masthead" aria-label="Primary navigation">
   <div class="masthead__island" id="masthead-island">
 
-    <!-- Current section name — left edge of the capsule -->
-    <span class="masthead__title" id="masthead-section-title">{% if page.url == '/' %}{{ site.title }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span>
-
-    <!-- Divider between title and nav -->
-    <span class="masthead__divider" aria-hidden="true"></span>
-
     <!-- Chip nav — scrollable row with sliding highlight backdrop -->
     <div class="chip-nav" id="chip-nav" data-turbo-permanent>
       <!-- Sliding highlight pill — positioned by JS behind the active chip -->

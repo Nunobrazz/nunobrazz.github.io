@@ -1,5 +1,5 @@
 ---
-title: "cnwla — Canton Network Ledger API CLI"
+title: "cnwla - Canton Network Ledger API CLI"
 excerpt: "A CLI for Canton Network ledgers. Wraps the HTTP JSON Ledger API v2 with ergonomic commands."
 collection: portfolio
 date: 2026-06-01
