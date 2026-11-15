@@ -51,6 +51,7 @@
       "132": { name: "Cape Verde", comment: "High-school trip. \uD83C\uDDE8\uD83C\uDDFB" },
       "702": { name: "Singapore", comment: "Efficient, and futuristic. \uD83C\uDDF8\uD83C\uDDEC" },
       "348": { name: "Hungary", comment: "First big trip with friends. \uD83C\uDDED\uD83C\uDDFA" },
+      "528": { name: "Netherlands", comment: "Amsterdam. \uD83C\uDDF3\uD83C\uDDF1" },
       "492": { name: "Monaco", comment: "Primero lleg\u00f3 Verstappen, despu\u00e9s lleg\u00f3 Checo \uD83C\uDDF2\uD83C\uDDE8" }
     };
 
