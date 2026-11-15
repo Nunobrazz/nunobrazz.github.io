@@ -1,6 +1,6 @@
 ---
 title: "DMsim - Decision Making Simulator"
-excerpt: "A Python simulator for comparing Decision Markets and VCG auctions as collective decision-making mechanisms, powered by LLM-generated agents."
+excerpt: "A Python simulator comparing Decision Markets and the VCG-with-rewards (pivot) mechanism for collective decisions, with LLM-generated agents."
 collection: portfolio
 date: 2026-01-01
 project_category: "Projects"

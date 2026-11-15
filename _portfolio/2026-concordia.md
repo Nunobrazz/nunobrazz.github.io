@@ -2,12 +2,14 @@
 title: "Concordia - Canton Allocation Primitives"
 excerpt: "An open-source Daml interface library for privacy-preserving, multi-party allocation and decision workflows on the Canton Network."
 collection: portfolio
-date: 2026-06-11
+date: 2026-07-01
 project_category: "Projects"
 github_url: "https://github.com/unlockitio/concordia"
 ---
 
 Concordia is the reference implementation of **Canton Allocation Primitives (CAP)**, an open-source [Daml](https://docs.daml.com) library for privacy-preserving, multi-party allocation and decision workflows on the [Canton Network](https://www.canton.network). It targets coordination problems where multiple parties submit private inputs, a rule resolves those inputs into an outcome, and the outcome triggers a downstream action, atomically and with on-ledger authority. Auctions and governance are the two worked instances.
+
+Funded by a [Canton Development Fund](https://github.com/canton-foundation/canton-dev-fund) grant (2026). I co-wrote the grant proposal and built the library.
 
 ## Architecture
 

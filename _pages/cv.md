@@ -38,12 +38,13 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-content-header">
-                <h3 class="timeline-title">First-Stage Researcher</h3>
+                <h3 class="timeline-title">Researcher</h3>
                 <span class="timeline-date">Nov 2024 - Present</span>
               </div>
               <span class="timeline-subtitle"><a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a></span>
               <ul>
-                <li>Designed a mechanism design protocol for accountable decision-making in DAOs; published results in 2 papers.</li>
+                <li>Designed a belief-aware pivotal mechanism that makes DAO committee decisions incentive-compatible (AFT 2026).</li>
+                <li>Designed a blockchain voting protocol for real-world asset governance using threshold homomorphic encryption and signatures of knowledge (IEEE NCA 2025).</li>
                 <li>Built a DAO smart contract system (Solidity, ERC-1155) for fractionalized real-world asset governance.</li>
                 <li>Presented and discussed research with peers at INESC-ID's distributed systems group.</li>
               </ul>
@@ -61,8 +62,8 @@ redirect_from:
 
         <h3 class="timeline-title">Publications</h3>
         <ul style="list-style: disc; padding-left: 1.5em;">
-          <li><strong>N. Braz</strong>, D. Poças, M. Correia, "<a href="https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2026.17">Belief-Aware Pivotal Mechanism for DAO Committees</a>," in <em>8th Conference on Advances in Financial Technologies (AFT 2026)</em>, LIPIcs vol. 395, pp. 17:1--17:22, 2026.</li>
-          <li><strong>N. Braz</strong>, "An Approach to Blockchain Voting for RWA Governance," in <em>2025 IEEE NCA</em>, pp. 312--313, IEEE, 2025. Blockchain-based voting using Threshold Homomorphic Encryption and Signatures of Knowledge.</li>
+          <li><strong>N. Braz</strong>, D. Poças, M. Correia, "<a href="https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2026.17">Belief-Aware Pivotal Mechanism for DAO Committees</a>," in <em>8th Conference on Advances in Financial Technologies (AFT 2026)</em>, LIPIcs vol. 395, pp. 17:1&ndash;17:22, 2026. <a href="https://arxiv.org/abs/2603.28705">arXiv:2603.28705</a></li>
+          <li><strong>N. Braz</strong>, "An Approach to Blockchain Voting for RWA Governance," in <em>2025 IEEE NCA</em>, pp. 312&ndash;313, IEEE, 2025. Blockchain-based voting using Threshold Homomorphic Encryption and Signatures of Knowledge.</li>
         </ul>
       </div>
     </div>
@@ -124,7 +125,7 @@ redirect_from:
             <div class="timeline-content">
               <div class="timeline-content-header">
                 <h3 class="timeline-title"><a href="/teaching/2025-network-computer-security">Network and Computer Security</a></h3>
-                <span class="timeline-date">Nov 2025 - Present</span>
+                <span class="timeline-date">Fall 2025</span>
               </div>
               <span class="timeline-subtitle">Teaching Assistant &middot; Master's course &middot; <a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
               <ul>
@@ -139,7 +140,7 @@ redirect_from:
             <div class="timeline-content">
               <div class="timeline-content-header">
                 <h3 class="timeline-title"><a href="/teaching/2026-distributed-systems">Distributed Systems</a></h3>
-                <span class="timeline-date">Feb 2026 - Present</span>
+                <span class="timeline-date">Spring 2026</span>
               </div>
               <span class="timeline-subtitle">Teaching Assistant &middot; Undergraduate course &middot; <a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
               <ul>
@@ -159,7 +160,7 @@ redirect_from:
       <div class="cv-section__icon"><i class="fas fa-graduation-cap"></i></div>
       <div class="cv-section__title-group">
         <h2 class="cv-section__title">Education</h2>
-        <div class="cv-section__count">4 entries</div>
+        <div class="cv-section__count">5 entries</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -173,11 +174,11 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-content-header">
-                <h3 class="timeline-title">Master's Degree in Computer Science and Engineering</h3>
-                <span class="timeline-date">2022 - 2024</span>
+                <h3 class="timeline-title">PhD in Computer Science and Engineering</h3>
+                <span class="timeline-date">Jan 2025 - Present</span>
               </div>
-              <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico, University of Lisbon</a></span>
-              <p>Specializations in Cybersecurity and Algorithms. Additional coursework from the Mathematics Master's programme: Introduction to Learning Theory and Computability and Complexity (among others).</p>
+              <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico, University of Lisbon</a> &middot; <a href="https://www.inesc-id.pt" target="_blank">INESC-ID</a></span>
+              <p>Advisors: Miguel Correia and Diogo Po&ccedil;as.</p>
             </div>
           </div>
 
@@ -185,7 +186,19 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-content-header">
-                <h3 class="timeline-title">Exchange Program</h3>
+                <h3 class="timeline-title">Master's Degree in Computer Science and Engineering</h3>
+                <span class="timeline-date">2022 - 2024</span>
+              </div>
+              <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico, University of Lisbon</a></span>
+              <p>Average 16.3/20. Specializations in Algorithms and Cybersecurity. Mathematics coursework: Cryptography and Security Protocols, Computability and Complexity, Introduction to Learning Theory, Mathematics for Machine Learning.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-content-header">
+                <h3 class="timeline-title">Internship</h3>
                 <span class="timeline-date">Jul 2024</span>
               </div>
               <span class="timeline-subtitle"><a href="https://english.bit.edu.cn" target="_blank">Beijing Institute of Technology</a></span>
@@ -197,11 +210,11 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-content-header">
-                <h3 class="timeline-title">Exchange Program</h3>
-                <span class="timeline-date">2023</span>
+                <h3 class="timeline-title">Exchange Semester</h3>
+                <span class="timeline-date">Fall 2023</span>
               </div>
-              <span class="timeline-subtitle"><a href="https://www.itba.edu.ar" target="_blank">Instituto Tecnologico de Buenos Aires</a></span>
-              <p>AI courses.</p>
+              <span class="timeline-subtitle"><a href="https://www.itba.edu.ar" target="_blank">Instituto Tecnol&oacute;gico de Buenos Aires</a></span>
+              <p>During the Master's degree.</p>
             </div>
           </div>
 
@@ -213,7 +226,7 @@ redirect_from:
                 <span class="timeline-date">2019 - 2022</span>
               </div>
               <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico, University of Lisbon</a></span>
-              <p>International coursework: Artificial Intelligence (ITBA, Argentina), Electronics Engineering (BIT, Beijing).</p>
+              <p>Average 16/20. Diploma of Academic Merit (2020/21).</p>
             </div>
           </div>
         </div>
@@ -240,22 +253,22 @@ redirect_from:
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/unlockitio/concordia" target="_blank">Concordia -- Canton Allocation Primitives</a></h3>
-              <p>An open-source Daml interface library for privacy-preserving, multi-party allocation and decision workflows on the Canton Network, with private majority vote, sealed-bid auction, and weighted governance reference implementations.</p>
+              <h3 class="timeline-title"><a href="https://github.com/unlockitio/concordia" target="_blank">Concordia &mdash; Canton Allocation Primitives</a></h3>
+              <p>Canton Development Fund grant (since Jul 2026). Co-wrote the grant proposal and built the library: governance and auctions on Canton, in Daml.</p>
             </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/cnwla" target="_blank">cnwla -- Canton Network Ledger API CLI</a></h3>
+              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/cnwla" target="_blank">cnwla &mdash; Canton Network Ledger API CLI</a></h3>
               <p>A CLI for Canton Network ledgers. Wraps the HTTP JSON Ledger API v2 with ergonomic commands.</p>
             </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/dmsim" target="_blank">DMsim -- Decision Making Simulator</a></h3>
-              <p>A Python simulator for comparing Decision Markets and VCG auctions as collective decision-making mechanisms, powered by LLM-generated agents.</p>
+              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/dmsim" target="_blank">DMsim &mdash; Decision Making Simulator</a></h3>
+              <p>A Python simulator comparing Decision Markets and the VCG-with-rewards (pivot) mechanism for collective decisions, with LLM-generated agents.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -296,14 +309,14 @@ redirect_from:
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title"><a href="/files/teachingSteamStudents.pdf">Teaching Stem Students Certificate</a></h3>
+              <h3 class="timeline-title"><a href="/files/teachingSTEMStudents.pdf">Teaching STEM Students Certificate</a></h3>
               <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
             </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <h3 class="timeline-title"><a href="/files/meritAward.pdf">Academic Merit Award</a></h3>
+              <h3 class="timeline-title"><a href="/files/meritAward.pdf">Diploma of Academic Merit (2020/21)</a></h3>
               <span class="timeline-subtitle"><a href="https://tecnico.ulisboa.pt" target="_blank">Instituto Superior T&eacute;cnico</a></span>
             </div>
           </div>
@@ -372,7 +385,7 @@ redirect_from:
     <div class="cv-section__header" role="button" tabindex="0" aria-expanded="false">
       <div class="cv-section__icon"><i class="fas fa-heart"></i></div>
       <div class="cv-section__title-group">
-        <h2 class="cv-section__title">Other Stuff</h2>
+        <h2 class="cv-section__title">Other</h2>
         <div class="cv-section__count">2 entries</div>
       </div>
       <div class="cv-section__chevron">
@@ -387,7 +400,7 @@ redirect_from:
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <h3 class="timeline-title">Sports</h3>
-              <p>Federated Rugby Player and Surf Athlete, competed in national competitions.</p>
+              <p>Federated rugby player and federated surfer, competed in national competitions.</p>
               <div class="surf-gallery" style="display:none;">
                 <img src="/files/surf.JPG" alt="Surfing" loading="lazy" />
                 <img src="/files/tubo zoomed.JPG" alt="Barrel surfing" loading="lazy" />
