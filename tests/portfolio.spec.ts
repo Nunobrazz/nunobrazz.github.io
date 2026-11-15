@@ -1,19 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test('DMsim portfolio project is visible', async ({ page }) => {
+test('Concordia project expands on the projects page', async ({ page }) => {
     await page.goto('/projects/');
 
-    // Verify the project title is present
-    const dmsimLink = page.locator('a', { hasText: 'DMsim — Decision Making Simulator' });
-    await expect(dmsimLink).toBeVisible();
+    const header = page.locator('.cv-section__header', { hasText: 'Concordia - Canton Allocation Primitives' });
+    await expect(header).toBeVisible();
 
-    // Navigate to the project page
-    await dmsimLink.click();
-
-    // Verify project page content
-    await expect(page.locator('h1', { hasText: 'DMsim — Decision Making Simulator' })).toBeVisible();
-    await expect(page.locator('text=🏦 Decision Markets')).toBeVisible();
-    await expect(page.locator('text=🗳️ VCG with Rewards (VCGR)')).toBeVisible();
+    await header.click();
+    await expect(page.locator('.cv-section__body', { hasText: 'Canton Allocation Primitives (CAP)' })).toBeVisible();
 });
 
 test('Monaco is visible in the footprints map', async ({ page }) => {

@@ -240,7 +240,7 @@ redirect_from:
       <div class="cv-section__icon"><i class="fas fa-project-diagram"></i></div>
       <div class="cv-section__title-group">
         <h2 class="cv-section__title">Projects</h2>
-        <div class="cv-section__count">5 projects</div>
+        <div class="cv-section__count">1 project</div>
       </div>
       <div class="cv-section__chevron">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -255,34 +255,6 @@ redirect_from:
             <div class="timeline-content">
               <h3 class="timeline-title"><a href="https://github.com/unlockitio/concordia" target="_blank">Concordia &mdash; Canton Allocation Primitives</a></h3>
               <p>Canton Development Fund grant (since Jul 2026). Co-wrote the grant proposal and built the library: governance and auctions on Canton, in Daml.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/cnwla" target="_blank">cnwla &mdash; Canton Network Ledger API CLI</a></h3>
-              <p>A CLI for Canton Network ledgers. Wraps the HTTP JSON Ledger API v2 with ergonomic commands.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/dmsim" target="_blank">DMsim &mdash; Decision Making Simulator</a></h3>
-              <p>A Python simulator comparing Decision Markets and the VCG-with-rewards (pivot) mechanism for collective decisions, with LLM-generated agents.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/rwa-governance" target="_blank">DAO for Fractionalized Real World Asset Governance</a></h3>
-              <p>A simplified DAO designed for Real World Asset (RWA) governance, using the ERC-1155 standard.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-title"><a href="https://github.com/Nunobrazz/renting-platform" target="_blank">A Lease Management System in DAML</a></h3>
-              <p>A rental platform proof-of-concept built with Daml, featuring automated rent payments, maintenance issue reporting, and dispute resolution via arbitrators.</p>
             </div>
           </div>
         </div>

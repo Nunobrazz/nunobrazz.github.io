@@ -60,45 +60,18 @@ test.describe('CV page', () => {
 });
 
 test.describe('Projects page', () => {
-  const PROJECTS = [
-    'DMsim',
-    'DAO for Fractionalized Real World Asset Governance',
-    'Blockchain Based Property Rental Platform',
-  ];
-
-  test('lists all projects', async ({ page }) => {
+  test('lists Concordia as the only project', async ({ page }) => {
     await page.goto('/projects/');
 
-    for (const project of PROJECTS) {
-      await expect(page.locator('.timeline-title', { hasText: project })).toBeVisible();
-    }
+    const titles = page.locator('.cv-section__title');
+    await expect(titles).toHaveCount(1);
+    await expect(titles.first()).toContainText('Concordia');
   });
 
-  test('project links use relative paths (not absolute URLs)', async ({ page }) => {
-    await page.goto('/projects/');
+  test('Concordia project page renders', async ({ page }) => {
+    await page.goto('/portfolio/2026-concordia/');
 
-    const links = page.locator('.timeline-title a');
-    const count = await links.count();
-
-    for (let i = 0; i < count; i++) {
-      const href = await links.nth(i).getAttribute('href');
-      // Should be relative (starts with /) not absolute (starts with http)
-      expect(href).toMatch(/^\//);
-      expect(href).not.toMatch(/^https?:\/\//);
-    }
-  });
-
-  test('clicking a project renders it inline (SPA navigation)', async ({ page }) => {
-    await page.goto('/projects/');
-
-    // Click on DMsim
-    await page.locator('.timeline-title a', { hasText: 'DMsim' }).click();
-
-    // Should navigate to the project page
-    await expect(page).toHaveURL(/\/portfolio\/2026-dmsim\//);
-
-    // Project content should render
-    await expect(page.locator('h1', { hasText: 'DMsim' })).toBeVisible();
+    await expect(page.locator('h1', { hasText: 'Concordia' })).toBeVisible();
 
     // Sidebar should still be present
     await expect(page.locator('.author__name')).toBeVisible();
