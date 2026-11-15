@@ -7,6 +7,8 @@ redirect_from:
   - /publication/2025-01-01-approach-blockchain-voting
 excerpt: 'This paper proposes a blockchain-based voting mechanism for Real World Asset governance.'
 date: 2025-11-01
+authors: 'Nuno Braz'
+venue_short: 'IEEE NCA 2025, short paper'
 venue: '23rd International Symposium on Network Computing and Applications (NCA), IEEE'
 citation: 'Nuno Braz. (2025). &quot;An Approach to Blockchain Voting for RWA Governance.&quot; <i>23rd International Symposium on Network Computing and Applications (NCA), IEEE</i>, pp. 312&ndash;313.'
 ---

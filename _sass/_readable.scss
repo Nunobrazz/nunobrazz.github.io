@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Readable layout: one narrow column, plain sections, clear links.
+   Imported last so it overrides the theme.
+   ========================================================================== */
+
+/* Calm palette: warm paper, soft ink, one muted slate-blue accent.
+   No saturated colours, so long reading doesn't tire the eyes. */
+:root {
+  --global-bg-color: #fafaf7;
+  --global-bg-image: none;
+  --global-text-color: #2b2f33;
+  --global-text-color-light: #62676d;
+  --global-base-color: #62676d;
+  --global-border-color: rgba(0, 0, 0, 0.09);
+  --global-link-color: #3d5a7a;
+  --global-link-color-visited: #3d5a7a;
+  --global-link-color-hover: #2a4058;
+  --global-theme-color: #3d5a7a;
+  --global-theme-color-rgb: 61, 90, 122;
+  --global-accent-color: #3d5a7a;
+  --global-masthead-bg: rgba(250, 250, 247, 0.9);
+  --global-code-background-color: #f0efea;
+  --global-code-text-color: #3a3f44;
+  --global-thead-color: #f0efea;
+
+  --map-bg: #f0efea;
+  --map-land: #dcdbd5;
+  --map-border: #fafaf7;
+  --map-line: rgba(0, 0, 0, 0.08);
+  --map-grid: rgba(0, 0, 0, 0.03);
+  --map-visited: #7d95ae;
+  --map-visited-hover: #56718e;
+  --map-tooltip-bg: rgba(250, 250, 247, 0.96);
+}
+
+html[data-theme="dark"] {
+  --global-bg-color: #1a1c1f;
+  --global-bg-image: none;
+  --global-text-color: #d4d6d9;
+  --global-text-color-light: #969ba1;
+  --global-base-color: #969ba1;
+  --global-border-color: rgba(255, 255, 255, 0.09);
+  --global-link-color: #a3b8cf;
+  --global-link-color-visited: #a3b8cf;
+  --global-link-color-hover: #c4d2e1;
+  --global-theme-color: #a3b8cf;
+  --global-theme-color-rgb: 163, 184, 207;
+  --global-accent-color: #a3b8cf;
+  --global-masthead-bg: rgba(26, 28, 31, 0.9);
+  --global-code-background-color: #24272b;
+  --global-code-text-color: #c9cdd2;
+  --global-thead-color: #24272b;
+  --global-grain-opacity: 0;
+
+  --map-bg: #212428;
+  --map-land: #33373c;
+  --map-border: #1a1c1f;
+  --map-line: rgba(255, 255, 255, 0.07);
+  --map-grid: rgba(255, 255, 255, 0.025);
+  --map-visited: #6a83a0;
+  --map-visited-hover: #8ea4bd;
+  --map-tooltip-bg: rgba(33, 36, 40, 0.96);
+}
+
+$read-width: 680px;
+
+#main {
+  max-width: $read-width + 32px;
+  margin: 2.5rem auto 4rem;
+  padding: 0 16px;
+  float: none;
+}
+
+#main .page,
+#main .archive {
+  width: 100%;
+  float: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page__content,
+.archive {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--global-text-color);
+
+  p, li { font-size: 17px; }
+
+  a:not(.btn) {
+    color: var(--global-link-color);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    &:hover { color: var(--global-link-color-hover); }
+  }
+}
+
+.page__title,
+.archive > .page__title {
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+}
+
+/* ---------- Home ---------- */
+
+.home__header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.home__avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.home__name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.home__role {
+  margin: 0.25rem 0 0;
+  color: var(--global-text-color-light);
+  font-size: 16px !important;
+}
+
+.home__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 1.25rem 0 0;
+  font-weight: 500;
+}
+
+/* ---------- Shared list styles ---------- */
+
+.section-label,
+.cv h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+  border-bottom: 1px solid var(--global-border-color);
+  padding-bottom: 6px;
+  margin: 2.75rem 0 1rem;
+}
+
+.list-item {
+  margin-bottom: 1.1rem;
+}
+
+#main .page__content a.list-item__title,
+#main .archive a.list-item__title {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--global-text-color);
+  text-decoration: none;
+  &:hover { color: var(--global-link-color); text-decoration: underline; }
+}
+
+.list-item__meta {
+  margin: 0.15rem 0 0;
+  font-size: 15px !important;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+}
+
+.dated-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    gap: 16px;
+    margin: 0 0 0.5rem;
+  }
+}
+
+.dated-list__date {
+  flex: 0 0 76px;
+  color: var(--global-text-color-light);
+  font-size: 15px;
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.more-link {
+  font-size: 15px !important;
+  margin-top: 0.25rem;
+}
+
+/* ---------- CV ---------- */
+
+.cv-download { margin: -0.5rem 0 1.5rem; }
+
+.cv {
+  ul, ol { margin: 0.4rem 0 0; padding-left: 1.25rem; }
+  li { margin-bottom: 0.35rem; }
+}
+
+.cv-pubs li { margin-bottom: 0.6rem; }
+
+.cv-entry { margin-bottom: 1.4rem; }
+
+.cv-entry__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cv-entry__title { font-weight: 600; }
+
+.cv-entry__date {
+  color: var(--global-text-color-light);
+  font-size: 15px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.cv-entry__sub {
+  margin: 0.1rem 0 0;
+  color: var(--global-text-color-light);
+  font-size: 15px !important;
+}
+
+.cv-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 1rem;
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+}
+
+/* ---------- Footprints keeps its wider map ---------- */
+
+#main:has(.footprints-page) { max-width: 1040px; }
+
+/* ---------- Narrow screens: keep every menu item visible ---------- */
+
+@media (max-width: 480px) {
+  .chip-nav__chip {
+    padding: 6px 6px !important;
+    font-size: 0.74rem !important;
+  }
+}
+
+.chip-label--short { display: none; }
+
+@media (max-width: 480px) {
+  .chip-label--long { display: none; }
+  .chip-label--short { display: inline; }
+}

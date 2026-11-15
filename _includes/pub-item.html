@@ -1,0 +1,9 @@
+{% assign pub = include.pub %}
+<div class="list-item">
+  <a class="list-item__title" href="{{ site.baseurl }}{{ pub.url }}">{{ pub.title }}</a>
+  <p class="list-item__meta">
+    {{ pub.authors | replace: "Nuno Braz", "<strong>Nuno Braz</strong>" }} · {{ pub.venue_short }}
+    {% if pub.paperurl %} · <a href="{{ pub.paperurl }}">Paper</a>{% endif %}
+    {% if pub.arxiv %} · <a href="{{ pub.arxiv }}">arXiv</a>{% endif %}
+  </p>
+</div>

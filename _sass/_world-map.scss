@@ -35,10 +35,10 @@ html:has(.footprints-page) body {
         .map-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
-            color: var(--text-muted, #6e7681);
+            color: var(--text-muted, var(--global-text-color-light));
 
             .highlight {
-                color: #0096c7;
+                color: var(--global-theme-color);
                 font-weight: 600;
             }
         }
@@ -47,15 +47,12 @@ html:has(.footprints-page) body {
     // --- Map Container ---
     .map-container {
         position: relative;
-        background: linear-gradient(145deg, #0d1117, #161b22 50%, #0d1117);
+        background: var(--map-bg);
         border-radius: 16px;
         padding: 1rem 1.5rem;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow:
-            0 4px 24px rgba(0, 0, 0, 0.15),
-            0 1px 3px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--global-border-color);
+        box-shadow: none;
 
         svg {
             width: 100%;
@@ -65,38 +62,38 @@ html:has(.footprints-page) body {
 
         .sphere {
             fill: none;
-            stroke: rgba(255, 255, 255, 0.08);
+            stroke: var(--map-line);
             stroke-width: 1;
         }
 
         .graticule {
             fill: none;
-            stroke: rgba(255, 255, 255, 0.03);
+            stroke: var(--map-grid);
             stroke-width: 0.5;
         }
 
         .country {
-            fill: #21262d;
-            stroke: #30363d;
+            fill: var(--map-land);
+            stroke: var(--map-border);
             stroke-width: 0.5px;
             transition: fill 0.3s ease, filter 0.3s ease;
             cursor: default;
 
             &.visited {
-                fill: #0077b6;
+                fill: var(--map-visited);
                 cursor: pointer;
 
                 &:hover,
                 &.active {
-                    fill: #00b4d8;
-                    filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.45));
+                    fill: var(--map-visited-hover);
+                    filter: none;
                 }
             }
         }
 
         .country-border {
             fill: none;
-            stroke: #30363d;
+            stroke: var(--map-border);
             stroke-width: 0.5px;
             pointer-events: none;
         }
@@ -106,13 +103,13 @@ html:has(.footprints-page) body {
     .map-tooltip {
         position: absolute;
         pointer-events: none;
-        background: rgba(13, 17, 23, 0.92);
+        background: var(--map-tooltip-bg);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(0, 150, 199, 0.25);
+        border: 1px solid var(--global-border-color);
         border-radius: 10px;
         padding: 10px 14px;
-        color: #e6edf3;
+        color: var(--global-text-color);
         font-family: 'Inter', sans-serif;
         font-size: 0.85rem;
         line-height: 1.4;
@@ -123,14 +120,14 @@ html:has(.footprints-page) body {
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 
         strong {
-            color: #00b4d8;
+            color: var(--map-visited-hover);
             font-weight: 500;
             font-size: 0.9rem;
         }
 
         p {
             margin: 4px 0 0;
-            color: #8b949e;
+            color: var(--global-text-color-light);
             font-size: 0.8rem;
         }
     }
@@ -148,7 +145,7 @@ html:has(.footprints-page) body {
             gap: 0.5rem;
             font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
-            color: var(--text-muted, #6e7681);
+            color: var(--text-muted, var(--global-text-color-light));
 
             .legend-color {
                 width: 12px;
@@ -158,12 +155,12 @@ html:has(.footprints-page) body {
             }
 
             &.visited .legend-color {
-                background: #0077b6;
+                background: var(--map-visited);
             }
 
             &:not(.visited) .legend-color {
-                background: #21262d;
-                border: 1px solid #30363d;
+                background: var(--map-land);
+                border: 1px solid var(--map-border);
             }
         }
     }

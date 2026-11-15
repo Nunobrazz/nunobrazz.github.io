@@ -63,7 +63,7 @@ test.describe('Projects page', () => {
   test('lists Concordia as the only project', async ({ page }) => {
     await page.goto('/projects/');
 
-    const titles = page.locator('.cv-section__title');
+    const titles = page.locator('.list-item__title');
     await expect(titles).toHaveCount(1);
     await expect(titles.first()).toContainText('Concordia');
   });

@@ -5,6 +5,9 @@ category: conferences
 permalink: /publication/2026-10-02-belief-aware-pivotal-mechanism
 excerpt: 'We propose a mechanism for binary DAO committee decisions that augments the pivotal mechanism with outcome-contingent rewards to elicit both preferences and beliefs.'
 date: 2026-10-02
+authors: 'Nuno Braz, Diogo Poças, Miguel Correia'
+venue_short: 'AFT 2026'
+arxiv: 'https://arxiv.org/abs/2603.28705'
 venue: '8th Conference on Advances in Financial Technologies (AFT 2026), LIPIcs vol. 395'
 paperurl: 'https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2026.17'
 citation: 'Nuno Braz, Diogo Poças, and Miguel Correia. (2026). &quot;Belief-Aware Pivotal Mechanism for DAO Committees.&quot; <i>8th Conference on Advances in Financial Technologies (AFT 2026)</i>, LIPIcs vol. 395, pp. 17:1&ndash;17:22.'

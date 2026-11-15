@@ -1,32 +1,16 @@
 ---
 layout: archive
 permalink: /year-archive/
-title: "Blog posts"
-author_profile: true
-hide_title: true
+title: "Writing"
+author_profile: false
 redirect_from:
 - /wordpress/blog-posts/
 ---
 
-<div class="card-list">
-  {% for post in site.posts %}
-  <a href="{{ site.baseurl }}{{ post.url }}" class="card-list__item">
-    <div class="card-list__header">
-      <h3 class="card-list__title">{{ post.title }}</h3>
-      {% if post.date %}
-      <span class="card-list__date">{{ post.date | date: "%B %d, %Y" }}</span>
-      {% endif %}
-    </div>
-    {% if post.excerpt %}
-    <p class="card-list__excerpt">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' | truncatewords: 30 }}</p>
-    {% endif %}
-    {% if post.tags.size > 0 %}
-    <p class="card-list__tags">
-      {% for tag in post.tags %}
-      <span class="card-list__tag">{{ tag }}</span>
-      {% endfor %}
-    </p>
-    {% endif %}
-  </a>
-  {% endfor %}
-</div>
+{% include base_path %}
+
+<ul class="dated-list">
+{% for post in site.posts %}
+  <li><span class="dated-list__date">{{ post.date | date: "%b %Y" }}</span><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>

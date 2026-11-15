@@ -21,7 +21,7 @@
       <div class="chip-nav__highlight" id="chip-nav-highlight" aria-hidden="true"></div>
 
       <div class="chip-nav__track" id="chip-nav-track">
-        <a href="{{ site.baseurl }}/" class="chip-nav__chip{% if page.url == '/' %} is-active{% endif %}">Home</a>
+        <a href="{{ site.baseurl }}/" class="chip-nav__chip{% if page.url == '/' %} is-active{% endif %}"><span class="chip-label--long">Nuno Braz</span><span class="chip-label--short">Home</span></a>
         {% for link in site.data.navigation.main %}
           {% if link.url contains 'http' %}
             {% assign domain = '' %}

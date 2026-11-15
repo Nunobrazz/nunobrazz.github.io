@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test('Concordia project expands on the projects page', async ({ page }) => {
+test('Concordia project links to its page', async ({ page }) => {
     await page.goto('/projects/');
 
-    const header = page.locator('.cv-section__header', { hasText: 'Concordia - Canton Allocation Primitives' });
-    await expect(header).toBeVisible();
+    const link = page.locator('.list-item__title', { hasText: 'Concordia - Canton Allocation Primitives' });
+    await expect(link).toBeVisible();
 
-    await header.click();
-    await expect(page.locator('.cv-section__body', { hasText: 'Canton Allocation Primitives (CAP)' })).toBeVisible();
+    await link.click();
+    await expect(page.locator('h1', { hasText: 'Concordia' })).toBeVisible();
 });
 
 test('Monaco is visible in the footprints map', async ({ page }) => {

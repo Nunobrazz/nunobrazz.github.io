@@ -1,0 +1,57 @@
+---
+permalink: /
+title: "Nuno Braz — PhD Student & Researcher"
+description: "Personal website of Nuno Braz, PhD student at Instituto Superior Técnico and researcher at INESC-ID, working on game theory and mechanism design for decentralized organizations and on the Canton Network."
+author_profile: false
+hide_title: true
+redirect_from:
+  - /about/
+  - /about.html
+---
+
+{% include base_path %}
+
+<div class="home">
+
+<header class="home__header">
+  <img class="home__avatar" src="{{ base_path }}/images/{{ site.author.avatar }}" alt="Nuno Braz" width="96" height="96">
+  <div>
+    <h1 class="home__name">Nuno Braz</h1>
+    <p class="home__role">PhD student · Instituto Superior Técnico and INESC-ID, Lisbon</p>
+  </div>
+</header>
+
+<p>I'm a PhD student in Computer Science and Engineering at Instituto Superior Técnico and INESC-ID, advised by Miguel Correia and Diogo Poças.</p>
+
+<p>I do research. I wrote a paper on how a committee whose members hold private information and their own interests can still reach good decisions: <a href="https://doi.org/10.4230/LIPIcs.AFT.2026.17">Belief-Aware Pivotal Mechanism for DAO Committees</a> (AFT 2026). I also build on the <a href="https://github.com/unlockitio/concordia">Canton Network</a>.</p>
+
+<p class="home__links">
+  <a href="{{ base_path }}/files/CV.pdf">CV (PDF)</a>
+  <a href="mailto:{{ site.author.email }}">Email</a>
+  <a href="https://github.com/{{ site.author.github }}">GitHub</a>
+  <a href="{{ site.author.orcid }}">ORCID</a>
+  <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}">LinkedIn</a>
+</p>
+
+<h2 class="section-label">Publications</h2>
+{% assign pubs = site.publications | sort: "date" | reverse %}
+{% for pub in pubs %}{% include pub-item.html pub=pub %}{% endfor %}
+
+<h2 class="section-label">Project</h2>
+<div class="list-item">
+  <a class="list-item__title" href="https://github.com/unlockitio/concordia">Concordia — Canton Allocation Primitives</a>
+  <p class="list-item__meta">A Daml library for private voting, governance and sealed-bid auctions on Canton. Canton Development Fund grant, 2026. I co-wrote the proposal and built the library.</p>
+</div>
+
+<h2 class="section-label">Writing</h2>
+<ul class="dated-list">
+{% for post in site.posts limit: 3 %}
+  <li><span class="dated-list__date">{{ post.date | date: "%b %Y" }}</span><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
+<p class="more-link"><a href="{{ base_path }}/year-archive/">All posts</a></p>
+
+<h2 class="section-label">Teaching</h2>
+<p>Teaching assistant at Instituto Superior Técnico: <a href="{{ base_path }}/teaching/2025-network-computer-security">Network and Computer Security</a> (Fall 2025) and <a href="{{ base_path }}/teaching/2026-distributed-systems">Distributed Systems</a> (Spring 2026).</p>
+
+</div>
