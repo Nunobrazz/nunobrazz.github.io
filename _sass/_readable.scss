@@ -8,19 +8,19 @@
 :root {
   --global-bg-color: #fafaf7;
   --global-bg-image: none;
-  --global-text-color: #2b2f33;
-  --global-text-color-light: #62676d;
-  --global-base-color: #62676d;
+  --global-text-color: #1c1f23;
+  --global-text-color-light: #474c53;
+  --global-base-color: #474c53;
   --global-border-color: rgba(0, 0, 0, 0.09);
-  --global-link-color: #3d5a7a;
-  --global-link-color-visited: #3d5a7a;
-  --global-link-color-hover: #2a4058;
-  --global-theme-color: #3d5a7a;
-  --global-theme-color-rgb: 61, 90, 122;
-  --global-accent-color: #3d5a7a;
+  --global-link-color: #24476b;
+  --global-link-color-visited: #24476b;
+  --global-link-color-hover: #16304d;
+  --global-theme-color: #24476b;
+  --global-theme-color-rgb: 36, 71, 107;
+  --global-accent-color: #24476b;
   --global-masthead-bg: rgba(250, 250, 247, 0.9);
   --global-code-background-color: #f0efea;
-  --global-code-text-color: #3a3f44;
+  --global-code-text-color: #24282c;
   --global-thead-color: #f0efea;
 
   --map-bg: #f0efea;
@@ -36,19 +36,19 @@
 html[data-theme="dark"] {
   --global-bg-color: #1a1c1f;
   --global-bg-image: none;
-  --global-text-color: #d4d6d9;
-  --global-text-color-light: #969ba1;
-  --global-base-color: #969ba1;
+  --global-text-color: #e6e8eb;
+  --global-text-color-light: #b6bbc1;
+  --global-base-color: #b6bbc1;
   --global-border-color: rgba(255, 255, 255, 0.09);
-  --global-link-color: #a3b8cf;
-  --global-link-color-visited: #a3b8cf;
-  --global-link-color-hover: #c4d2e1;
-  --global-theme-color: #a3b8cf;
-  --global-theme-color-rgb: 163, 184, 207;
-  --global-accent-color: #a3b8cf;
+  --global-link-color: #bcd0e5;
+  --global-link-color-visited: #bcd0e5;
+  --global-link-color-hover: #dbe6f1;
+  --global-theme-color: #bcd0e5;
+  --global-theme-color-rgb: 188, 208, 229;
+  --global-accent-color: #bcd0e5;
   --global-masthead-bg: rgba(26, 28, 31, 0.9);
   --global-code-background-color: #24272b;
-  --global-code-text-color: #c9cdd2;
+  --global-code-text-color: #dfe2e6;
   --global-thead-color: #24272b;
   --global-grain-opacity: 0;
 
@@ -91,7 +91,8 @@ $read-width: 680px;
     color: var(--global-link-color);
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
+    text-decoration-color: rgba(var(--global-theme-color-rgb), 0.4);
+    text-underline-offset: 3px;
     &:hover { color: var(--global-link-color-hover); }
   }
 }
@@ -170,7 +171,7 @@ $read-width: 680px;
 
 .list-item__meta {
   margin: 0.15rem 0 0;
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.55;
   color: var(--global-text-color-light);
 }
@@ -190,13 +191,13 @@ $read-width: 680px;
 .dated-list__date {
   flex: 0 0 76px;
   color: var(--global-text-color-light);
-  font-size: 15px;
+  font-size: 16px;
   padding-top: 2px;
   font-variant-numeric: tabular-nums;
 }
 
 .more-link {
-  font-size: 15px !important;
+  font-size: 16px !important;
   margin-top: 0.25rem;
 }
 
@@ -225,7 +226,7 @@ $read-width: 680px;
 
 .cv-entry__date {
   color: var(--global-text-color-light);
-  font-size: 15px;
+  font-size: 16px;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -233,7 +234,7 @@ $read-width: 680px;
 .cv-entry__sub {
   margin: 0.1rem 0 0;
   color: var(--global-text-color-light);
-  font-size: 15px !important;
+  font-size: 16px !important;
 }
 
 .cv-photos {
@@ -269,3 +270,12 @@ $read-width: 680px;
   .chip-label--long { display: none; }
   .chip-label--short { display: inline; }
 }
+
+/* ---------- Menu: larger, darker labels ---------- */
+
+.chip-nav__chip {
+  font-size: 0.84rem;
+  color: var(--global-text-color-light);
+}
+
+.chip-nav__chip.is-active { color: var(--global-text-color); }
